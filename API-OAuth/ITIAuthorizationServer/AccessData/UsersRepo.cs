@@ -24,7 +24,7 @@ namespace ITIAuthorizationServer.AccessData
             }
             else
             {
-                EmpList = ExManger.GetExaminers();
+                EmpList = EmpManager.GetEmployees();
             }
             return EmpList;
         }

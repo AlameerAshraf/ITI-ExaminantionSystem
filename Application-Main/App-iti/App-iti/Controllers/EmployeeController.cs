@@ -6,13 +6,12 @@ using System.Web.Mvc;
 
 namespace App_iti.Controllers
 {
-    public class HomeController : Controller
+    public class EmployeeController : Controller
     {
-        public ActionResult Index()
+        // Employee Login 
+        public ActionResult AppUser()
         {
             return View();
         }
-
-
     }
 }

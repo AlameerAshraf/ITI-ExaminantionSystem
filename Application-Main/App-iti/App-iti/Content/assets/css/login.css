@@ -1,0 +1,42 @@
+
+/* ------------------------------- */
+ body {
+    background-color: #f8f8f8;
+}
+
+/* Login Page */
+.body-Login-back{
+    background-image: url(../../assets/img/body.jpg)
+}
+ .login-panel {
+    margin-top: 15%;
+}
+
+.logo-margin {
+   padding-top:130px;
+}
+
+.panel-default{
+    border:0px;
+    background-color: transparent;
+    
+}
+.glyphicon{
+   top:0px;
+} 
+
+.line{
+    border-color: transparent;
+}
+.action-btn{
+    background-color: #800000; 
+    border:0px;
+    color: #fff;
+}
+.action-btn:hover , .action-btn:active {
+    background-color:black;
+    color: #fff;
+}
+.margin-space{
+    margin-left:40px;
+}

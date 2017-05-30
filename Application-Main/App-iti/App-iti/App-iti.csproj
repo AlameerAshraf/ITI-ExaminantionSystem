@@ -141,34 +141,73 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\assets\css\login.css" />
+    <Content Include="Content\assets\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\assets\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\assets\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\assets\img\body.jpg" />
+    <Content Include="Content\assets\img\iti [Converted]-01.png" />
+    <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\padlock.png" />
+    <Content Include="Content\assets\img\user.jpg" />
+    <Content Include="Content\assets\img\user.png" />
+    <Content Include="Content\assets\plugins\bootstrap\bootstrap.css" />
+    <Content Include="Content\assets\plugins\bootstrap\bootstrap.js" />
+    <Content Include="Content\assets\plugins\bootstrap\bootstrap.min.js" />
+    <Content Include="Content\assets\plugins\dataTables\dataTables.bootstrap.css" />
+    <Content Include="Content\assets\plugins\dataTables\dataTables.bootstrap.js" />
+    <Content Include="Content\assets\plugins\dataTables\jquery.dataTables.js" />
+    <Content Include="Content\assets\plugins\flot\excanvas.min.js" />
+    <Content Include="Content\assets\plugins\flot\jquery.flot.js" />
+    <Content Include="Content\assets\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="Content\assets\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="Content\assets\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\assets\plugins\jquery-1.10.2.js" />
+    <Content Include="Content\assets\plugins\metisMenu\jquery.metisMenu.js" />
+    <Content Include="Content\assets\plugins\morris\morris-0.4.3.min.css" />
+    <Content Include="Content\assets\plugins\morris\morris.js" />
+    <Content Include="Content\assets\plugins\morris\raphael-2.1.0.min.js" />
+    <Content Include="Content\assets\plugins\pace\pace-theme-big-counter.css" />
+    <Content Include="Content\assets\plugins\pace\pace.js" />
+    <Content Include="Content\assets\plugins\social-buttons\social-buttons.css" />
+    <Content Include="Content\assets\plugins\timeline\timeline.css" />
+    <Content Include="Content\assets\scripts\dashboard-demo.js" />
+    <Content Include="Content\assets\scripts\flot-demo.js" />
+    <Content Include="Content\assets\scripts\morris-demo.js" />
+    <Content Include="Content\assets\scripts\siminta.js" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\Angular\Controllers\LoginCtrl.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\assets\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -180,14 +219,13 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Student\AppUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Employee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
