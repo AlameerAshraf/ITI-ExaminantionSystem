@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class Department
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Department()
         {
             this.Platforms = new HashSet<Platform>();
@@ -25,6 +26,7 @@ namespace DataAccessLayer.Models
         public Nullable<int> Flag { get; set; }
         public System.Guid msrepl_tran_version { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Platform> Platforms { get; set; }
     }
 }

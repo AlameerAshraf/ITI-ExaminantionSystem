@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class subTrack
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public subTrack()
         {
             this.PlatfromIntakes = new HashSet<PlatfromIntake>();
@@ -23,6 +24,7 @@ namespace DataAccessLayer.Models
         public string subtrackName { get; set; }
         public string code { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlatfromIntake> PlatfromIntakes { get; set; }
     }
 }

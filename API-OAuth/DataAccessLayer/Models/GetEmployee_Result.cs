@@ -11,7 +11,7 @@ namespace DataAccessLayer.Models
 {
     using System;
     
-    public partial class GetAllEmployee_Result
+    public partial class GetEmployee_Result
     {
         public int EmployeeID { get; set; }
         public string InstructorName { get; set; }
@@ -54,19 +54,5 @@ namespace DataAccessLayer.Models
         public Nullable<int> GraduationYear { get; set; }
         public string Grade { get; set; }
         public Nullable<int> AttendanceFlag { get; set; }
-        public string PositionName { get; set; }
-        public Nullable<int> EmpStatus { get; set; }
-        public System.Guid msrepl_tran_version { get; set; }
-        public string IDCard { get; set; }
-        public string AttachmentID { get; set; }
-        public string AttachmentCV { get; set; }
-        public Nullable<int> ATMStatus { get; set; }
-        public string ATMNo { get; set; }
-        public Nullable<int> SpecialRate { get; set; }
-        public string RateNotes { get; set; }
-        public Nullable<System.DateTime> ATMExpiryDate { get; set; }
-        public Nullable<int> Religionid { get; set; }
-        public Nullable<int> empno { get; set; }
-        public Nullable<int> cat { get; set; }
     }
 }

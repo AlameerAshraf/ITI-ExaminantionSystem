@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class CourseEvaluationItem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CourseEvaluationItem()
         {
             this.EvaluationCriterias = new HashSet<EvaluationCriteria>();
@@ -22,6 +23,7 @@ namespace DataAccessLayer.Models
         public int EvalID { get; set; }
         public string EvalDesc { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvaluationCriteria> EvaluationCriterias { get; set; }
     }
 }

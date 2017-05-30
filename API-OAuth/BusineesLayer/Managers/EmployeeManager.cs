@@ -17,5 +17,19 @@ namespace BusineesLayer.Managers
         }
 
 
+
+
+
+    }
+
+
+    public class EmployeetAutherization
+    {
+        public int EmployeeID { get; set; }
+        public string InstructorName { get; set; }
+        public int BranchID { get; set; }
+        public string IPassword { get; set; }
+        public string UserName2 { get; set; }
+        public Nullable<int> PlatformID { get; set; }
     }
 }

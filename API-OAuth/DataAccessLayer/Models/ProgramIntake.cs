@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class ProgramIntake
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProgramIntake()
         {
             this.PlatfromIntakes = new HashSet<PlatfromIntake>();
@@ -23,6 +24,7 @@ namespace DataAccessLayer.Models
         public int ProgramID { get; set; }
         public int ProgramIntakeID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlatfromIntake> PlatfromIntakes { get; set; }
         public virtual program program { get; set; }
     }

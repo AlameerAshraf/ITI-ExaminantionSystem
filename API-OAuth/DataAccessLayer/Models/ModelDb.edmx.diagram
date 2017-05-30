@@ -4,49 +4,49 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6d960f862efd4a9d9844aaee4dfcaa94" Name="Diagram1">
-        <EntityTypeShape EntityType="ExaminationNS.Branch" Width="1.5" PointX="6" PointY="47.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Course" Width="1.5" PointX="11" PointY="51.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.CourseEvaluationItem" Width="1.5" PointX="13.25" PointY="56.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.CourseInstanceDetail" Width="1.5" PointX="10.5" PointY="48.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.CourseManual" Width="1.5" PointX="13.25" PointY="50.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Department" Width="1.5" PointX="0.75" PointY="28.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Employee" Width="1.5" PointX="5.25" PointY="22.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.EvaluationCriteria" Width="1.5" PointX="15.5" PointY="51.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Intake" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Platform" Width="1.5" PointX="3" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.PlatformDepartment" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.PlatfromIntake" Width="1.5" PointX="8.25" PointY="34.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.ProgramIntake" Width="1.5" PointX="6" PointY="50.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.program" Width="1.5" PointX="3.75" PointY="50.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Student_Enrollment" Width="1.5" PointX="12.75" PointY="42.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.StudentBasicData" Width="1.5" PointX="10.5" PointY="37.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.subTrack" Width="1.5" PointX="6" PointY="57.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.TrackManager" Width="1.5" PointX="7.5" PointY="28.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.TrackManual" Width="1.5" PointX="15.5" PointY="38.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.TrackSupervisor" Width="1.5" PointX="7.5" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.DepartmentsExam" Width="1.5" PointX="12.75" PointY="30.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.EmployeeNotification" Width="1.5" PointX="7.5" PointY="31.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Exam" Width="1.5" PointX="10.5" PointY="27.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.ExternalInstructorAuthorization" Width="1.5" PointX="7.5" PointY="39.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.InstructorNotification" Width="1.5" PointX="10.5" PointY="24.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.InstructorsConnectionId" Width="1.5" PointX="7.5" PointY="44.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.NewDateExamForPermittedStudent" Width="1.5" PointX="12.75" PointY="36.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Notification" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.QuestionAnswer" Width="1.5" PointX="12.75" PointY="33.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Question" Width="1.5" PointX="10.5" PointY="32.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.QuestionsInExam" Width="1.5" PointX="15.75" PointY="31.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.StudentAnswerQuestionInExam" Width="1.5" PointX="12.75" PointY="39.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.StudentMultiAnswersQuestion" Width="1.5" PointX="18" PointY="36" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.StudentNotification" Width="1.5" PointX="15.75" PointY="41.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.StudentPermissionInExam" Width="1.5" PointX="15.75" PointY="35.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.StudentsConnectionId" Width="1.5" PointX="12.75" PointY="47.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.SupervisiorNotification" Width="1.5" PointX="7.5" PointY="22.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.SupervisiorsConnectionId" Width="1.5" PointX="7.5" PointY="54.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.TopicsInCourse" Width="1.5" PointX="8.25" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.evaluationiteminstructor" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.CoursesDataView" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExaminationNS.Employee_metadata" Width="2.625" PointX="4.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="d3eb5991daf1421899f31e7ff403d6cc" Name="Diagram1">
+        <EntityTypeShape EntityType="ExaminationNS.Branch" Width="1.5" PointX="8" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Course" Width="1.5" PointX="13" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.CourseEvaluationItem" Width="1.5" PointX="15.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.CourseInstanceDetail" Width="1.5" PointX="12.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.CourseManual" Width="1.5" PointX="15.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Department" Width="1.5" PointX="0.75" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Employee" Width="1.5" PointX="5.25" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.EvaluationCriteria" Width="1.5" PointX="17.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Intake" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Platform" Width="1.5" PointX="3" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.PlatformDepartment" Width="1.5" PointX="2.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.PlatfromIntake" Width="1.5" PointX="10.25" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.ProgramIntake" Width="1.5" PointX="8" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.program" Width="1.5" PointX="5.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Student_Enrollment" Width="1.5" PointX="14.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentBasicData" Width="1.5" PointX="12.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.subTrack" Width="1.5" PointX="8" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.TrackManager" Width="1.5" PointX="7.5" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.TrackManual" Width="1.5" PointX="17.5" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.TrackSupervisor" Width="1.5" PointX="7.5" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.DepartmentsExam" Width="1.5" PointX="9.75" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.EmployeeNotification" Width="1.5" PointX="10.5" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Exam" Width="1.5" PointX="7.5" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.ExternalInstructorAuthorization" Width="1.5" PointX="7.5" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.InstructorNotification" Width="1.5" PointX="10.5" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.InstructorsConnectionId" Width="1.5" PointX="7.5" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.NewDateExamForPermittedStudent" Width="1.5" PointX="9.75" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Notification" Width="1.5" PointX="12.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.PointsInQuestion" Width="1.5" PointX="15.75" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.QuestionAnswer" Width="1.5" PointX="15.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Question" Width="1.5" PointX="13.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.QuestionsInExam" Width="1.5" PointX="12.75" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentAnswerQuestionInExam" Width="1.5" PointX="12.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentMultiAnswersQuestion" Width="1.5" PointX="15.75" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentNotification" Width="1.5" PointX="14.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentPermissionInExam" Width="1.5" PointX="12.75" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentsConnectionId" Width="1.5" PointX="14.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.SupervisiorNotification" Width="1.5" PointX="7.5" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.SupervisiorsConnectionId" Width="1.5" PointX="7.5" PointY="53.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.TopicsInCourse" Width="1.5" PointX="11.25" PointY="40.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.CoursesDataView" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExaminationNS.Employee_metadata" Width="1.5" PointX="2.75" PointY="4.125" IsExpanded="true" />
         <AssociationConnector Association="ExaminationNS.FK_PlatfromIntake2_Branch" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_courseManual_Course" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_ExamCriteria2_CourseEvaluationItems" ManuallyRouted="false" />
@@ -68,7 +68,6 @@
         <AssociationConnector Association="ExaminationNS.FK_TrackSupervisor_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_PlatfromIntake2_Platform" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_DepartmentsExam_PlatfromIntake" ManuallyRouted="false" />
-        <AssociationConnector Association="ExaminationNS.FK_Exams_PlatfromIntake" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_PlatfromIntake2_ProgramIntake" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_PlatfromIntake2_subTrack" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_StudentBasicData2_PlatfromIntake2" ManuallyRouted="false" />
@@ -91,12 +90,13 @@
         <AssociationConnector Association="ExaminationNS.FK_InstructorNotifications_Notifications1" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_StudentNotifications_Notifications1" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_SupervisiorNotifications_Notifications1" ManuallyRouted="false" />
+        <AssociationConnector Association="ExaminationNS.FK_PointsInQuestion_Questions" ManuallyRouted="false" />
+        <AssociationConnector Association="ExaminationNS.FK_PointsInQuestion_Questions1" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_QuestionAnswers_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_Questions_TopicsInCourse" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_QuestionsInExam_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_StudentMultiAnswersQuestion_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_StudentMultiAnswersQuestion_StudentAnswerQuestionInExam" ManuallyRouted="false" />
-        <AssociationConnector Association="ExaminationNS.PointsInQuestion" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

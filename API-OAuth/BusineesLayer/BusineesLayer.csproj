@@ -41,7 +41,8 @@
     <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="DataAccessLayer">
+    <Reference Include="DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DataAccessLayer\bin\Debug\DataAccessLayer.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -86,7 +87,6 @@
     <Compile Include="DataFactory.cs" />
     <Compile Include="IOperations.cs" />
     <Compile Include="Managers\EmployeeManager.cs" />
-    <Compile Include="Managers\ExaminerManager.cs" />
     <Compile Include="Map\BranchMap.cs" />
     <Compile Include="Map\CourseManualMap.cs" />
     <Compile Include="Map\CourseMap.cs" />

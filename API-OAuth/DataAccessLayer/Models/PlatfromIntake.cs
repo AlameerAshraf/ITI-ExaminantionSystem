@@ -18,7 +18,6 @@ namespace DataAccessLayer.Models
         public PlatfromIntake()
         {
             this.DepartmentsExams = new HashSet<DepartmentsExam>();
-            this.Exams = new HashSet<Exam>();
             this.StudentBasicDatas = new HashSet<StudentBasicData>();
             this.TrackManagers = new HashSet<TrackManager>();
             this.TrackManuals = new HashSet<TrackManual>();
@@ -34,13 +33,17 @@ namespace DataAccessLayer.Models
     
         public virtual Branch Branch { get; set; }
         public virtual Platform Platform { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepartmentsExam> DepartmentsExams { get; set; }
-        public virtual ICollection<Exam> Exams { get; set; }
         public virtual ProgramIntake ProgramIntake { get; set; }
         public virtual subTrack subTrack { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentBasicData> StudentBasicDatas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrackManager> TrackManagers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrackManual> TrackManuals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrackSupervisor> TrackSupervisors { get; set; }
     }
 }

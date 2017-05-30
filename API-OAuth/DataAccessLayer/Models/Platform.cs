@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class Platform
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Platform()
         {
             this.Employees = new HashSet<Employee>();
@@ -30,8 +31,10 @@ namespace DataAccessLayer.Models
         public Nullable<int> OwnerEmployeeID { get; set; }
     
         public virtual Department Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlatfromIntake> PlatfromIntakes { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class Notification
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Notification()
         {
             this.EmployeeNotifications = new HashSet<EmployeeNotification>();
@@ -27,9 +28,13 @@ namespace DataAccessLayer.Models
         public Nullable<bool> Is_Read { get; set; }
         public Nullable<System.DateTime> Creation_Time { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeNotification> EmployeeNotifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InstructorNotification> InstructorNotifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentNotification> StudentNotifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisiorNotification> SupervisiorNotifications { get; set; }
     }
 }

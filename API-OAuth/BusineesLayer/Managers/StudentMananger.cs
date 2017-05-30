@@ -16,21 +16,20 @@ namespace BusineesLayer.Managers
             return xx;
         }
 
-        public Student GetOnly()
-        {
-            var mm = new StudentMananger().GetById(5747);
-            var zz = Mapper.Map<Student>(mm);
-            return zz;
-        }
-
-
 
         
     }
-
-    public class Student
+    public class StudentAutherization
     {
         public int StudentID { get; set; }
         public string englishname { get; set; }
+        public string Phone { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public int SubTrackID { get; set; }
+        public string Username { get; set; }
+        public string userpwd { get; set; }
     }
 }
+
+

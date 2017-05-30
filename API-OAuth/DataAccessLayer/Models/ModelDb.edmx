@@ -141,22 +141,6 @@
           <Property Name="Grade" Type="int" />
           <Property Name="CourseManualID" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'NewData.dbo.evaluationiteminstructor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="evaluationiteminstructor">
-          <Key>
-            <PropertyRef Name="recserial" />
-          </Key>
-          <Property Name="recserial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourseinstanceID" Type="int" />
-          <Property Name="ProjectID" Type="int" />
-          <Property Name="evalid" Type="int" />
-          <Property Name="STUDENTID" Type="int" />
-          <Property Name="evaluationdate" Type="datetime" />
-          <Property Name="USERID" Type="int" />
-          <Property Name="it1" Type="float" />
-          <Property Name="itemgrade" Type="varbinary" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Intake">
           <Key>
             <PropertyRef Name="IntakeID" />
@@ -325,15 +309,13 @@ warning 6002: The table/view 'NewData.dbo.evaluationiteminstructor' does not hav
           <Key>
             <PropertyRef Name="Exam_Id" />
           </Key>
-          <Property Name="Exam_Id" Type="int" Nullable="false" />
+          <Property Name="Exam_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Exam_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Creation_Date" Type="date" />
           <Property Name="Number_Of_Questions" Type="int" />
           <Property Name="Ins_Id" Type="int" />
           <Property Name="Exam_Corrected" Type="bit" />
           <Property Name="Exam_Duration" Type="int" />
           <Property Name="Exam_FullDegree" Type="nchar" MaxLength="10" />
-          <Property Name="PlatformIntake_Id" Type="int" />
         </EntityType>
         <EntityType Name="ExternalInstructorAuthorization">
           <Key>
@@ -380,11 +362,11 @@ warning 6002: The table/view 'NewData.dbo.evaluationiteminstructor' does not hav
         </EntityType>
         <EntityType Name="PointsInQuestion">
           <Key>
-            <PropertyRef Name="Point_Id" />
-            <PropertyRef Name="Ques_Id" />
+            <PropertyRef Name="Point_Question_Id" />
           </Key>
           <Property Name="Point_Id" Type="int" Nullable="false" />
           <Property Name="Ques_Id" Type="int" Nullable="false" />
+          <Property Name="Point_Question_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="QuestionAnswers">
           <Key>
@@ -514,12 +496,8 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
         <EntityType Name="Employee_metadata">
           <Key>
             <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="InstructorName" />
             <PropertyRef Name="BranchID" />
             <PropertyRef Name="subtrackID" />
-            <PropertyRef Name="PlatformID" />
-            <PropertyRef Name="PlatformIntakeID" />
-            
           </Key>
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="InstructorName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -643,18 +621,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Principal>
             <Dependent Role="Exams">
               <PropertyRef Name="Ins_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Exams_PlatfromIntake">
-          <End Role="PlatfromIntake" Type="Self.PlatfromIntake" Multiplicity="0..1" />
-          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PlatfromIntake">
-              <PropertyRef Name="PlatformIntakeID" />
-            </Principal>
-            <Dependent Role="Exams">
-              <PropertyRef Name="PlatformIntake_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1172,14 +1138,84 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetAllEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="GetAllInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="GetAllIntake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="SubTrackID" Type="int" Mode="In" />
+        <Function Name="GetBranchByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BranchID" Type="int" Mode="In" />
         </Function>
-        <Function Name="GetAllsubTrack" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetBranchByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BranchName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetBranchByPlatformIntakeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PlatformIntakeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCourseByInstructor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InstructorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCourseByIntake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProgramIntakeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCourseByTrackId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PlatformIntakeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCourseInstanceID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrackManualID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetEmpByPlatform" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="platid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetEmployeeByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetLastIntake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetStudentByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetStudentByIntake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProgramIntakeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetStudentByPlatformID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PlatformID" Type="int" Mode="In" />
+          <Parameter Name="branchid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetStudentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetStudentGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="int" Mode="In" />
+          <Parameter Name="EvalID" Type="int" Mode="In" />
+          <Parameter Name="Courseinstanceid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTrackByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="IsSupervisor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Param" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CoursePerBranchandtrack" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Examination">
+          <Parameter Name="Parameter1" Type="int" Mode="In" />
+          <Parameter Name="Parameter2" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="BranchID" Type="int" />
+                <Property Name="CourseName" Type="nvarchar" MaxLength="150" />
+                <Property Name="SubTrackID" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetCoursePerBranchandtrack" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Examination">
+          <Parameter Name="Branch" Type="int" Mode="In" />
+          <Parameter Name="SubTrack" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetInstIntake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Examination">
+          <Parameter Name="Course" Type="int" Mode="In" />
+          <Parameter Name="Intake" Type="int" Mode="In" />
+          <Parameter Name="SubTrack" Type="int" Mode="In" />
+          <Parameter Name="Program" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="ExaminationNSStoreContainer">
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
@@ -1222,19 +1258,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="SupervisiorNotifications" EntityType="Self.SupervisiorNotifications" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="SupervisiorsConnectionIds" EntityType="Self.SupervisiorsConnectionIds" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="TopicsInCourse" EntityType="Self.TopicsInCourse" Schema="Examination" store:Type="Tables" />
-          <EntitySet Name="evaluationiteminstructor" EntityType="Self.evaluationiteminstructor" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [evaluationiteminstructor].[recserial] AS [recserial], 
-    [evaluationiteminstructor].[CourseinstanceID] AS [CourseinstanceID], 
-    [evaluationiteminstructor].[ProjectID] AS [ProjectID], 
-    [evaluationiteminstructor].[evalid] AS [evalid], 
-    [evaluationiteminstructor].[STUDENTID] AS [STUDENTID], 
-    [evaluationiteminstructor].[evaluationdate] AS [evaluationdate], 
-    [evaluationiteminstructor].[USERID] AS [USERID], 
-    [evaluationiteminstructor].[it1] AS [it1], 
-    [evaluationiteminstructor].[itemgrade] AS [itemgrade]
-    FROM [dbo].[evaluationiteminstructor] AS [evaluationiteminstructor]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="CoursesDataView" EntityType="Self.CoursesDataView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CoursesDataView].[CourseName] AS [CourseName], 
@@ -1297,10 +1320,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           </AssociationSet>
           <AssociationSet Name="FK_Exams_Employee" Association="Self.FK_Exams_Employee">
             <End Role="Employee" EntitySet="Employee" />
-            <End Role="Exams" EntitySet="Exams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Exams_PlatfromIntake" Association="Self.FK_Exams_PlatfromIntake">
-            <End Role="PlatfromIntake" EntitySet="PlatfromIntake" />
             <End Role="Exams" EntitySet="Exams" />
           </AssociationSet>
           <AssociationSet Name="FK_ExternalInstructorAuthorization_Employee" Association="Self.FK_ExternalInstructorAuthorization_Employee">
@@ -1473,6 +1492,11 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExaminationNS" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="CoursePerBranchandtrack_Result">
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="CourseName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SubTrackID" Type="Int32" />
+        </ComplexType>
         <EntityType Name="Branch">
           <Key>
             <PropertyRef Name="BranchID" />
@@ -1683,7 +1707,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="Branch" Relationship="Self.FK_PlatfromIntake2_Branch" FromRole="PlatfromIntake" ToRole="Branch" />
           <NavigationProperty Name="Platform" Relationship="Self.FK_PlatfromIntake2_Platform" FromRole="PlatfromIntake" ToRole="Platform" />
           <NavigationProperty Name="DepartmentsExams" Relationship="Self.FK_DepartmentsExam_PlatfromIntake" FromRole="PlatfromIntake" ToRole="DepartmentsExam" />
-          <NavigationProperty Name="Exams" Relationship="Self.FK_Exams_PlatfromIntake" FromRole="PlatfromIntake" ToRole="Exams" />
           <NavigationProperty Name="ProgramIntake" Relationship="Self.FK_PlatfromIntake2_ProgramIntake" FromRole="PlatfromIntake" ToRole="ProgramIntake" />
           <NavigationProperty Name="subTrack" Relationship="Self.FK_PlatfromIntake2_subTrack" FromRole="PlatfromIntake" ToRole="subTrack" />
           <NavigationProperty Name="StudentBasicDatas" Relationship="Self.FK_StudentBasicData2_PlatfromIntake2" FromRole="PlatfromIntake" ToRole="StudentBasicData" />
@@ -1836,17 +1859,14 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Key>
             <PropertyRef Name="Exam_Id" />
           </Key>
-          <Property Name="Exam_Id" Type="Int32" Nullable="false" />
+          <Property Name="Exam_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Exam_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Creation_Date" Type="DateTime" Precision="0" />
           <Property Name="Number_Of_Questions" Type="Int32" />
           <Property Name="Ins_Id" Type="Int32" />
           <Property Name="Exam_Corrected" Type="Boolean" />
           <Property Name="Exam_Duration" Type="Int32" />
           <Property Name="Exam_FullDegree" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PlatformIntake_Id" Type="Int32" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Exams_Employee" FromRole="Exams" ToRole="Employee" />
-          <NavigationProperty Name="PlatfromIntake" Relationship="Self.FK_Exams_PlatfromIntake" FromRole="Exams" ToRole="PlatfromIntake" />
           <NavigationProperty Name="DepartmentsExams" Relationship="Self.FK_DepartmentsExam_Exams" FromRole="Exams" ToRole="DepartmentsExam" />
           <NavigationProperty Name="NewDateExamForPermittedStudents" Relationship="Self.FK_NewDateExamForPermittedStudent_Exams" FromRole="Exams" ToRole="NewDateExamForPermittedStudent" />
           <NavigationProperty Name="QuestionsInExams" Relationship="Self.FK_QuestionsInExam_Exams" FromRole="Exams" ToRole="QuestionsInExam" />
@@ -1906,6 +1926,16 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="StudentNotifications" Relationship="Self.FK_StudentNotifications_Notifications1" FromRole="Notifications" ToRole="StudentNotifications" />
           <NavigationProperty Name="SupervisiorNotifications" Relationship="Self.FK_SupervisiorNotifications_Notifications1" FromRole="Notifications" ToRole="SupervisiorNotifications" />
         </EntityType>
+        <EntityType Name="PointsInQuestion">
+          <Key>
+            <PropertyRef Name="Point_Question_Id" />
+          </Key>
+          <Property Name="Point_Id" Type="Int32" Nullable="false" />
+          <Property Name="Ques_Id" Type="Int32" Nullable="false" />
+          <Property Name="Point_Question_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_PointsInQuestion_Questions" FromRole="PointsInQuestion" ToRole="Questions" />
+          <NavigationProperty Name="Question1" Relationship="Self.FK_PointsInQuestion_Questions1" FromRole="PointsInQuestion" ToRole="Questions" />
+        </EntityType>
         <EntityType Name="QuestionAnswer">
           <Key>
             <PropertyRef Name="Ques_Id" />
@@ -1931,12 +1961,12 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Name="Ins_Id" Type="Int32" />
           <Property Name="Points_Indicator" Type="Boolean" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Questions_Employee1" FromRole="Questions" ToRole="Employee" />
+          <NavigationProperty Name="PointsInQuestions" Relationship="Self.FK_PointsInQuestion_Questions" FromRole="Questions" ToRole="PointsInQuestion" />
+          <NavigationProperty Name="PointsInQuestions1" Relationship="Self.FK_PointsInQuestion_Questions1" FromRole="Questions" ToRole="PointsInQuestion" />
           <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK_QuestionAnswers_Questions" FromRole="Questions" ToRole="QuestionAnswers" />
           <NavigationProperty Name="TopicsInCourse" Relationship="Self.FK_Questions_TopicsInCourse" FromRole="Questions" ToRole="TopicsInCourse" />
           <NavigationProperty Name="QuestionsInExams" Relationship="Self.FK_QuestionsInExam_Questions" FromRole="Questions" ToRole="QuestionsInExam" />
           <NavigationProperty Name="StudentMultiAnswersQuestions" Relationship="Self.FK_StudentMultiAnswersQuestion_Questions" FromRole="Questions" ToRole="StudentMultiAnswersQuestion" />
-          <NavigationProperty Name="Questions1" Relationship="Self.PointsInQuestion" FromRole="Questions" ToRole="Questions1" />
-          <NavigationProperty Name="Questions" Relationship="Self.PointsInQuestion" FromRole="Questions1" ToRole="Questions" />
         </EntityType>
         <EntityType Name="QuestionsInExam">
           <Key>
@@ -2030,20 +2060,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Name="Crs_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Questions" Relationship="Self.FK_Questions_TopicsInCourse" FromRole="TopicsInCourse" ToRole="Questions" />
         </EntityType>
-        <EntityType Name="evaluationiteminstructor">
-          <Key>
-            <PropertyRef Name="recserial" />
-          </Key>
-          <Property Name="recserial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CourseinstanceID" Type="Int32" />
-          <Property Name="ProjectID" Type="Int32" />
-          <Property Name="evalid" Type="Int32" />
-          <Property Name="STUDENTID" Type="Int32" />
-          <Property Name="evaluationdate" Type="DateTime" Precision="3" />
-          <Property Name="USERID" Type="Int32" />
-          <Property Name="it1" Type="Double" />
-          <Property Name="itemgrade" Type="Binary" MaxLength="50" FixedLength="false" />
-        </EntityType>
         <EntityType Name="CoursesDataView">
           <Key>
             <PropertyRef Name="CourseID" />
@@ -2068,11 +2084,8 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
         <EntityType Name="Employee_metadata">
           <Key>
             <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="InstructorName" />
             <PropertyRef Name="BranchID" />
             <PropertyRef Name="subtrackID" />
-            <PropertyRef Name="PlatformID" />
-            <PropertyRef Name="PlatformIntakeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="InstructorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -2353,18 +2366,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Exams_PlatfromIntake">
-          <End Role="PlatfromIntake" Type="Self.PlatfromIntake" Multiplicity="0..1" />
-          <End Role="Exams" Type="Self.Exam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PlatfromIntake">
-              <PropertyRef Name="PlatformIntakeID" />
-            </Principal>
-            <Dependent Role="Exams">
-              <PropertyRef Name="PlatformIntake_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PlatfromIntake2_ProgramIntake">
           <End Role="ProgramIntake" Type="Self.ProgramIntake" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -2641,6 +2642,30 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PointsInQuestion_Questions">
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="PointsInQuestion" Type="Self.PointsInQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Ques_Id" />
+            </Principal>
+            <Dependent Role="PointsInQuestion">
+              <PropertyRef Name="Point_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointsInQuestion_Questions1">
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="PointsInQuestion" Type="Self.PointsInQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Ques_Id" />
+            </Principal>
+            <Dependent Role="PointsInQuestion">
+              <PropertyRef Name="Ques_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuestionAnswers_Questions">
           <End Role="Questions" Type="Self.Question" Multiplicity="1" />
           <End Role="QuestionAnswers" Type="Self.QuestionAnswer" Multiplicity="*" />
@@ -2701,10 +2726,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="PointsInQuestion">
-          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
-          <End Role="Questions1" Type="Self.Question" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="DataBaseCTX" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Branches" EntityType="Self.Branch" />
           <EntitySet Name="Courses" EntityType="Self.Course" />
@@ -2734,6 +2755,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="InstructorsConnectionIds" EntityType="Self.InstructorsConnectionId" />
           <EntitySet Name="NewDateExamForPermittedStudents" EntityType="Self.NewDateExamForPermittedStudent" />
           <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="PointsInQuestions" EntityType="Self.PointsInQuestion" />
           <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswer" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="QuestionsInExams" EntityType="Self.QuestionsInExam" />
@@ -2745,7 +2767,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="SupervisiorNotifications" EntityType="Self.SupervisiorNotification" />
           <EntitySet Name="SupervisiorsConnectionIds" EntityType="Self.SupervisiorsConnectionId" />
           <EntitySet Name="TopicsInCourses" EntityType="Self.TopicsInCourse" />
-          <EntitySet Name="evaluationiteminstructors" EntityType="Self.evaluationiteminstructor" />
           <EntitySet Name="CoursesDataViews" EntityType="Self.CoursesDataView" />
           <EntitySet Name="Employee_metadata" EntityType="Self.Employee_metadata" />
           <AssociationSet Name="FK_PlatfromIntake2_Branch" Association="Self.FK_PlatfromIntake2_Branch">
@@ -2831,10 +2852,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <AssociationSet Name="FK_DepartmentsExam_PlatfromIntake" Association="Self.FK_DepartmentsExam_PlatfromIntake">
             <End Role="PlatfromIntake" EntitySet="PlatfromIntakes" />
             <End Role="DepartmentsExam" EntitySet="DepartmentsExams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Exams_PlatfromIntake" Association="Self.FK_Exams_PlatfromIntake">
-            <End Role="PlatfromIntake" EntitySet="PlatfromIntakes" />
-            <End Role="Exams" EntitySet="Exams" />
           </AssociationSet>
           <AssociationSet Name="FK_PlatfromIntake2_ProgramIntake" Association="Self.FK_PlatfromIntake2_ProgramIntake">
             <End Role="ProgramIntake" EntitySet="ProgramIntakes" />
@@ -2924,6 +2941,14 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <End Role="Notifications" EntitySet="Notifications" />
             <End Role="SupervisiorNotifications" EntitySet="SupervisiorNotifications" />
           </AssociationSet>
+          <AssociationSet Name="FK_PointsInQuestion_Questions" Association="Self.FK_PointsInQuestion_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="PointsInQuestion" EntitySet="PointsInQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointsInQuestion_Questions1" Association="Self.FK_PointsInQuestion_Questions1">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="PointsInQuestion" EntitySet="PointsInQuestions" />
+          </AssociationSet>
           <AssociationSet Name="FK_QuestionAnswers_Questions" Association="Self.FK_QuestionAnswers_Questions">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
@@ -2944,144 +2969,161 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <End Role="StudentAnswerQuestionInExam" EntitySet="StudentAnswerQuestionInExams" />
             <End Role="StudentMultiAnswersQuestion" EntitySet="StudentMultiAnswersQuestions" />
           </AssociationSet>
-          <AssociationSet Name="PointsInQuestion" Association="Self.PointsInQuestion">
-            <End Role="Questions" EntitySet="Questions" />
-            <End Role="Questions1" EntitySet="Questions" />
-          </AssociationSet>
-          <FunctionImport Name="GetAllEmployee" ReturnType="Collection(ExaminationNS.GetAllEmployee_Result)" />
-          <FunctionImport Name="GetAllInstructor" ReturnType="Collection(ExaminationNS.GetAllInstructor_Result)" />
-          <FunctionImport Name="GetAllIntake" ReturnType="Collection(ExaminationNS.GetAllIntake_Result)">
-            <Parameter Name="SubTrackID" Mode="In" Type="Int32" />
+          <FunctionImport Name="CoursePerBranchandtrack" IsComposable="true" ReturnType="Collection(ExaminationNS.CoursePerBranchandtrack_Result)">
+            <Parameter Name="Parameter1" Mode="In" Type="Int32" />
+            <Parameter Name="Parameter2" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetAllsubTrack" ReturnType="Collection(ExaminationNS.GetAllsubTrack_Result)" />
+          <FunctionImport Name="GetBranchByID" ReturnType="Collection(ExaminationNS.GetBranchByID_Result)">
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetBranchByName" ReturnType="Collection(ExaminationNS.GetBranchByName_Result)">
+            <Parameter Name="BranchName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetBranchByPlatformIntakeID" ReturnType="Collection(ExaminationNS.GetBranchByPlatformIntakeID_Result)">
+            <Parameter Name="PlatformIntakeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCourseByInstructor" ReturnType="Collection(ExaminationNS.GetCourseByInstructor_Result)">
+            <Parameter Name="InstructorID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCourseByIntake">
+            <Parameter Name="ProgramIntakeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCourseByTrackId" ReturnType="Collection(ExaminationNS.GetCourseByTrackId_Result)">
+            <Parameter Name="PlatformIntakeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCourseInstanceID" ReturnType="Collection(Int32)">
+            <Parameter Name="TrackManualID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetEmpByPlatform" ReturnType="Collection(ExaminationNS.GetEmpByPlatform_Result)">
+            <Parameter Name="platid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetEmployee" ReturnType="Collection(ExaminationNS.GetEmployee_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="GetEmployeeByBranch" ReturnType="Collection(ExaminationNS.GetEmployeeByBranch_Result)">
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetLastIntake" ReturnType="Collection(ExaminationNS.GetLastIntake_Result)" />
+          <FunctionImport Name="GetStudentByBranch" ReturnType="Collection(ExaminationNS.GetStudentByBranch_Result)">
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetStudentByIntake" ReturnType="Collection(ExaminationNS.GetStudentByIntake_Result)">
+            <Parameter Name="ProgramIntakeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetStudentByPlatformID" ReturnType="Collection(ExaminationNS.GetStudentByPlatformID_Result)">
+            <Parameter Name="PlatformID" Mode="In" Type="Int32" />
+            <Parameter Name="branchid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetStudentDetails" ReturnType="Collection(ExaminationNS.GetStudentDetails_Result)">
+            <Parameter Name="StudentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetStudentGrade" ReturnType="Collection(String)">
+            <Parameter Name="StudentID" Mode="In" Type="Int32" />
+            <Parameter Name="EvalID" Mode="In" Type="Int32" />
+            <Parameter Name="Courseinstanceid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTrackByBranch" ReturnType="Collection(ExaminationNS.GetTrackByBranch_Result)">
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="IsSupervisor">
+            <Parameter Name="Param" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCoursePerBranchandtrack" ReturnType="Collection(ExaminationNS.GetCoursePerBranchandtrack_Result)">
+            <Parameter Name="Branch" Mode="In" Type="Int32" />
+            <Parameter Name="SubTrack" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetInstIntake" ReturnType="Collection(ExaminationNS.GetInstIntake_Result)">
+            <Parameter Name="Course" Mode="In" Type="Int32" />
+            <Parameter Name="Intake" Mode="In" Type="Int32" />
+            <Parameter Name="SubTrack" Mode="In" Type="Int32" />
+            <Parameter Name="Program" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="GetAllEmployee_Result">
-          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
-          <Property Type="String" Name="InstructorName" Nullable="false" MaxLength="50" />
+        <ComplexType Name="GetBranchByID_Result">
           <Property Type="Int32" Name="BranchID" Nullable="false" />
-          <Property Type="String" Name="IPassword" Nullable="true" MaxLength="12" />
-          <Property Type="String" Name="UserName2" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="PlatformID" Nullable="true" />
-          <Property Type="Int32" Name="RoleID" Nullable="true" />
-          <Property Type="Int32" Name="TypeID" Nullable="true" />
-          <Property Type="String" Name="ArabicName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="CertificateID" Nullable="true" />
-          <Property Type="String" Name="FirstNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SecondNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="barcode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="imagepath" Nullable="true" MaxLength="80" />
-          <Property Type="Int32" Name="org_branchid" Nullable="true" />
-          <Property Type="Int32" Name="StatusID" Nullable="true" />
-          <Property Type="Int32" Name="PositionID" Nullable="true" />
-          <Property Type="Int32" Name="CategoryID" Nullable="true" />
-          <Property Type="DateTime" Name="HiringDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="ThirdNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FourthNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FirstNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SecondNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ThirdNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FourthNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
-          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="12" />
-          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="ExtenistonNo" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
-          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="MaritalStatus" Nullable="true" />
-          <Property Type="Int32" Name="MilitaryStatus" Nullable="true" />
-          <Property Type="Int32" Name="UniversityID" Nullable="true" />
-          <Property Type="Int32" Name="FacultyID" Nullable="true" />
-          <Property Type="Int32" Name="IntakeID" Nullable="true" />
-          <Property Type="Int32" Name="Flag" Nullable="true" />
-          <Property Type="Int32" Name="GraduationYear" Nullable="true" />
-          <Property Type="String" Name="Grade" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="AttendanceFlag" Nullable="true" />
-          <Property Type="String" Name="PositionName" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="EmpStatus" Nullable="true" />
-          <Property Type="Guid" Name="msrepl_tran_version" Nullable="false" />
-          <Property Type="String" Name="IDCard" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="AttachmentID" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="AttachmentCV" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="ATMStatus" Nullable="true" />
-          <Property Type="String" Name="ATMNo" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="SpecialRate" Nullable="true" />
-          <Property Type="String" Name="RateNotes" Nullable="true" />
-          <Property Type="DateTime" Name="ATMExpiryDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="Religionid" Nullable="true" />
-          <Property Type="Int32" Name="empno" Nullable="true" />
-          <Property Type="Int32" Name="cat" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetAllInstructor_Result">
-          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
-          <Property Type="String" Name="InstructorName" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="BranchID" Nullable="false" />
-          <Property Type="String" Name="IPassword" Nullable="true" MaxLength="12" />
-          <Property Type="String" Name="UserName2" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="PlatformID" Nullable="true" />
-          <Property Type="Int32" Name="RoleID" Nullable="true" />
-          <Property Type="Int32" Name="TypeID" Nullable="true" />
-          <Property Type="String" Name="ArabicName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="CertificateID" Nullable="true" />
-          <Property Type="String" Name="FirstNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SecondNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="barcode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="imagepath" Nullable="true" MaxLength="80" />
-          <Property Type="Int32" Name="org_branchid" Nullable="true" />
-          <Property Type="Int32" Name="StatusID" Nullable="true" />
-          <Property Type="Int32" Name="PositionID" Nullable="true" />
-          <Property Type="Int32" Name="CategoryID" Nullable="true" />
-          <Property Type="DateTime" Name="HiringDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="ThirdNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FourthNameEn" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FirstNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SecondNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ThirdNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FourthNameAr" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
-          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="12" />
-          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="ExtenistonNo" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
-          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="MaritalStatus" Nullable="true" />
-          <Property Type="Int32" Name="MilitaryStatus" Nullable="true" />
-          <Property Type="Int32" Name="UniversityID" Nullable="true" />
-          <Property Type="Int32" Name="FacultyID" Nullable="true" />
-          <Property Type="Int32" Name="IntakeID" Nullable="true" />
-          <Property Type="Int32" Name="Flag" Nullable="true" />
-          <Property Type="Int32" Name="GraduationYear" Nullable="true" />
-          <Property Type="String" Name="Grade" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="AttendanceFlag" Nullable="true" />
-          <Property Type="String" Name="PositionName" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="EmpStatus" Nullable="true" />
-          <Property Type="Guid" Name="msrepl_tran_version" Nullable="false" />
-          <Property Type="String" Name="IDCard" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="AttachmentID" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="AttachmentCV" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="ATMStatus" Nullable="true" />
-          <Property Type="String" Name="ATMNo" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="SpecialRate" Nullable="true" />
-          <Property Type="String" Name="RateNotes" Nullable="true" />
-          <Property Type="DateTime" Name="ATMExpiryDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="Religionid" Nullable="true" />
-          <Property Type="Int32" Name="empno" Nullable="true" />
-          <Property Type="Int32" Name="cat" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetAllIntake_Result">
-          <Property Type="Int32" Name="IntakeID" Nullable="false" />
-          <Property Type="Int32" Name="IntakeNo" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetAllsubTrack_Result">
-          <Property Type="String" Name="subtrackName" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="PlatformName" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="subtrackID" Nullable="false" />
           <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="arabicname" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="msrepl_tran_version" Nullable="false" />
+          <Property Type="Int32" Name="trainbranchid" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetBranchByName_Result">
+          <Property Type="Int32" Name="BranchID" Nullable="false" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="arabicname" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="msrepl_tran_version" Nullable="false" />
+          <Property Type="Int32" Name="trainbranchid" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetBranchByPlatformIntakeID_Result">
           <Property Type="Int32" Name="PlatformIntakeID" Nullable="false" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="Int32" Name="SubTrackID" Nullable="true" />
+          <Property Type="Int32" Name="ProgramIntakeID" Nullable="true" />
+          <Property Type="Int32" Name="OwnedBy" Nullable="true" />
+          <Property Type="String" Name="GraduateProfile" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="GetCourseByInstructor_Result">
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="subtrackName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CourseName" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="CourseInstanceID" Nullable="false" />
+          <Property Type="Int32" Name="EvaluatedCourse" Nullable="false" />
+          <Property Type="Int32" Name="SubTrackID" Nullable="true" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="CourseDescription" Nullable="true" />
+          <Property Type="Int32" Name="eval" Nullable="true" />
+          <Property Type="Int32" Name="Studentcont" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetCourseByTrackId_Result">
+          <Property Type="String" Name="CourseName" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="CourseInstanceID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetEmpByPlatform_Result">
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="String" Name="InstructorName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetEmployee_Result">
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="String" Name="InstructorName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="BranchID" Nullable="false" />
+          <Property Type="String" Name="IPassword" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="UserName2" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PlatformID" Nullable="true" />
+          <Property Type="Int32" Name="RoleID" Nullable="true" />
+          <Property Type="Int32" Name="TypeID" Nullable="true" />
+          <Property Type="String" Name="ArabicName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CertificateID" Nullable="true" />
+          <Property Type="String" Name="FirstNameEn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SecondNameEn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="barcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="imagepath" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="org_branchid" Nullable="true" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="Int32" Name="PositionID" Nullable="true" />
+          <Property Type="Int32" Name="CategoryID" Nullable="true" />
+          <Property Type="DateTime" Name="HiringDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ThirdNameEn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FourthNameEn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstNameAr" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SecondNameAr" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ThirdNameAr" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FourthNameAr" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ExtenistonNo" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="MaritalStatus" Nullable="true" />
+          <Property Type="Int32" Name="MilitaryStatus" Nullable="true" />
+          <Property Type="Int32" Name="UniversityID" Nullable="true" />
+          <Property Type="Int32" Name="FacultyID" Nullable="true" />
+          <Property Type="Int32" Name="IntakeID" Nullable="true" />
+          <Property Type="Int32" Name="Flag" Nullable="true" />
+          <Property Type="Int32" Name="GraduationYear" Nullable="true" />
+          <Property Type="String" Name="Grade" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="AttendanceFlag" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetEmployeeByBranch_Result">
           <Property Type="Int32" Name="EmployeeID" Nullable="false" />
@@ -3138,6 +3180,115 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Type="DateTime" Name="ATMExpiryDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Religionid" Nullable="true" />
           <Property Type="Int32" Name="empno" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetLastIntake_Result">
+          <Property Type="Int32" Name="IntakeID" Nullable="false" />
+          <Property Type="Int32" Name="IntakeNo" Nullable="true" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="IntakeName" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="msrepl_tran_version" Nullable="false" />
+          <Property Type="Int32" Name="ProgramIntakeID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetStudentByBranch_Result">
+          <Property Type="Int32" Name="studentid" Nullable="false" />
+          <Property Type="String" Name="arabicname" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="GetStudentByIntake_Result">
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="englishname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="arabicname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ApplicationNo" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="FK_FacultyId" Nullable="true" />
+          <Property Type="Int32" Name="FK_SpecializationId" Nullable="true" />
+          <Property Type="Int32" Name="FK_GraduationGradeId" Nullable="true" />
+          <Property Type="String" Name="GraduationYear" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="SubTrackID" Nullable="false" />
+          <Property Type="String" Name="Barcode" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="AccFlag" Nullable="true" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="userpwd" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="imagepath" Nullable="true" />
+          <Property Type="String" Name="RejectReason" Nullable="true" />
+          <Property Type="DateTime" Name="DateOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="gender" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="subtrackName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Marital" Nullable="true" />
+          <Property Type="Int32" Name="Military" Nullable="true" />
+          <Property Type="Int32" Name="Language" Nullable="true" />
+          <Property Type="String" Name="SocialAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="School" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GradProjIdea" Nullable="true" />
+          <Property Type="String" Name="ProjGrade" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CertAqui" Nullable="true" />
+          <Property Type="String" Name="PostGradStud" Nullable="true" />
+          <Property Type="String" Name="AcadimicInst" Nullable="true" />
+          <Property Type="Int32" Name="Expr1" Nullable="false" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="Int32" Name="ProgramIntakeID" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="IDNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GraduationGrade" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="cvpath" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="Int32" Name="FK_UniversityFaculty_SpecializationId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetStudentByPlatformID_Result">
+          <Property Type="Int32" Name="studentid" Nullable="false" />
+          <Property Type="String" Name="arabicname" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="GetStudentDetails_Result">
+          <Property Type="String" Name="programName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ProgramIntakeID" Nullable="false" />
+          <Property Type="Int32" Name="PlatformIntakeID" Nullable="false" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="subtrackName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="englishname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="arabicname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ApplicationNo" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="FK_FacultyId" Nullable="true" />
+          <Property Type="Int32" Name="FK_SpecializationId" Nullable="true" />
+          <Property Type="Int32" Name="FK_GraduationGradeId" Nullable="true" />
+          <Property Type="String" Name="GraduationYear" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="SubTrackID" Nullable="false" />
+          <Property Type="String" Name="Barcode" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="AccFlag" Nullable="true" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="userpwd" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="imagepath" Nullable="true" />
+          <Property Type="String" Name="RejectReason" Nullable="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="NameEn" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="UniversityID" Nullable="false" />
+          <Property Type="String" Name="Expr1" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="SpecID" Nullable="false" />
+          <Property Type="Int32" Name="ProgramID" Nullable="false" />
+          <Property Type="Int32" Name="FK_UniversityFaculty_SpecializationId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTrackByBranch_Result">
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="subtrackName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ProgramIntakeID" Nullable="true" />
+          <Property Type="Int32" Name="PlatformIntakeID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCoursePerBranchandtrack_Result">
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="CourseName" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="SubTrackID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetInstIntake_Result">
+          <Property Type="String" Name="UserName2" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubTrackID" Nullable="true" />
+          <Property Type="Int32" Name="IntakeID" Nullable="false" />
+          <Property Type="Int32" Name="ProgramID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3469,13 +3620,11 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               <MappingFragment StoreEntitySet="Exams">
                 <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
                 <ScalarProperty Name="Exam_Name" ColumnName="Exam_Name" />
-                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
                 <ScalarProperty Name="Number_Of_Questions" ColumnName="Number_Of_Questions" />
                 <ScalarProperty Name="Ins_Id" ColumnName="Ins_Id" />
                 <ScalarProperty Name="Exam_Corrected" ColumnName="Exam_Corrected" />
                 <ScalarProperty Name="Exam_Duration" ColumnName="Exam_Duration" />
                 <ScalarProperty Name="Exam_FullDegree" ColumnName="Exam_FullDegree" />
-                <ScalarProperty Name="PlatformIntake_Id" ColumnName="PlatformIntake_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3521,6 +3670,15 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
                 <ScalarProperty Name="Notification_Text" ColumnName="Notification_Text" />
                 <ScalarProperty Name="Is_Read" ColumnName="Is_Read" />
                 <ScalarProperty Name="Creation_Time" ColumnName="Creation_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PointsInQuestions">
+            <EntityTypeMapping TypeName="ExaminationNS.PointsInQuestion">
+              <MappingFragment StoreEntitySet="PointsInQuestion">
+                <ScalarProperty Name="Point_Id" ColumnName="Point_Id" />
+                <ScalarProperty Name="Ques_Id" ColumnName="Ques_Id" />
+                <ScalarProperty Name="Point_Question_Id" ColumnName="Point_Question_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3629,21 +3787,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="evaluationiteminstructors">
-            <EntityTypeMapping TypeName="ExaminationNS.evaluationiteminstructor">
-              <MappingFragment StoreEntitySet="evaluationiteminstructor">
-                <ScalarProperty Name="recserial" ColumnName="recserial" />
-                <ScalarProperty Name="CourseinstanceID" ColumnName="CourseinstanceID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="evalid" ColumnName="evalid" />
-                <ScalarProperty Name="STUDENTID" ColumnName="STUDENTID" />
-                <ScalarProperty Name="evaluationdate" ColumnName="evaluationdate" />
-                <ScalarProperty Name="USERID" ColumnName="USERID" />
-                <ScalarProperty Name="it1" ColumnName="it1" />
-                <ScalarProperty Name="itemgrade" ColumnName="itemgrade" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CoursesDataViews">
             <EntityTypeMapping TypeName="ExaminationNS.CoursesDataView">
               <MappingFragment StoreEntitySet="CoursesDataView">
@@ -3676,152 +3819,127 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="PointsInQuestion" TypeName="ExaminationNS.PointsInQuestion" StoreEntitySet="PointsInQuestion">
-            <EndProperty Name="Questions">
-              <ScalarProperty Name="Ques_Id" ColumnName="Point_Id" />
-            </EndProperty>
-            <EndProperty Name="Questions1">
-              <ScalarProperty Name="Ques_Id" ColumnName="Ques_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllEmployee" FunctionName="ExaminationNS.Store.GetAllEmployee">
+          <FunctionImportMapping FunctionName="ExaminationNS.Store.CoursePerBranchandtrack" FunctionImportName="CoursePerBranchandtrack">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ExaminationNS.GetAllEmployee_Result">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+              <ComplexTypeMapping TypeName="ExaminationNS.CoursePerBranchandtrack_Result">
                 <ScalarProperty Name="BranchID" ColumnName="BranchID" />
-                <ScalarProperty Name="IPassword" ColumnName="IPassword" />
-                <ScalarProperty Name="UserName2" ColumnName="UserName2" />
-                <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
-                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
-                <ScalarProperty Name="FirstNameEn" ColumnName="FirstNameEn" />
-                <ScalarProperty Name="SecondNameEn" ColumnName="SecondNameEn" />
-                <ScalarProperty Name="barcode" ColumnName="barcode" />
-                <ScalarProperty Name="imagepath" ColumnName="imagepath" />
-                <ScalarProperty Name="org_branchid" ColumnName="org_branchid" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
-                <ScalarProperty Name="ThirdNameEn" ColumnName="ThirdNameEn" />
-                <ScalarProperty Name="FourthNameEn" ColumnName="FourthNameEn" />
-                <ScalarProperty Name="FirstNameAr" ColumnName="FirstNameAr" />
-                <ScalarProperty Name="SecondNameAr" ColumnName="SecondNameAr" />
-                <ScalarProperty Name="ThirdNameAr" ColumnName="ThirdNameAr" />
-                <ScalarProperty Name="FourthNameAr" ColumnName="FourthNameAr" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="ExtenistonNo" ColumnName="ExtenistonNo" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="MilitaryStatus" ColumnName="MilitaryStatus" />
-                <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
-                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
-                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
-                <ScalarProperty Name="Grade" ColumnName="Grade" />
-                <ScalarProperty Name="AttendanceFlag" ColumnName="AttendanceFlag" />
-                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
-                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
-                <ScalarProperty Name="msrepl_tran_version" ColumnName="msrepl_tran_version" />
-                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
-                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
-                <ScalarProperty Name="AttachmentCV" ColumnName="AttachmentCV" />
-                <ScalarProperty Name="ATMStatus" ColumnName="ATMStatus" />
-                <ScalarProperty Name="ATMNo" ColumnName="ATMNo" />
-                <ScalarProperty Name="SpecialRate" ColumnName="SpecialRate" />
-                <ScalarProperty Name="RateNotes" ColumnName="RateNotes" />
-                <ScalarProperty Name="ATMExpiryDate" ColumnName="ATMExpiryDate" />
-                <ScalarProperty Name="Religionid" ColumnName="Religionid" />
-                <ScalarProperty Name="empno" ColumnName="empno" />
-                <ScalarProperty Name="cat" ColumnName="cat" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllInstructor" FunctionName="ExaminationNS.Store.GetAllInstructor">
+          <FunctionImportMapping FunctionImportName="GetBranchByID" FunctionName="ExaminationNS.Store.GetBranchByID">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ExaminationNS.GetAllInstructor_Result">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+              <ComplexTypeMapping TypeName="ExaminationNS.GetBranchByID_Result">
                 <ScalarProperty Name="BranchID" ColumnName="BranchID" />
-                <ScalarProperty Name="IPassword" ColumnName="IPassword" />
-                <ScalarProperty Name="UserName2" ColumnName="UserName2" />
-                <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
-                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
-                <ScalarProperty Name="FirstNameEn" ColumnName="FirstNameEn" />
-                <ScalarProperty Name="SecondNameEn" ColumnName="SecondNameEn" />
-                <ScalarProperty Name="barcode" ColumnName="barcode" />
-                <ScalarProperty Name="imagepath" ColumnName="imagepath" />
-                <ScalarProperty Name="org_branchid" ColumnName="org_branchid" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
-                <ScalarProperty Name="ThirdNameEn" ColumnName="ThirdNameEn" />
-                <ScalarProperty Name="FourthNameEn" ColumnName="FourthNameEn" />
-                <ScalarProperty Name="FirstNameAr" ColumnName="FirstNameAr" />
-                <ScalarProperty Name="SecondNameAr" ColumnName="SecondNameAr" />
-                <ScalarProperty Name="ThirdNameAr" ColumnName="ThirdNameAr" />
-                <ScalarProperty Name="FourthNameAr" ColumnName="FourthNameAr" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="ExtenistonNo" ColumnName="ExtenistonNo" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="MilitaryStatus" ColumnName="MilitaryStatus" />
-                <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
-                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
-                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
-                <ScalarProperty Name="Grade" ColumnName="Grade" />
-                <ScalarProperty Name="AttendanceFlag" ColumnName="AttendanceFlag" />
-                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
-                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
-                <ScalarProperty Name="msrepl_tran_version" ColumnName="msrepl_tran_version" />
-                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
-                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
-                <ScalarProperty Name="AttachmentCV" ColumnName="AttachmentCV" />
-                <ScalarProperty Name="ATMStatus" ColumnName="ATMStatus" />
-                <ScalarProperty Name="ATMNo" ColumnName="ATMNo" />
-                <ScalarProperty Name="SpecialRate" ColumnName="SpecialRate" />
-                <ScalarProperty Name="RateNotes" ColumnName="RateNotes" />
-                <ScalarProperty Name="ATMExpiryDate" ColumnName="ATMExpiryDate" />
-                <ScalarProperty Name="Religionid" ColumnName="Religionid" />
-                <ScalarProperty Name="empno" ColumnName="empno" />
-                <ScalarProperty Name="cat" ColumnName="cat" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllIntake" FunctionName="ExaminationNS.Store.GetAllIntake">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExaminationNS.GetAllIntake_Result">
-                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
-                <ScalarProperty Name="IntakeNo" ColumnName="IntakeNo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllsubTrack" FunctionName="ExaminationNS.Store.GetAllsubTrack">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExaminationNS.GetAllsubTrack_Result">
-                <ScalarProperty Name="subtrackName" ColumnName="subtrackName" />
-                <ScalarProperty Name="PlatformName" ColumnName="PlatformName" />
-                <ScalarProperty Name="subtrackID" ColumnName="subtrackID" />
                 <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="arabicname" ColumnName="arabicname" />
+                <ScalarProperty Name="msrepl_tran_version" ColumnName="msrepl_tran_version" />
+                <ScalarProperty Name="trainbranchid" ColumnName="trainbranchid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetBranchByName" FunctionName="ExaminationNS.Store.GetBranchByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetBranchByName_Result">
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="arabicname" ColumnName="arabicname" />
+                <ScalarProperty Name="msrepl_tran_version" ColumnName="msrepl_tran_version" />
+                <ScalarProperty Name="trainbranchid" ColumnName="trainbranchid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetBranchByPlatformIntakeID" FunctionName="ExaminationNS.Store.GetBranchByPlatformIntakeID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetBranchByPlatformIntakeID_Result">
                 <ScalarProperty Name="PlatformIntakeID" ColumnName="PlatformIntakeID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
+                <ScalarProperty Name="ProgramIntakeID" ColumnName="ProgramIntakeID" />
+                <ScalarProperty Name="OwnedBy" ColumnName="OwnedBy" />
+                <ScalarProperty Name="GraduateProfile" ColumnName="GraduateProfile" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCourseByInstructor" FunctionName="ExaminationNS.Store.GetCourseByInstructor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetCourseByInstructor_Result">
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="subtrackName" ColumnName="subtrackName" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseInstanceID" ColumnName="CourseInstanceID" />
+                <ScalarProperty Name="EvaluatedCourse" ColumnName="EvaluatedCourse" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="eval" ColumnName="eval" />
+                <ScalarProperty Name="Studentcont" ColumnName="Studentcont" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCourseByIntake" FunctionName="ExaminationNS.Store.GetCourseByIntake" />
+          <FunctionImportMapping FunctionImportName="GetCourseByTrackId" FunctionName="ExaminationNS.Store.GetCourseByTrackId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetCourseByTrackId_Result">
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseInstanceID" ColumnName="CourseInstanceID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCourseInstanceID" FunctionName="ExaminationNS.Store.GetCourseInstanceID" />
+          <FunctionImportMapping FunctionImportName="GetEmpByPlatform" FunctionName="ExaminationNS.Store.GetEmpByPlatform">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetEmpByPlatform_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetEmployee" FunctionName="ExaminationNS.Store.GetEmployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetEmployee_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="IPassword" ColumnName="IPassword" />
+                <ScalarProperty Name="UserName2" ColumnName="UserName2" />
+                <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
+                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
+                <ScalarProperty Name="FirstNameEn" ColumnName="FirstNameEn" />
+                <ScalarProperty Name="SecondNameEn" ColumnName="SecondNameEn" />
+                <ScalarProperty Name="barcode" ColumnName="barcode" />
+                <ScalarProperty Name="imagepath" ColumnName="imagepath" />
+                <ScalarProperty Name="org_branchid" ColumnName="org_branchid" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
+                <ScalarProperty Name="ThirdNameEn" ColumnName="ThirdNameEn" />
+                <ScalarProperty Name="FourthNameEn" ColumnName="FourthNameEn" />
+                <ScalarProperty Name="FirstNameAr" ColumnName="FirstNameAr" />
+                <ScalarProperty Name="SecondNameAr" ColumnName="SecondNameAr" />
+                <ScalarProperty Name="ThirdNameAr" ColumnName="ThirdNameAr" />
+                <ScalarProperty Name="FourthNameAr" ColumnName="FourthNameAr" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="ExtenistonNo" ColumnName="ExtenistonNo" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="MilitaryStatus" ColumnName="MilitaryStatus" />
+                <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="AttendanceFlag" ColumnName="AttendanceFlag" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3882,6 +4000,149 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
                 <ScalarProperty Name="ATMExpiryDate" ColumnName="ATMExpiryDate" />
                 <ScalarProperty Name="Religionid" ColumnName="Religionid" />
                 <ScalarProperty Name="empno" ColumnName="empno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetLastIntake" FunctionName="ExaminationNS.Store.GetLastIntake">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetLastIntake_Result">
+                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
+                <ScalarProperty Name="IntakeNo" ColumnName="IntakeNo" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="IntakeName" ColumnName="IntakeName" />
+                <ScalarProperty Name="msrepl_tran_version" ColumnName="msrepl_tran_version" />
+                <ScalarProperty Name="ProgramIntakeID" ColumnName="ProgramIntakeID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentByBranch" FunctionName="ExaminationNS.Store.GetStudentByBranch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetStudentByBranch_Result">
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="arabicname" ColumnName="arabicname" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentByIntake" FunctionName="ExaminationNS.Store.GetStudentByIntake">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetStudentByIntake_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="englishname" ColumnName="englishname" />
+                <ScalarProperty Name="arabicname" ColumnName="arabicname" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="FK_FacultyId" ColumnName="FK_FacultyId" />
+                <ScalarProperty Name="FK_SpecializationId" ColumnName="FK_SpecializationId" />
+                <ScalarProperty Name="FK_GraduationGradeId" ColumnName="FK_GraduationGradeId" />
+                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="AccFlag" ColumnName="AccFlag" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="userpwd" ColumnName="userpwd" />
+                <ScalarProperty Name="imagepath" ColumnName="imagepath" />
+                <ScalarProperty Name="RejectReason" ColumnName="RejectReason" />
+                <ScalarProperty Name="DateOB" ColumnName="DateOB" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="subtrackName" ColumnName="subtrackName" />
+                <ScalarProperty Name="Marital" ColumnName="Marital" />
+                <ScalarProperty Name="Military" ColumnName="Military" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="SocialAccount" ColumnName="SocialAccount" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="GradProjIdea" ColumnName="GradProjIdea" />
+                <ScalarProperty Name="ProjGrade" ColumnName="ProjGrade" />
+                <ScalarProperty Name="CertAqui" ColumnName="CertAqui" />
+                <ScalarProperty Name="PostGradStud" ColumnName="PostGradStud" />
+                <ScalarProperty Name="AcadimicInst" ColumnName="AcadimicInst" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="ProgramIntakeID" ColumnName="ProgramIntakeID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IDNo" ColumnName="IDNo" />
+                <ScalarProperty Name="GraduationGrade" ColumnName="GraduationGrade" />
+                <ScalarProperty Name="cvpath" ColumnName="cvpath" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FK_UniversityFaculty_SpecializationId" ColumnName="FK_UniversityFaculty_SpecializationId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentByPlatformID" FunctionName="ExaminationNS.Store.GetStudentByPlatformID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetStudentByPlatformID_Result">
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="arabicname" ColumnName="arabicname" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentDetails" FunctionName="ExaminationNS.Store.GetStudentDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetStudentDetails_Result">
+                <ScalarProperty Name="programName" ColumnName="programName" />
+                <ScalarProperty Name="ProgramIntakeID" ColumnName="ProgramIntakeID" />
+                <ScalarProperty Name="PlatformIntakeID" ColumnName="PlatformIntakeID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="subtrackName" ColumnName="subtrackName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="englishname" ColumnName="englishname" />
+                <ScalarProperty Name="arabicname" ColumnName="arabicname" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="FK_FacultyId" ColumnName="FK_FacultyId" />
+                <ScalarProperty Name="FK_SpecializationId" ColumnName="FK_SpecializationId" />
+                <ScalarProperty Name="FK_GraduationGradeId" ColumnName="FK_GraduationGradeId" />
+                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="AccFlag" ColumnName="AccFlag" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="userpwd" ColumnName="userpwd" />
+                <ScalarProperty Name="imagepath" ColumnName="imagepath" />
+                <ScalarProperty Name="RejectReason" ColumnName="RejectReason" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="SpecID" ColumnName="SpecID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="FK_UniversityFaculty_SpecializationId" ColumnName="FK_UniversityFaculty_SpecializationId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentGrade" FunctionName="ExaminationNS.Store.GetStudentGrade" />
+          <FunctionImportMapping FunctionImportName="GetTrackByBranch" FunctionName="ExaminationNS.Store.GetTrackByBranch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetTrackByBranch_Result">
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="subtrackName" ColumnName="subtrackName" />
+                <ScalarProperty Name="ProgramIntakeID" ColumnName="ProgramIntakeID" />
+                <ScalarProperty Name="PlatformIntakeID" ColumnName="PlatformIntakeID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="IsSupervisor" FunctionName="ExaminationNS.Store.IsSupervisor" />
+          <FunctionImportMapping FunctionImportName="GetCoursePerBranchandtrack" FunctionName="ExaminationNS.Store.GetCoursePerBranchandtrack">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetCoursePerBranchandtrack_Result">
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetInstIntake" FunctionName="ExaminationNS.Store.GetInstIntake">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetInstIntake_Result">
+                <ScalarProperty Name="UserName2" ColumnName="UserName2" />
+                <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
+                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
     
     public partial class CourseInstanceDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CourseInstanceDetail()
         {
             this.Student_Enrollment = new HashSet<Student_Enrollment>();
@@ -24,6 +25,7 @@ namespace DataAccessLayer.Models
         public Nullable<int> GroupID { get; set; }
         public Nullable<int> finished { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student_Enrollment> Student_Enrollment { get; set; }
     }
 }

@@ -11,12 +11,9 @@ namespace DataAccessLayer.Models
 {
     using System;
     
-    public partial class GetAllsubTrack_Result
+    public partial class GetCourseByTrackId_Result
     {
-        public string subtrackName { get; set; }
-        public string PlatformName { get; set; }
-        public int subtrackID { get; set; }
-        public string BranchName { get; set; }
-        public int PlatformIntakeID { get; set; }
+        public string CourseName { get; set; }
+        public int CourseInstanceID { get; set; }
     }
 }

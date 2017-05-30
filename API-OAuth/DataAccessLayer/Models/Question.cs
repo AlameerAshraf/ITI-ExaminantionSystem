@@ -14,13 +14,14 @@ namespace DataAccessLayer.Models
     
     public partial class Question
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Question()
         {
+            this.PointsInQuestions = new HashSet<PointsInQuestion>();
+            this.PointsInQuestions1 = new HashSet<PointsInQuestion>();
             this.QuestionAnswers = new HashSet<QuestionAnswer>();
             this.QuestionsInExams = new HashSet<QuestionsInExam>();
             this.StudentMultiAnswersQuestions = new HashSet<StudentMultiAnswersQuestion>();
-            this.Questions1 = new HashSet<Question>();
-            this.Questions = new HashSet<Question>();
         }
     
         public int Ques_Id { get; set; }
@@ -34,11 +35,16 @@ namespace DataAccessLayer.Models
         public Nullable<bool> Points_Indicator { get; set; }
     
         public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PointsInQuestion> PointsInQuestions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PointsInQuestion> PointsInQuestions1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
         public virtual TopicsInCourse TopicsInCourse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionsInExam> QuestionsInExams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentMultiAnswersQuestion> StudentMultiAnswersQuestions { get; set; }
-        public virtual ICollection<Question> Questions1 { get; set; }
-        public virtual ICollection<Question> Questions { get; set; }
     }
 }

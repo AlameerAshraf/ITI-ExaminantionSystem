@@ -12,16 +12,13 @@ namespace DataAccessLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class evaluationiteminstructor
+    public partial class PointsInQuestion
     {
-        public int recserial { get; set; }
-        public Nullable<int> CourseinstanceID { get; set; }
-        public Nullable<int> ProjectID { get; set; }
-        public Nullable<int> evalid { get; set; }
-        public Nullable<int> STUDENTID { get; set; }
-        public Nullable<System.DateTime> evaluationdate { get; set; }
-        public Nullable<int> USERID { get; set; }
-        public Nullable<double> it1 { get; set; }
-        public byte[] itemgrade { get; set; }
+        public int Point_Id { get; set; }
+        public int Ques_Id { get; set; }
+        public int Point_Question_Id { get; set; }
+    
+        public virtual Question Question { get; set; }
+        public virtual Question Question1 { get; set; }
     }
 }

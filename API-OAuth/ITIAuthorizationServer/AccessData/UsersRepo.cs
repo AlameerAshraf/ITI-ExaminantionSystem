@@ -13,7 +13,6 @@ namespace ITIAuthorizationServer.AccessData
         List<StudentBasicData> StdList;
         StudentMananger StdManager = new StudentMananger();
         EmployeeManager EmpManager = new EmployeeManager();
-        ExaminerManager ExManger = new ExaminerManager();
 
 
         public List<Employee> GetEmps(int AutherizationLevel)

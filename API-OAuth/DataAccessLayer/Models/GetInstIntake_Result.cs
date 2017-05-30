@@ -11,9 +11,11 @@ namespace DataAccessLayer.Models
 {
     using System;
     
-    public partial class GetAllIntake_Result
+    public partial class GetInstIntake_Result
     {
+        public string UserName2 { get; set; }
+        public Nullable<int> SubTrackID { get; set; }
         public int IntakeID { get; set; }
-        public Nullable<int> IntakeNo { get; set; }
+        public int ProgramID { get; set; }
     }
 }

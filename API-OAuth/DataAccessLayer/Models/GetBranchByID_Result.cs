@@ -10,23 +10,13 @@
 namespace DataAccessLayer.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Branch
+    public partial class GetBranchByID_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Branch()
-        {
-            this.PlatfromIntakes = new HashSet<PlatfromIntake>();
-        }
-    
         public int BranchID { get; set; }
         public string BranchName { get; set; }
         public string arabicname { get; set; }
         public System.Guid msrepl_tran_version { get; set; }
         public Nullable<int> trainbranchid { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlatfromIntake> PlatfromIntakes { get; set; }
     }
 }
