@@ -33,8 +33,8 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<PlatfromIntake, PlatfromIntakeMap>();
                 cfg.CreateMap<PlatfromIntakeMap, PlatfromIntake>();
 
-                cfg.CreateMap<StudentBasicData, StudentBasicDataMap>();
-                cfg.CreateMap<StudentBasicDataMap, StudentBasicData>();
+                cfg.CreateMap<StudentBasicData, StudentMap>();
+                cfg.CreateMap<StudentMap, StudentBasicData>();
 
                 cfg.CreateMap<Course, CourseMap>();
                 cfg.CreateMap<CourseMap, Course>();

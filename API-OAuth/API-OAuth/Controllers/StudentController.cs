@@ -23,6 +23,18 @@ namespace API_OAuth.Controllers
             return std.GetStudents();
         }
 
+        [System.Web.Http.HttpGet]
+        public bool UserLogin(string UName)
+        {
+            // TO CALL THE MANAGER 
+            if (UName != null)
+            {
+                return true;
+            }
+            return false; 
+        }
+
+
     }
 
     

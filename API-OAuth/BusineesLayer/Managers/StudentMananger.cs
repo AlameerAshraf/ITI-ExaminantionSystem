@@ -17,15 +17,16 @@ namespace BusineesLayer.Managers
             return ts;
         }
 
-        public StudentMap GetStudentData()
+        public StudentMap GetStudentData(string UserName)
         {
+
 
         }
 
 
 
 
-        
+
     }
 
     public class StudentAutherization

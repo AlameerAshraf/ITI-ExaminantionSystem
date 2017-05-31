@@ -46,5 +46,6 @@ namespace BusineesLayer
         public string cvpath { get; set; }
         public string SchoolName { get; set; }
         public string Comment { get; set; }
+
     }
 }
