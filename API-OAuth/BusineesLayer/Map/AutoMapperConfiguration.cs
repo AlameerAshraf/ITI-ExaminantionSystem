@@ -33,7 +33,9 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<PlatfromIntake, PlatfromIntakeMap>();
                 cfg.CreateMap<PlatfromIntakeMap, PlatfromIntake>();
 
-                cfg.CreateMap<StudentBasicData, StudentMap>();
+                cfg.CreateMap<StudentBasicData, StudentMap>()
+                .ForMember(dist => dist.PlatformIntakeID, opt => opt.MapFrom(src => src.PlatfromIntake.PlatformIntakeID));
+
                 cfg.CreateMap<StudentMap, StudentBasicData>();
 
                 cfg.CreateMap<Course, CourseMap>();
@@ -77,7 +79,8 @@ namespace BusineesLayer.Map
 
                 cfg.CreateMap<StudentAutherization, StudentBasicData>().ReverseMap();
 
-                cfg.CreateMap<Student_Enrollment, Student_EnrollmentMap>().ReverseMap();
+                cfg.CreateMap<Student_Enrollment, Student_EnrollmentMap>()
+                .ReverseMap();
 
 
 

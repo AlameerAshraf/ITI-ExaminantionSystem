@@ -32,8 +32,9 @@ namespace App_iti.Controllers
             App = new HttpClient();
             Url = "http://localhost:51822/api/Student/?UName="+UserName;
             //App.BaseAddress = new Uri(Url);
-            App.DefaultRequestHeaders.Accept.Clear();
+            //App.DefaultRequestHeaders.Accept.Clear();
             App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            //App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.NameValueWithParametersHeaderValue(,));
             HttpResponseMessage Response = await App.GetAsync(Url);
             var responseData = Response.Content.ReadAsStringAsync().Result;
 

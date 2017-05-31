@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusineesLayer
+namespace BusineesLayer.Map
 {
     public partial class PlatfromIntakeMap
     {
@@ -18,7 +18,7 @@ namespace BusineesLayer
 
         public virtual subTrackMap subTrack { get; set; }
      
-        public virtual ICollection<StudentBasicDataMap> StudentBasicDatas { get; set; }
+        public virtual ICollection<StudentMap> StudentBasicDatas { get; set; }
        
         public virtual ICollection<TrackManualMap> TrackManuals { get; set; }
         public virtual BranchMap Branch { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusineesLayer
+namespace BusineesLayer.Map
 {
     public partial class subTrackMap
     {

@@ -47,7 +47,7 @@ namespace BusineesLayer.Map
         public string SchoolName { get; set; }
         public string Comment { get; set; }
 
-        public virtual PlatfromIntake PlatfromIntake { get; set; }
+        public int PlatformIntakeID { get; set; }
         public virtual ICollection<Student_EnrollmentMap> Student_Enrollment { get; set; }
     }
 }

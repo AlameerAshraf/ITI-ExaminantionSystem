@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusineesLayer.Managers;
+using BusineesLayer.Map;
 using System.Web.Http;
 using DataAccessLayer.Models;
 
@@ -24,15 +25,13 @@ namespace API_OAuth.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public bool UserLogin(string UName)
+        public StudentMap UserLogin(string UName)
         {
             // TO CALL THE MANAGER 
-            if (UName != null)
-            {
-                return true;
-            }
-            return false; 
+            return std.GetStudentData(UName);
         }
+
+
 
 
     }

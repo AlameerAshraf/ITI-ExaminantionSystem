@@ -178,11 +178,7 @@ namespace ITIAuthorizationServer
 
                     {
                         "TrackID", student.SubTrackID.ToString()
-                    },
-                    {
-                        "BranchID", student.PlatfromIntake.BranchID.ToString( )
                     }
-
                 });
                     var ticket = new AuthenticationTicket(identity, props);
                     context.Validated(ticket);
