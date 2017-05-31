@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusineesLayer
+namespace BusineesLayer.Map
 {
     public partial class StudentMap
     {
@@ -47,5 +47,7 @@ namespace BusineesLayer
         public string SchoolName { get; set; }
         public string Comment { get; set; }
 
+        public virtual PlatfromIntake PlatfromIntake { get; set; }
+        public virtual ICollection<Student_EnrollmentMap> Student_Enrollment { get; set; }
     }
 }

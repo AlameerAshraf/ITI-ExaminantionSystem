@@ -75,8 +75,11 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<DepartmentsExam, DepartmentsExamMap>();
                 cfg.CreateMap<DepartmentsExamMap, DepartmentsExam>();
 
-                cfg.CreateMap<StudentAutherization, StudentBasicData>();
-                cfg.CreateMap<StudentBasicData, StudentAutherization >();
+                cfg.CreateMap<StudentAutherization, StudentBasicData>().ReverseMap();
+
+                cfg.CreateMap<Student_Enrollment, Student_EnrollmentMap>().ReverseMap();
+
+
 
 
 

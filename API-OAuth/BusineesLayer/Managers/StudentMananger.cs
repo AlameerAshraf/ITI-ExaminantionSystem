@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Models;
 using AutoMapper;
+using BusineesLayer.Map;
 
 namespace BusineesLayer.Managers
 {
@@ -19,8 +20,9 @@ namespace BusineesLayer.Managers
 
         public StudentMap GetStudentData(string UserName)
         {
-
-
+            StudentBasicData std_data = new StudentMananger().FindBy(x => x.Username == UserName);
+            StudentMap stds = Mapper.Map<StudentMap>(std_data);
+            return stds; 
         }
 
 

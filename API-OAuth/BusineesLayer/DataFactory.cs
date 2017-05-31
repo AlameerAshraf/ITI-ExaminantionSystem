@@ -85,10 +85,6 @@ namespace BusineesLayer
             return query;
         }
 
-        public T FindBy(Expression<Func<bool, T>> Condition) //FindBy(x => x.Some.Equals(somevlue))
-        {
-            throw new NotImplementedException();
-        }
 
         public IQueryable<T> FindListBy(Expression<Func<T, bool>> Condition) //FindBy(x => x.Some.Equals(somevlue))
         {

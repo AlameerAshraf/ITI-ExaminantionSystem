@@ -106,6 +106,7 @@
     <Compile Include="Map\QuestionsInExamMap.cs" />
     <Compile Include="Map\StudentMap.cs" />
     <Compile Include="Map\StudentPermissionInExamMap.cs" />
+    <Compile Include="Map\Student_EnrollmentMap.cs" />
     <Compile Include="Map\subTrackMap.cs" />
     <Compile Include="Map\TrackManualMap.cs" />
     <Compile Include="Program.cs" />
