@@ -16,6 +16,10 @@ namespace BusineesLayer.Managers
             return y;
         }
 
+        public EmployeetAutherization GetEmployeeData(string UserName)
+        {
+            DataBaseCTX st = new DataBaseCTX();
+        }
 
 
 
@@ -30,6 +34,6 @@ namespace BusineesLayer.Managers
         public int BranchID { get; set; }
         public string IPassword { get; set; }
         public string UserName2 { get; set; }
-        public Nullable<int> PlatformID { get; set; }
+        public int? PlatformID { get; set; }
     }
 }

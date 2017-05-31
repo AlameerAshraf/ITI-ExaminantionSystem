@@ -16,7 +16,6 @@ namespace API_OAuth.Controllers
 
         StudentMananger std = new StudentMananger();
 
-        // GET: Student
 
         [System.Web.Http.HttpGet]
         public List<StudentAutherization> onluone()
@@ -24,10 +23,11 @@ namespace API_OAuth.Controllers
             return std.GetStudents();
         }
 
+
+
         [System.Web.Http.HttpGet]
-        public StudentMap UserLogin(string UName)
+        public StudentMap StdUserLogin(string UName)
         {
-            // TO CALL THE MANAGER 
             return std.GetStudentData(UName);
         }
 

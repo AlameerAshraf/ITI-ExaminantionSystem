@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer.Models;
+using BusineesLayer.Map;
+
 
 namespace App_iti.Controllers
 {
@@ -12,7 +16,7 @@ namespace App_iti.Controllers
     {
 
         HttpClient App;
-        string Url; 
+        string Urle; 
 
         //Login
         public ActionResult AppUser()
@@ -20,27 +24,28 @@ namespace App_iti.Controllers
             return View();
         }
 
-        // Home - Profile 
-        public ActionResult Home()
+        // Profile 
+        public async Task<ActionResult> AppProfile(string UserName)
         {
+            var cookie_token = Request.Cookies[UserName];
+            var access_token = cookie_token.Value;
+            var trav_access_token = ("Bearer" + " " + access_token).ToString();
 
-            return RedirectToAction("Test");
-        }
 
-        public async Task<ActionResult> Test(string UserName)
-        {
             App = new HttpClient();
-            Url = "http://localhost:51822/api/Student/?UName="+UserName;
+            Urle = "http://localhost:51822/api/Student/StdUserLogin/?UName=" + UserName;
             //App.BaseAddress = new Uri(Url);
             //App.DefaultRequestHeaders.Accept.Clear();
             App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            //App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.NameValueWithParametersHeaderValue(,));
-            HttpResponseMessage Response = await App.GetAsync(Url);
+            App.DefaultRequestHeaders.Add("Authorization",trav_access_token);
+            HttpResponseMessage Response = await App.GetAsync(Urle);
             var responseData = Response.Content.ReadAsStringAsync().Result;
+            var StdData = JsonConvert.DeserializeObject<StudentMap>(responseData); 
+            
 
-            return Content(responseData + "is logged in");
+            return Content(access_token + "is logged in");
         }
 
-        // 
+        
     }
 }

@@ -7,8 +7,8 @@ app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
         var token = $scope.getCookie(userName);
         if (token !== "") {
             console.log(token);
-            var URL = '/Student/Test/' + userName;
-            window.location.pathname = URL;
+            window.location.pathname = '/Student/AppProfile/' + userName;
+            alert(userName);
         }
         else {
             $scope.sendData(userName, passWord);
