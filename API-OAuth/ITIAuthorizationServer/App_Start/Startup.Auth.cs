@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using ITIAuthorizationServer.AccessData;
 using DataAccessLayer.Models;
 using Client = ITIAuthorizationServer.Models.Client;
+using BusineesLayer.Managers;
 
 namespace ITIAuthorizationServer
 {
@@ -156,7 +157,7 @@ namespace ITIAuthorizationServer
             }
 
             //sudent
-            var student = (StudentBasicData) null;
+            var student = (StudentAutherization) null;
             if (loginType == 2)
             {
                 var Repos = new UsersRepo();

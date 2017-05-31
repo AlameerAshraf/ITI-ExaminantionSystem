@@ -14,10 +14,18 @@ namespace App_iti
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "loginroute",
+                url: "{controller}/{action}/{UserName}",
+                defaults: new { controller = "Home", action = "Index", UserName = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

@@ -13,5 +13,19 @@ namespace App_iti.Controllers
         {
             return View();
         }
+
+        // Home - Profile 
+        public ActionResult Home()
+        {
+
+            return RedirectToAction("Test");
+        }
+
+        public ActionResult Test(string UserName)
+        {
+            return Content(UserName + "is logged in");
+        }
+
+        // 
     }
 }

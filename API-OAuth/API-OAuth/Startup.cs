@@ -24,17 +24,12 @@ namespace API_OAuth
     {
         public void Configuration(IAppBuilder app)
         {
-
-            // ConfigureAuth(app);
-            // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
             HttpConfiguration config = new HttpConfiguration();
-            // ConfigureOAuth(app);
             ConfigureAuth(app);
             WebApiConfig.Register(config);
-            
-            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             config.Filters.Add(new AuthorizeAttribute());
             app.UseWebApi(config);
+
             //config.AddODataQueryFilter(new InlineCountQueryableAttribute());
             //ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             //builder.EntitySet<program>("programs");

@@ -13,5 +13,17 @@ namespace App_iti.Controllers
         {
             return View();
         }
+
+        // Employee Home 
+        public ActionResult Home()
+        {
+            var value = (string) null;
+            var cookie = Request.Cookies["access_token"];
+            if (cookie != null)
+            {
+                value = cookie.Value;
+            }
+            return Content("Access Token:" +value.ToString());
+        }
     }
 }

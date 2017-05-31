@@ -9,7 +9,7 @@ using DataAccessLayer.Models;
 
 namespace API_OAuth.Controllers
 {
-    //[System.Web.Http.Authorize]
+   // [System.Web.Http.Authorize]
     public class StudentController : ApiController
     {
 
@@ -18,9 +18,9 @@ namespace API_OAuth.Controllers
         // GET: Student
 
         [System.Web.Http.HttpGet]
-        public Student onluone()
+        public List<StudentAutherization> onluone()
         {
-            return std.GetOnly();
+            return std.GetStudents();
         }
 
     }

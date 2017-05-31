@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataAccessLayer.Models;
+using BusineesLayer.Managers;
 
 namespace BusineesLayer.Map
 {
@@ -74,8 +75,9 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<DepartmentsExam, DepartmentsExamMap>();
                 cfg.CreateMap<DepartmentsExamMap, DepartmentsExam>();
 
-                cfg.CreateMap<StudentBasicData, Managers.Student>();
-                cfg.CreateMap<Managers.Student, StudentBasicData>();
+                cfg.CreateMap<StudentAutherization, StudentBasicData>();
+                cfg.CreateMap<StudentBasicData, StudentAutherization >();
+
 
 
 

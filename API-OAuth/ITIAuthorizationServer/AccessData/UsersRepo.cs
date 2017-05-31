@@ -10,7 +10,7 @@ namespace ITIAuthorizationServer.AccessData
     public class UsersRepo
     {
         List<Employee> EmpList ;
-        List<StudentBasicData> StdList;
+        List<StudentAutherization> StdAuth;
         StudentMananger StdManager = new StudentMananger();
         EmployeeManager EmpManager = new EmployeeManager();
 
@@ -29,11 +29,11 @@ namespace ITIAuthorizationServer.AccessData
             return EmpList;
         }
 
-        public List<StudentBasicData> GetStds()
+        public List<StudentAutherization> GetStds()
         {
-            StdList = new List<StudentBasicData>();
-            StdList = StdManager.GetStudents();
-            return StdList;
+            StdAuth = new List<StudentAutherization>();
+            StdAuth = StdManager.GetStudents();
+            return StdAuth;
         }
 
     }

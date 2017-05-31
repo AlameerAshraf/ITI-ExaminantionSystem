@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace BusineesLayer
 {
-    public partial class StudentBasicDataMap
+    public partial class StudentMap
     {
-
         public int StudentID { get; set; }
         public string englishname { get; set; }
         public string arabicname { get; set; }
@@ -25,7 +24,7 @@ namespace BusineesLayer
         public int SubTrackID { get; set; }
         public string Barcode { get; set; }
         public int? AccFlag { get; set; }
-       
+
         public string imagepath { get; set; }
         public string RejectReason { get; set; }
         public DateTime? DateOB { get; set; }
@@ -47,9 +46,5 @@ namespace BusineesLayer
         public string cvpath { get; set; }
         public string SchoolName { get; set; }
         public string Comment { get; set; }
-
-
-
-
     }
 }

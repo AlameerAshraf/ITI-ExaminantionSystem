@@ -10,10 +10,16 @@ namespace BusineesLayer.Managers
 {
     public class StudentMananger : DataFactory<DataBaseCTX , StudentBasicData>
     {
-        public List<StudentBasicData> GetStudents()
+        public List<StudentAutherization> GetStudents()
         {
-            var xx = new StudentMananger().GetAll().ToList();
-            return xx;
+            List<StudentBasicData> xx = new StudentMananger().GetAll().ToList();
+            var ts = Mapper.Map<List<StudentAutherization>>(xx);
+            return ts;
+        }
+
+        public StudentMap GetStudentData()
+        {
+
         }
 
 
@@ -21,6 +27,7 @@ namespace BusineesLayer.Managers
 
         
     }
+
     public class StudentAutherization
     {
         public int StudentID { get; set; }
