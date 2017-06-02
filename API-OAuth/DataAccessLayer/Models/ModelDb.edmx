@@ -1194,6 +1194,10 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
         <Function Name="GetTrackByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
         </Function>
+        <Function Name="InstructorCurrent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="CurrentDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="IsSupervisor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProgramID" Type="int" Mode="In" />
           <Parameter Name="IntakeID" Type="int" Mode="In" />
@@ -3030,7 +3034,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <FunctionImport Name="GetTrackByBranch" ReturnType="Collection(ExaminationNS.GetTrackByBranch_Result)">
           <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="IsSupervisor">
+          <FunctionImport Name="IsSupervisor" ReturnType="Collection(ExaminationNS.IsSupervisor_Result)">
             <Parameter Name="ProgramID" Mode="In" Type="Int32" />
             <Parameter Name="IntakeID" Mode="In" Type="Int32" />
             <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
@@ -3044,6 +3048,10 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <Parameter Name="Intake" Mode="In" Type="Int32" />
             <Parameter Name="SubTrack" Mode="In" Type="Int32" />
             <Parameter Name="Program" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InstructorCurrent" ReturnType="Collection(ExaminationNS.InstructorCurrent_Result)">
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="CurrentDate" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetBranchByID_Result">
@@ -3295,6 +3303,13 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Type="Int32" Name="SubTrackID" Nullable="true" />
           <Property Type="Int32" Name="IntakeID" Nullable="false" />
           <Property Type="Int32" Name="ProgramID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="IsSupervisor_Result">
+          <Property Type="Int32" Name="None" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="InstructorCurrent_Result">
+          <Property Type="Int32" Name="ProgramID" Nullable="false" />
+          <Property Type="Int32" Name="IntakeID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4132,7 +4147,13 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="IsSupervisor" FunctionName="ExaminationNS.Store.IsSupervisor" />
+          <FunctionImportMapping FunctionImportName="IsSupervisor" FunctionName="ExaminationNS.Store.IsSupervisor" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.IsSupervisor_Result">
+                <ScalarProperty Name="None" ColumnName="None" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetCoursePerBranchandtrack" FunctionName="ExaminationNS.Store.GetCoursePerBranchandtrack">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ExaminationNS.GetCoursePerBranchandtrack_Result">
@@ -4149,6 +4170,14 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
                 <ScalarProperty Name="SubTrackID" ColumnName="SubTrackID" />
                 <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
                 <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InstructorCurrent" FunctionName="ExaminationNS.Store.InstructorCurrent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.InstructorCurrent_Result">
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

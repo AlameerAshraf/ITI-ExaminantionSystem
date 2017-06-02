@@ -249,7 +249,7 @@ namespace DataAccessLayer.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTrackByBranch_Result>("GetTrackByBranch", branchIDParameter);
         }
     
-        public virtual int IsSupervisor(Nullable<int> programID, Nullable<int> intakeID, Nullable<int> employeeID)
+        public virtual ObjectResult<IsSupervisor_Result> IsSupervisor(Nullable<int> programID, Nullable<int> intakeID, Nullable<int> employeeID)
         {
             var programIDParameter = programID.HasValue ?
                 new ObjectParameter("ProgramID", programID) :
@@ -263,7 +263,7 @@ namespace DataAccessLayer.Models
                 new ObjectParameter("EmployeeID", employeeID) :
                 new ObjectParameter("EmployeeID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("IsSupervisor", programIDParameter, intakeIDParameter, employeeIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IsSupervisor_Result>("IsSupervisor", programIDParameter, intakeIDParameter, employeeIDParameter);
         }
     
         public virtual ObjectResult<GetCoursePerBranchandtrack_Result> GetCoursePerBranchandtrack(Nullable<int> branch, Nullable<int> subTrack)
@@ -298,6 +298,19 @@ namespace DataAccessLayer.Models
                 new ObjectParameter("Program", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInstIntake_Result>("GetInstIntake", courseParameter, intakeParameter, subTrackParameter, programParameter);
+        }
+    
+        public virtual ObjectResult<InstructorCurrent_Result> InstructorCurrent(Nullable<int> employeeID, Nullable<System.DateTime> currentDate)
+        {
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var currentDateParameter = currentDate.HasValue ?
+                new ObjectParameter("CurrentDate", currentDate) :
+                new ObjectParameter("CurrentDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InstructorCurrent_Result>("InstructorCurrent", employeeIDParameter, currentDateParameter);
         }
     }
 }

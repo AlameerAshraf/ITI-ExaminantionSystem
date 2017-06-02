@@ -12,9 +12,7 @@ namespace BusineesLayer.Managers
     public class EmployeeManager : DataFactory<DataBaseCTX, Employee>
     {
         DataBaseCTX db = new DataBaseCTX();
-        int Intake;
-
-
+        int Intake = 0;
 
 
         public List<Employee> GetEmployees()
@@ -33,30 +31,35 @@ namespace BusineesLayer.Managers
 
             Intake = 36;
 
-            var emp = new EmployeeManager().FindBy(x => x.UserName2 == UserName);
+            var emp = FindBy(x => x.UserName2 == UserName);
             var empmap = Mapper.Map<EmployeetAutherization>(emp);
-
             var EmpType = empmap.TypeID;
-            string SP = "IsSupervisor";
 
-            SqlParameter[] Params = {
-                new SqlParameter("@ProgramID", System.Data.SqlDbType.Int){ Value = 4 },
-                new SqlParameter("@IntakeID" , System.Data.SqlDbType.Int){ Value = Intake },
-                new SqlParameter("@EmployeeID",System.Data.SqlDbType.Int){ Value = empmap.EmployeeID }
+
+            string SP_Current = "exec [dbo].[InstructorCurrent] @EmployeeID,@CurrentDate";
+            SqlParameter[] Params_Current = {
+                new SqlParameter("@EmployeeID",empmap.EmployeeID),
+                new SqlParameter("@CurrentDate",DateTime.Now)
+            };
+
+            string SP_supervision = "exec [dbo].[IsSupervisor] @ProgramID,@IntakeID,@EmployeeID";
+            SqlParameter[] Params_supervision = {
+                new SqlParameter("@ProgramID",4),
+                new SqlParameter("@IntakeID" ,Intake),
+                new SqlParameter("@EmployeeID",empmap.EmployeeID)
             };
 
             if (EmpType == 0)
             {
+                empmap.supervisiedTrackId = null; 
                 return empmap; 
             }
-
-            else if (EmpType == 1)
+            else
             {
-                var Sp = new EmployeeManager().QueryData(SP, Params);
+                List<IsSupervisor> Sp = db.Database.SqlQuery<IsSupervisor>(SP_supervision, Params_supervision).ToList();
+                empmap.supervisiedTrackId = Sp[0].TrackId;
+                return empmap;
             }
-
-
-            return empmap; 
         }
 
 
@@ -64,7 +67,11 @@ namespace BusineesLayer.Managers
 
     }
 
-
+    public class IsSupervisor
+    {
+        public int? TrackId { get; set; }
+        public int? BranchId { get; set; }
+    }
     public class EmployeetAutherization
     {
         public int EmployeeID { get; set; }
@@ -74,5 +81,6 @@ namespace BusineesLayer.Managers
         public string UserName2 { get; set; }
         public int? PlatformID { get; set; }
         public int? TypeID { get; set; }
+        public int? supervisiedTrackId { get; set; }
     }
 }

@@ -36,6 +36,8 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<StudentBasicData, StudentMap>()
                 .ForMember(dist => dist.PlatformIntakeID, opt => opt.MapFrom(src => src.PlatfromIntake.PlatformIntakeID));
 
+                cfg.CreateMap<Employee, EmployeetAutherization>();
+
                 cfg.CreateMap<StudentMap, StudentBasicData>();
 
                 cfg.CreateMap<Course, CourseMap>();
