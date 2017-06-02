@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Models;
+using AutoMapper;
 
 namespace BusineesLayer.Managers
 {
@@ -18,7 +19,21 @@ namespace BusineesLayer.Managers
 
         public EmployeetAutherization GetEmployeeData(string UserName)
         {
-            DataBaseCTX st = new DataBaseCTX();
+            var emp = new EmployeeManager().FindBy(x => x.UserName2 == UserName);
+            var empmap = Mapper.Map<EmployeetAutherization>(emp);
+
+            var EmpType = empmap.TypeID; 
+            if (EmpType == 0)
+            {
+                return empmap; 
+            }
+            else if (EmpType == 1)
+            {
+
+            }
+
+
+            return empmap; 
         }
 
 
@@ -35,5 +50,6 @@ namespace BusineesLayer.Managers
         public string IPassword { get; set; }
         public string UserName2 { get; set; }
         public int? PlatformID { get; set; }
+        public int? TypeID { get; set; }
     }
 }

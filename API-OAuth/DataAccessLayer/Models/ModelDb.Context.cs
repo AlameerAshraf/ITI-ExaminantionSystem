@@ -249,13 +249,21 @@ namespace DataAccessLayer.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTrackByBranch_Result>("GetTrackByBranch", branchIDParameter);
         }
     
-        public virtual int IsSupervisor(Nullable<int> param)
+        public virtual int IsSupervisor(Nullable<int> programID, Nullable<int> intakeID, Nullable<int> employeeID)
         {
-            var paramParameter = param.HasValue ?
-                new ObjectParameter("Param", param) :
-                new ObjectParameter("Param", typeof(int));
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("IsSupervisor", paramParameter);
+            var intakeIDParameter = intakeID.HasValue ?
+                new ObjectParameter("IntakeID", intakeID) :
+                new ObjectParameter("IntakeID", typeof(int));
+    
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("IsSupervisor", programIDParameter, intakeIDParameter, employeeIDParameter);
         }
     
         public virtual ObjectResult<GetCoursePerBranchandtrack_Result> GetCoursePerBranchandtrack(Nullable<int> branch, Nullable<int> subTrack)
