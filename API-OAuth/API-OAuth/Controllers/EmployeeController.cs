@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer.Models;
+using BusineesLayer.Managers;
+using System.Web.Http;
 
 namespace API_OAuth.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : ApiController
     {
-        // GET: Employee
-        public ActionResult Index()
-        {
-            return View();
-        }
 
+        EmployeeManager Emp = new EmployeeManager();
+
+        [System.Web.Http.HttpGet]
+        public int GetIntake()
+        {
+           return Emp.GetIntake();
+        }
 
 
     }
