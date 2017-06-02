@@ -13,7 +13,7 @@ namespace BusineesLayer.Managers
     {
         DataBaseCTX db = new DataBaseCTX();
         int Intake = 0;
-
+        int Program = 0;
 
         public List<Employee> GetEmployees()
         {
@@ -42,12 +42,20 @@ namespace BusineesLayer.Managers
                 new SqlParameter("@CurrentDate",DateTime.Now)
             };
 
+            List<InstructorCurrent> Sp = db.Database.SqlQuery<InstructorCurrent>(SP_Current, Params_Current).ToList();
+
+            foreach (var item in collection)
+            {
+
+            }
+
             string SP_supervision = "exec [dbo].[IsSupervisor] @ProgramID,@IntakeID,@EmployeeID";
             SqlParameter[] Params_supervision = {
                 new SqlParameter("@ProgramID",4),
                 new SqlParameter("@IntakeID" ,Intake),
                 new SqlParameter("@EmployeeID",empmap.EmployeeID)
             };
+
 
             if (EmpType == 0)
             {
@@ -56,10 +64,18 @@ namespace BusineesLayer.Managers
             }
             else
             {
-                List<IsSupervisor> Sp = db.Database.SqlQuery<IsSupervisor>(SP_supervision, Params_supervision).ToList();
-                empmap.supervisiedTrackId = Sp[0].TrackId;
+                List<IsSupervisor> Stored = QueryData<IsSupervisor>(SP_supervision, Params_supervision);
+                empmap.supervisiedTrackId = Stored[0].TrackId;
                 return empmap;
             }
+        }
+
+
+        // Running 
+        public List<T> QueryData<T>(string QueryString , SqlParameter[] Params)
+        {
+            List<T> _Sp = db.Database.SqlQuery<T>(QueryString, Params).ToList();
+            return _Sp;
         }
 
 
@@ -71,6 +87,11 @@ namespace BusineesLayer.Managers
     {
         public int? TrackId { get; set; }
         public int? BranchId { get; set; }
+    }
+    public class InstructorCurrent
+    {
+        public int? ProgramID { get; set; }
+        public int? IntakeID { get; set; }
     }
     public class EmployeetAutherization
     {
