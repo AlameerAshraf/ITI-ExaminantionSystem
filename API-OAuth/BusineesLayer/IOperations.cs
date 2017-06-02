@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -19,6 +22,8 @@ namespace BusineesLayer
         bool Update(T EntityToUpdate);
         void Save();
         int Count();
+
+        DbSqlQuery<T> QueryData(string SP, SqlParameter[] Params);
     }
 }
 

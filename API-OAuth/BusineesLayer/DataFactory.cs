@@ -4,7 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using DataAccessLayer.Models;
 using System.Data.Entity;
-
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace BusineesLayer
 {
@@ -60,23 +61,18 @@ namespace BusineesLayer
             return DFlag; 
         }
 
-        public bool Delete(T EntityToDelete)
+        public bool DeleteEntity(T EntityToDelete)
         {
-            bool DFalgo = false; 
+            bool DFalgo = false;
             if (EntityToDelete != null)
             {
                 _Data.Entry(EntityToDelete).State = EntityState.Deleted;
-                if (_Data.SaveChanges() > 0 )
+                if (_Data.SaveChanges() > 0)
                 {
                     DFalgo = true;
                 }
             }
-            return DFalgo; 
-        }
-
-        public bool DeleteEntity(T EntityToDelete)
-        {
-            throw new NotImplementedException();
+            return DFalgo;
         }
 
         public T FindBy(Expression<Func<T, bool>> Condition)
@@ -84,14 +80,6 @@ namespace BusineesLayer
             T query = _Data.Set<T>().Where(Condition).Single();
             return query;
         }
-
-
-        public IQueryable<T> FindListBy(Expression<Func<T, bool>> Condition) //FindBy(x => x.Some.Equals(somevlue))
-        {
-            IQueryable<T> query = _Data.Set<T>().Where(Condition);
-            return query;
-        }
-
 
         public IQueryable<T> GetAll()
         {
@@ -102,6 +90,11 @@ namespace BusineesLayer
         public T GetById(int id)
         {
             return _Data.Set<T>().Find(id);
+        }
+
+        public DbSqlQuery<T> QueryData(string SP, SqlParameter[] Params)
+        {
+            return _Data.Set<T>().SqlQuery(SP, Params);
         }
 
         public void Save()
