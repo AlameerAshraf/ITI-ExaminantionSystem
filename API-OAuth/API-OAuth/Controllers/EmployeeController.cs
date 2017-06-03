@@ -15,9 +15,9 @@ namespace API_OAuth.Controllers
         EmployeeManager Emp = new EmployeeManager();
 
         [System.Web.Http.HttpGet]
-        public EmployeetAutherization GetIntake()
+        public EmployeetAutherization EmployeeUserLogin(string UserName)
         {
-            return Emp.GetEmployeeData("emp1035");
+            return Emp.GetEmployeeData(UserName);
         }
 
 

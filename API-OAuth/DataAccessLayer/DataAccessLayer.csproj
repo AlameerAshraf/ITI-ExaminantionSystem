@@ -165,6 +165,9 @@
     <Compile Include="Models\GetTrackByBranch_Result.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InstructorCurrent_Result.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\InstructorNotification.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>

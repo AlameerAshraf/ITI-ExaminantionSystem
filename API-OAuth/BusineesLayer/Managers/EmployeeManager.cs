@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccessLayer.Models;
 using AutoMapper;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace BusineesLayer.Managers
 {
@@ -13,7 +14,6 @@ namespace BusineesLayer.Managers
     {
         DataBaseCTX db = new DataBaseCTX();
         int Intake = 0;
-        int Program = 0;
 
         public List<Employee> GetEmployees()
         {
@@ -27,6 +27,8 @@ namespace BusineesLayer.Managers
             // To get the Running Intake ...!
             // DateTime DateOfNow = DateTime.Now;
             // var Intake = db.Intakes.Where(x => x.StartDate <= DateOfNow && x.EndDate >= DateOfNow).Single().IntakeID;
+            //36 for test 
+            DateTime DateOfNow = DateTime.ParseExact("01/10/2015", "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
 
             Intake = 36;
@@ -35,28 +37,6 @@ namespace BusineesLayer.Managers
             var empmap = Mapper.Map<EmployeetAutherization>(emp);
             var EmpType = empmap.TypeID;
 
-
-            string SP_Current = "exec [dbo].[InstructorCurrent] @EmployeeID,@CurrentDate";
-            SqlParameter[] Params_Current = {
-                new SqlParameter("@EmployeeID",empmap.EmployeeID),
-                new SqlParameter("@CurrentDate",DateTime.Now)
-            };
-
-            List<InstructorCurrent> Sp = db.Database.SqlQuery<InstructorCurrent>(SP_Current, Params_Current).ToList();
-
-            foreach (var item in collection)
-            {
-
-            }
-
-            string SP_supervision = "exec [dbo].[IsSupervisor] @ProgramID,@IntakeID,@EmployeeID";
-            SqlParameter[] Params_supervision = {
-                new SqlParameter("@ProgramID",4),
-                new SqlParameter("@IntakeID" ,Intake),
-                new SqlParameter("@EmployeeID",empmap.EmployeeID)
-            };
-
-
             if (EmpType == 0)
             {
                 empmap.supervisiedTrackId = null; 
@@ -64,17 +44,45 @@ namespace BusineesLayer.Managers
             }
             else
             {
-                List<IsSupervisor> Stored = QueryData<IsSupervisor>(SP_supervision, Params_supervision);
-                empmap.supervisiedTrackId = Stored[0].TrackId;
-                return empmap;
+                // Get Instructor Porgrams ... !
+
+#region
+                string SP_Current = "exec [dbo].[InstructorCurrent] @EmployeeID,@CurrentDate";
+                List<SqlParameter> Params_Current = new List<SqlParameter>() {
+                    new SqlParameter("@EmployeeID",empmap.EmployeeID),
+                    new SqlParameter("@CurrentDate",DateOfNow)
+                };
+                List<InstructorCurrentProgramData> InstructorcurrentPros = QueryData<InstructorCurrentProgramData>(SP_Current, Params_Current);
+                empmap.InstructorPorgrams = InstructorcurrentPros;
+                #endregion
+
+
+                // Which Program the instructor is supervisior in  ... !
+ #region
+                string SP_supervision = "exec [dbo].[IsSupervisor] @ProgramID,@IntakeID,@EmployeeID";
+                List<SqlParameter> Params_supervision = new List<SqlParameter>() {
+                        new SqlParameter("@IntakeID" ,Intake),
+                        new SqlParameter("@EmployeeID",empmap.EmployeeID)
+                 };
+
+                #endregion
+
+                foreach (var item in empmap.InstructorPorgrams)
+                {
+                    Params_supervision.Add(new SqlParameter("@ProgramID", item.ProgramID));
+                    List <IsSupervisor> _Supervision = QueryData<IsSupervisor>(SP_supervision, Params_supervision);
+                    empmap.supervisiedTrackId = _Supervision[0].TrackId;
+                }
+            return empmap;
             }
         }
 
 
-        // Running 
-        public List<T> QueryData<T>(string QueryString , SqlParameter[] Params)
+        // Running Queries ! 
+        public List<T> QueryData<T>(string QueryString , List<SqlParameter> Params)
         {
-            List<T> _Sp = db.Database.SqlQuery<T>(QueryString, Params).ToList();
+            SqlParameter[] Paramters = Params.ToArray();
+            List<T> _Sp = db.Database.SqlQuery<T>(QueryString, Paramters).ToList();
             return _Sp;
         }
 
@@ -88,7 +96,7 @@ namespace BusineesLayer.Managers
         public int? TrackId { get; set; }
         public int? BranchId { get; set; }
     }
-    public class InstructorCurrent
+    public class InstructorCurrentProgramData
     {
         public int? ProgramID { get; set; }
         public int? IntakeID { get; set; }
@@ -103,5 +111,7 @@ namespace BusineesLayer.Managers
         public int? PlatformID { get; set; }
         public int? TypeID { get; set; }
         public int? supervisiedTrackId { get; set; }
+        public List<InstructorCurrentProgramData> InstructorPorgrams { get; set; }
     }
+
 }
