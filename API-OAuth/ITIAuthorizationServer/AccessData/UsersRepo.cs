@@ -15,17 +15,10 @@ namespace ITIAuthorizationServer.AccessData
         EmployeeManager EmpManager = new EmployeeManager();
 
 
-        public List<Employee> GetEmps(int AutherizationLevel)
+        public List<Employee> GetEmps()
         {
             EmpList = new List<Employee>();
-            if (AutherizationLevel == 1)
-            {
-                EmpList = EmpManager.GetEmployees();
-            }
-            else
-            {
-                EmpList = EmpManager.GetEmployees();
-            }
+            EmpList = EmpManager.GetEmployees();
             return EmpList;
         }
 

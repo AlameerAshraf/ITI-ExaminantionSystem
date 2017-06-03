@@ -3,15 +3,26 @@
 app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
 
 
-    $scope.TokenFetchs = function (userName, passWord) {
+    $scope.TokenFetchs = function (userName, passWord, Type) {
         var token = $scope.getCookie(userName);
         if (token !== "") {
-            console.log(token);
-            window.location.pathname = '/Student/AppProfile/' + userName;
-            alert(userName);
+            alert(userName + passWord + Type);
+            if (Type == "S")
+            {
+                window.location.pathname = '/Student/AppProfile/'+userName;
+            }
+            else if (Type == "E")
+            {
+                window.location.pathname = '/Employee/AppProfile/'+userName;
+            }
         }
         else {
-            $scope.sendData(userName, passWord);
+            if (Type == "S") {
+                $scope.sendData(userName, passWord,"2");
+            }
+            else if (Type == "E") {
+                $scope.sendData(userName, passWord,"1");
+            }
         }
     }
 
@@ -34,11 +45,10 @@ app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
 
-    $scope.sendData = function (userName, passWord) {
-
+    $scope.sendData = function (userName, passWord, Type) {
         var ClientId = '123456'
         var ClientSecret = 'abcdef'
-        var LogType = "3"
+        var LogType = Type
         var ClientType = 'android'
         var ClientVersion = '19'
         var data = "grant_type=password&username=" + userName + "&password=" + passWord + "&Client_Id=" + ClientId +
@@ -48,9 +58,15 @@ app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
             .then(function (data) {
                 var AccTok = data.data.access_token;
                 var date = new Date();
-                var Expire = date.setDate(date.getDate() + 10); 
+                if (document.getElementById("Cb").checked == true) {
+                    var Expire = date.setDate(date.getDay() + 10);
+                    console.log("Save")
+                }
+                else {
+                    var Expire = date.setMinutes(date.getMinutes() + 30);
+                    console.log("Don't Save")
+                }
                 var cdate = new Date(Expire)
-                console.log(cdate);
                 $scope.setCookie(userName, AccTok, cdate);
             })
             ,(function (data) {

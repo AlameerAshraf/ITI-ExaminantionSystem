@@ -124,7 +124,7 @@ namespace ITIAuthorizationServer
             if (loginType == 1)
             {
                 var Repos = new UsersRepo();
-                emp = Repos.GetEmps(1).FirstOrDefault(x => x.IPassword == context.Password && x.UserName2 == context.UserName);
+                emp = Repos.GetEmps().FirstOrDefault(x => x.IPassword == context.Password && x.UserName2 == context.UserName);
 
                 if (emp != null)
                 {
@@ -137,14 +137,7 @@ namespace ITIAuthorizationServer
                     },
                     {
                         "EmployeeName", emp.InstructorName
-                    },
-                    {
-                        "ViewSchedule", "true"
-                    },
-                    {
-                        "ViewEvaluation", "false"
                     }
-
                 });
                     var ticket = new AuthenticationTicket(identity, props);
                     context.Validated(ticket);
@@ -190,36 +183,7 @@ namespace ITIAuthorizationServer
                 }
             }
 
-            //Examiner
-            var Examiner = (Employee)null;
-            if (loginType == 3)
-            {
-                var Repos = new UsersRepo();
-                Examiner = Repos.GetEmps(3).Where(x => x.IPassword == context.Password && x.UserName2 == context.UserName).Single();
-
-                if (Examiner != null)
-                {
-                    identity.AddClaim(new Claim("role", "user"));
-                    identity.AddClaim(new Claim("guid", Examiner.EmployeeID.ToString()));
-                    var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    {
-                        "UserID", Examiner.EmployeeID.ToString()
-                    },
-                    {
-                        "EmployeeName", Examiner.InstructorName
-                    }
-                });
-                    var ticket = new AuthenticationTicket(identity, props);
-                    context.Validated(ticket);
-                }
-                else
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return Task.FromResult<object>(null);
-                }
-            }
-
+     
             return Task.FromResult<object>(null);
         }
 

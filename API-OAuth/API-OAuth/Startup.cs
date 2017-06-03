@@ -29,6 +29,7 @@ namespace API_OAuth
             WebApiConfig.Register(config);
             config.Filters.Add(new AuthorizeAttribute());
             app.UseWebApi(config);
+            app.MapSignalR();
 
             //config.AddODataQueryFilter(new InlineCountQueryableAttribute());
             //ODataConventionModelBuilder builder = new ODataConventionModelBuilder();

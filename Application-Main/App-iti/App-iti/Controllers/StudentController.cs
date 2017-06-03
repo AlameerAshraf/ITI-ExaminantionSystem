@@ -16,6 +16,7 @@ namespace App_iti.Controllers
     {
 
         HttpClient App;
+        string Replacable_URL = "http://localhost:51822"; 
         string Urle; 
 
         //Login
@@ -29,11 +30,11 @@ namespace App_iti.Controllers
         {
             var cookie_token = Request.Cookies[UserName];
             var access_token = cookie_token.Value;
-            var trav_access_token = ("Bearer" + " " + access_token).ToString();
+            var trav_access_token = ("Bearer"+" "+access_token).ToString();
 
 
             App = new HttpClient();
-            Urle = "http://localhost:51822/api/Student/StdUserLogin/?UName=" + UserName;
+            Urle = Replacable_URL+"/api/Student/StdUserLogin/?UName=" + UserName;
             //App.BaseAddress = new Uri(Url);
             //App.DefaultRequestHeaders.Accept.Clear();
             App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));

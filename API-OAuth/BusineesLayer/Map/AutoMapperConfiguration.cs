@@ -64,6 +64,12 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<NewDateExamForPermittedStudent, NewDateExamForPermittedStudentMap>()
                 .ForMember(dto => dto.Std_Id, conf => conf.MapFrom(ol => ol.StudentBasicData.StudentID));
 
+                cfg.CreateMap<Question, QuestionMap>()
+                .ForMember(dto => dto.Topic_Name, conf => conf.MapFrom(ol => ol.TopicsInCourse.Topic_Name));
+
+                cfg.CreateMap<StudentAutherization, StudentBasicData>();
+                cfg.CreateMap<StudentBasicData, StudentAutherization>();
+
                 cfg.CreateMap<Notification, NotificationMap>();
                 cfg.CreateMap<NotificationMap, Notification>();
 
@@ -79,7 +85,6 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<DepartmentsExam, DepartmentsExamMap>();
                 cfg.CreateMap<DepartmentsExamMap, DepartmentsExam>();
 
-                cfg.CreateMap<StudentAutherization, StudentBasicData>().ReverseMap();
 
                 cfg.CreateMap<Student_Enrollment, Student_EnrollmentMap>()
                 .ReverseMap();

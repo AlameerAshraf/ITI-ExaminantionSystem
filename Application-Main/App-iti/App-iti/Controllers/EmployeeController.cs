@@ -1,6 +1,10 @@
-﻿using System;
+﻿using BusineesLayer.Managers;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,22 +12,35 @@ namespace App_iti.Controllers
 {
     public class EmployeeController : Controller
     {
+
+        HttpClient App;
+        string Replacable_URL = "http://localhost:51822";
+        string Urle;
+
         // Employee Login 
         public ActionResult AppUser()
         {
             return View();
         }
 
-        // Employee Home 
-        public ActionResult Home()
+        public async Task<ActionResult> AppProfile(string UserName)
         {
-            var value = (string) null;
-            var cookie = Request.Cookies["access_token"];
-            if (cookie != null)
-            {
-                value = cookie.Value;
-            }
-            return Content("Access Token:" +value.ToString());
+            var cookie_token = Request.Cookies[UserName];
+            var access_token = cookie_token.Value;
+            var trav_access_token = ("Bearer"+" "+access_token).ToString();
+
+
+            App = new HttpClient();
+            Urle = Replacable_URL+ "/api/Employee/EmployeeUserLogin?UserName=" + UserName;
+            App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            App.DefaultRequestHeaders.Add("Authorization", trav_access_token);
+            HttpResponseMessage Response = await App.GetAsync(Urle);
+            var responseData = Response.Content.ReadAsStringAsync().Result;
+            var EmpData = JsonConvert.DeserializeObject<EmployeetAutherization>(responseData);
+
+            return Content(EmpData.InstructorName + "Is Logged In");
         }
+
+
     }
 }

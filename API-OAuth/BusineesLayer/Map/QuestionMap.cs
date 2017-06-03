@@ -18,11 +18,7 @@ namespace BusineesLayer.Map
         public Nullable<int> Topic_Id { get; set; }
         public Nullable<int> Ins_Id { get; set; }
         public Nullable<bool> Points_Indicator { get; set; }
-        
-        public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
-        public virtual ICollection<QuestionsInExam> QuestionsInExams { get; set; }
-        public virtual ICollection<StudentMultiAnswersQuestion> StudentMultiAnswersQuestions { get; set; }
-        public virtual ICollection<Question> Questions1 { get; set; }
-        public virtual ICollection<Question> Questions { get; set; }
+
+        public string Topic_Name { get; set; }
     }
 }
