@@ -21,6 +21,7 @@ namespace API_OAuth
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfiguration.Configure();
 
+
             HttpConfiguration config = GlobalConfiguration.Configuration;
 
             config.Formatters.JsonFormatter

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace App_iti.Controllers
 {
@@ -39,6 +40,17 @@ namespace App_iti.Controllers
             var EmpData = JsonConvert.DeserializeObject<EmployeetAutherization>(responseData);
 
             return Content(EmpData.InstructorName + "Is Logged In");
+        }
+
+
+        public ActionResult SignalREmp1()
+        {
+            return View();
+        }
+
+        public ActionResult SignalREmp2()
+        {
+            return View();
         }
 
 

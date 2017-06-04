@@ -14,7 +14,7 @@ namespace App_iti
     {
         public void Configuration(IAppBuilder app)
         {
-
+            app.MapSignalR();
         }
     }
 }

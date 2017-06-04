@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <title>SignalREmp2</title>
+</head>
+<body>
+    <div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            console.log("As")
+            var exam = $.connection.examHub ;
+            $.connection.hub.qs = { "name": "AlameerEmp2", "Id": 55896, "Track": "SD" };
+
+            exam.client.broadCast = function (name, message) {
+                alert(name + "" + message);
+            }
+
+            exam.client.broadcast2 = function (messages) {
+                console.log(messages);
+                alert("As");
+                console.log("asassa");
+            }
+
+            $.connection.hub.start().done(function () {
+                exam.server.send("Alameer", "Hi");
+            });
+        });
+    </script>
+</body>
+
+</html>

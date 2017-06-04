@@ -28,9 +28,22 @@ namespace API_OAuth.Controllers
         {
         }
 
+        public void UseTest([FromBody]Use obj)
+        {
+        }
+
         // DELETE api/values/5
         public void Delete(int id)
         {
         }
+
+
+
+    }
+
+    public class Use
+    {
+        public int id { get; set; }
+        public string name { get; set; }
     }
 }

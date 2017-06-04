@@ -29,6 +29,7 @@ namespace API_OAuth
             WebApiConfig.Register(config);
             config.Filters.Add(new AuthorizeAttribute());
             app.UseWebApi(config);
+
             app.MapSignalR();
 
             //config.AddODataQueryFilter(new InlineCountQueryableAttribute());
@@ -48,6 +49,6 @@ namespace API_OAuth
             //config.Routes.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
             //AutoMapperConfiguration.Configure();
         }
-      
+
     }
 }
