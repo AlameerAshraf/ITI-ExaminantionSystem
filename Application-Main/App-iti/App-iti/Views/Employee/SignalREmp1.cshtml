@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width" />
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
-    <script src="/signalr/hubs"></script>
+    <script src="http://localhost:51822/signalr/hubs"></script>
     <title>SignalREmp1</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            console.log("As")
+            $.connection.hub.url = "http://localhost:51822/signalr";
             var exam = $.connection.examHub;
             var target = 55896;
             $.connection.hub.qs = { "name": "AlameerEmp1", "Id": 25874, "Track": "SD" };

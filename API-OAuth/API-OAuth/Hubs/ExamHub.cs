@@ -8,9 +8,8 @@ using Microsoft.AspNet.SignalR.Hubs;
 using DataAccessLayer.Models;
 using BusineesLayer.Managers;
 
-namespace App_iti.Hubs 
+namespace API_OAuth.Hubs 
 {
-    /*
     public class ExamHub : Hub
     {
         static List<Users> Data = new List<Users>();
@@ -27,9 +26,9 @@ namespace App_iti.Hubs
 
         public override Task OnConnected()
         {
-            StudentMananger std = new StudentMananger();
-            var t = std.GetStudents();
-            var username = Context.User.Identity.Name; 
+            //StudentMananger std = new StudentMananger();
+            //var t = std.GetStudents();
+           // var username = Context.User.Identity.Name; 
             var myQS = Context.QueryString["name"];
             var Track = Context.QueryString["Track"];
             var id = Context.QueryString["Id"];
@@ -44,5 +43,4 @@ namespace App_iti.Hubs
         public int id { get; set; }
         public string Cid { get; set; }
     }
-    */
 }

@@ -61,6 +61,7 @@ app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
                 if (document.getElementById("Cb").checked == true) {
                     var Expire = date.setDate(date.getDay() + 10);
                     console.log("Save")
+                    console.log("assa")
                 }
                 else {
                     var Expire = date.setMinutes(date.getMinutes() + 30);
@@ -68,6 +69,13 @@ app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
                 }
                 var cdate = new Date(Expire)
                 $scope.setCookie(userName, AccTok, cdate);
+
+                if (Type == "2") {
+                    window.location.pathname = '/Student/AppProfile/' + userName;
+                }
+                else if (Type == "1") {
+                    window.location.pathname = '/Employee/AppProfile/' + userName;
+                }
             })
             ,(function (data) {
                 alert(data)

@@ -344,6 +344,8 @@
     <Content Include="Views\Employee\SignalR.cshtml" />
     <Content Include="Views\Employee\SignalREmp2.cshtml" />
     <Content Include="Views\Employee\SignalREmp1.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage-test.cshtml" />
+    <Content Include="Views\Employee\AppProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

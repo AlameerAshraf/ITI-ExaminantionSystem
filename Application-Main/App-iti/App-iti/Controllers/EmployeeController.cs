@@ -28,18 +28,18 @@ namespace App_iti.Controllers
         {
             var cookie_token = Request.Cookies[UserName];
             var access_token = cookie_token.Value;
-            var trav_access_token = ("Bearer"+" "+access_token).ToString();
+            var trav_access_token = ("Bearer"+" " + access_token).ToString();
 
 
             App = new HttpClient();
-            Urle = Replacable_URL+ "/api/Employee/EmployeeUserLogin?UserName=" + UserName;
+            Urle = Replacable_URL + "/api/Employee/EmployeeUserLogin?UserName=" + UserName;
             App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             App.DefaultRequestHeaders.Add("Authorization", trav_access_token);
             HttpResponseMessage Response = await App.GetAsync(Urle);
             var responseData = Response.Content.ReadAsStringAsync().Result;
             var EmpData = JsonConvert.DeserializeObject<EmployeetAutherization>(responseData);
 
-            return Content(EmpData.InstructorName + "Is Logged In");
+            return View(EmpData);
         }
 
 

@@ -1,0 +1,19 @@
+﻿@using BusineesLayer.Managers
+@model EmployeetAutherization
+
+@{
+    var name = Model.InstructorName;
+    ViewBag.Title = name + "Profile"; 
+    Layout = "~/Views/Shared/_Layout-1.cshtml";
+}
+
+<h2>AppProfile</h2>
+
+@section scripts{
+    <script>
+        $(function () {
+            console.log(@Model.InstructorName + @Model.PlatformID);
+        })
+    </script>
+    }
+

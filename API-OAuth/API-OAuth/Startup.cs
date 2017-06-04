@@ -14,7 +14,8 @@ using DataAccessLayer.Models;
 using BusineesLayer;
 using Microsoft.Data.Edm.Library;
 using System.Web.Hosting;
-using Swashbuckle.Application;
+using Microsoft.Owin.Cors;
+using Microsoft.AspNet.SignalR;
 
 [assembly: OwinStartup(typeof(API_OAuth.Startup))]
 
@@ -24,13 +25,24 @@ namespace API_OAuth
     {
         public void Configuration(IAppBuilder app)
         {
+            app.Map("/signalr", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+                var hubConfiguration = new HubConfiguration
+                {
+                };
+                hubConfiguration.EnableDetailedErrors = true;
+                map.RunSignalR(hubConfiguration);
+            });
             HttpConfiguration config = new HttpConfiguration();
+            app.UseCors(CorsOptions.AllowAll);
+
             ConfigureAuth(app);
             WebApiConfig.Register(config);
-            config.Filters.Add(new AuthorizeAttribute());
+            config.Filters.Add(new System.Web.Http.AuthorizeAttribute());
             app.UseWebApi(config);
 
-            app.MapSignalR();
+           // app.MapSignalR();
 
             //config.AddODataQueryFilter(new InlineCountQueryableAttribute());
             //ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
