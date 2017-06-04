@@ -32,6 +32,12 @@ namespace API_OAuth.Controllers
         {
         }
 
+        [HttpDelete]
+        public void DeleteTest([FromUri] int id)
+        {
+
+        }
+
         // DELETE api/values/5
         public void Delete(int id)
         {

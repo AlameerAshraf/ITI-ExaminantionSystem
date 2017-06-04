@@ -30,6 +30,16 @@ namespace App_iti.Controllers
             return Content(response.Content.ReadAsStringAsync().Result);
         }
 
+        HttpClient client; 
+        public ActionResult DeleteTest()
+        {
+            client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "bearer ezFSrM3EdKJzqAlXsUjRT2GBUVy9L__E5SeqxZ8fEIQosBGvhGqNanIw5d5vtxJnkVgHmTaVvPEh2A_tyO6EWDSU4KIQKvSRlG8d8BdmIoNqD_slGSb3xRcKIHaeuxYKZ4y6pS0tS3bLriCbrnup_-GxFbBeJqblHGbNQbaTwI8xJ7uOzkfvY-JCGd5rJ5LI8B01WvGpwGTiynVnLw-d4gTgjhXD3pmaI1_lUEolNPf1WlfAR1v5ZmJjSTWgwC7mj1YoLxleHmfVYJ7_DkUOPZxiPPBM0ZxtButKJNGXrak");
+            var response = client.DeleteAsync("http://localhost:51822/api/Values/DeleteTest/10").Result;
+
+            return Content(response.ToString());
+        }
+
     }
 
     public class Use
