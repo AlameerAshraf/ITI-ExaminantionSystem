@@ -34,10 +34,16 @@ namespace API_OAuth.Hubs
             EmpConObj.Emp_Id = int.Parse(id);
             EmpConObj.Connection_Ids = Guid.Parse(Context.ConnectionId);
 
-            nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
+          //  nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
 
 
             return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled = true)
+        {
+            var t = Context.ConnectionId; 
+            return base.OnDisconnected(stopCalled);
         }
     }
 }

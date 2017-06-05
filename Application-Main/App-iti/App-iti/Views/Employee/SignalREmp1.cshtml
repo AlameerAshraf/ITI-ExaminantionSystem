@@ -27,6 +27,7 @@
             exam.client.broadCast = function (name, message) {
                 alert(name + "" + message);
             }
+
             $.connection.hub.start().done(function () {
                 exam.server.send("Alameer", "Hi");
                 $("#test").click(function () {
