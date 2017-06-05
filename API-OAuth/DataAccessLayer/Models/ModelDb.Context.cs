@@ -69,6 +69,7 @@ namespace DataAccessLayer.Models
         public virtual DbSet<TopicsInCourse> TopicsInCourses { get; set; }
         public virtual DbSet<CoursesDataView> CoursesDataViews { get; set; }
         public virtual DbSet<Employee_metadata> Employee_metadata { get; set; }
+        public virtual DbSet<EmployeeConnectionId> EmployeeConnectionIds { get; set; }
     
         [DbFunction("DataBaseCTX", "CoursePerBranchandtrack")]
         public virtual IQueryable<CoursePerBranchandtrack_Result> CoursePerBranchandtrack(Nullable<int> parameter1, Nullable<int> parameter2)

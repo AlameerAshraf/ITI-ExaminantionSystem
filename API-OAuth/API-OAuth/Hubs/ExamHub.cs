@@ -12,7 +12,8 @@ namespace API_OAuth.Hubs
 {
     public class ExamHub : Hub
     {
-        static List<Users> Data = new List<Users>();
+        NotificationManager nm = new NotificationManager();
+        EmployeeConnectionId EmpConObj; 
         public void Send(string name , string message)
         {
             Clients.All.broadcast(name, message);
@@ -20,27 +21,23 @@ namespace API_OAuth.Hubs
 
         public void SendToPerson(int id , string messages)
         {
-            Users i =  Data.Find(W => W.id == id);
-            Clients.Client(i.Cid).broadcast2(messages);
+            Clients.Client(Context.ConnectionId).broadcast2(messages);
         }
 
         public override Task OnConnected()
         {
-            //StudentMananger std = new StudentMananger();
-            //var t = std.GetStudents();
-           // var username = Context.User.Identity.Name; 
-            var myQS = Context.QueryString["name"];
+            var Type = Context.QueryString["Type"];
             var Track = Context.QueryString["Track"];
             var id = Context.QueryString["Id"];
-            var cid = Context.ConnectionId;
-            Data.Add(new Users { id = int.Parse(id), Cid = cid });
+
+            EmpConObj = new EmployeeConnectionId();
+            EmpConObj.Emp_Id = int.Parse(id);
+            EmpConObj.Connection_Ids = Guid.Parse(Context.ConnectionId);
+
+            nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
+
+
             return base.OnConnected();
         }
-    }
-
-    public class Users
-    {
-        public int id { get; set; }
-        public string Cid { get; set; }
     }
 }

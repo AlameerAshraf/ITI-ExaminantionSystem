@@ -22,7 +22,7 @@
             $.connection.hub.url = "http://localhost:51822/signalr";
             var exam = $.connection.examHub;
             var target = 55896;
-            $.connection.hub.qs = { "name": "AlameerEmp1", "Id": 25874, "Track": "SD" };
+            $.connection.hub.qs = { "name": "Emplyee1034", "Id": 1034, "Track": "SD" , "Type" : 0 };
 
             exam.client.broadCast = function (name, message) {
                 alert(name + "" + message);

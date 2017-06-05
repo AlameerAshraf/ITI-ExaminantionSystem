@@ -102,6 +102,9 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeConnectionId.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeNotification.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>

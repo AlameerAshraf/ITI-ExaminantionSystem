@@ -297,13 +297,21 @@
           <Property Name="PlatformIntakeID" Type="int" Nullable="false" />
           <Property Name="Exam_Date" Type="date" />
         </EntityType>
+        <EntityType Name="EmployeeConnectionIds">
+          <Key>
+            <PropertyRef Name="Emp_Id" />
+            <PropertyRef Name="Connection_Ids" />
+          </Key>
+          <Property Name="Emp_Id" Type="int" Nullable="false" />
+          <Property Name="Connection_Ids" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmployeeNotifications">
           <Key>
             <PropertyRef Name="Notify_Id" />
           </Key>
           <Property Name="Emp_Id" Type="int" Nullable="false" />
           <Property Name="Notification_Id" Type="int" Nullable="false" />
-          <Property Name="Notify_Id" Type="int" Nullable="false" />
+          <Property Name="Notify_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Exams">
           <Key>
@@ -425,7 +433,7 @@
           </Key>
           <Property Name="Student_Id" Type="int" Nullable="false" />
           <Property Name="Notification_Id" Type="int" Nullable="false" />
-          <Property Name="Notify_Id" Type="int" Nullable="false" />
+          <Property Name="Notify_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="StudentPermissionInExam">
           <Key>
@@ -450,7 +458,7 @@
           </Key>
           <Property Name="Supervisior_Id" Type="int" Nullable="false" />
           <Property Name="Notification_Id" Type="int" Nullable="false" />
-          <Property Name="Notify_Id" Type="int" Nullable="false" />
+          <Property Name="Notify_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="SupervisiorsConnectionIds">
           <Key>
@@ -560,6 +568,18 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="PlatformID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeConnectionIds_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeConnectionIds" Type="Self.EmployeeConnectionIds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeConnectionIds">
+              <PropertyRef Name="Emp_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1248,6 +1268,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="TrackManual" EntityType="Self.TrackManual" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackSupervisor" EntityType="Self.TrackSupervisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentsExam" EntityType="Self.DepartmentsExam" Schema="Examination" store:Type="Tables" />
+          <EntitySet Name="EmployeeConnectionIds" EntityType="Self.EmployeeConnectionIds" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="EmployeeNotifications" EntityType="Self.EmployeeNotifications" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="Exams" EntityType="Self.Exams" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="ExternalInstructorAuthorization" EntityType="Self.ExternalInstructorAuthorization" Schema="Examination" store:Type="Tables" />
@@ -1310,6 +1331,10 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <AssociationSet Name="FK_Employee_Platform" Association="Self.FK_Employee_Platform">
             <End Role="Platform" EntitySet="Platform" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeConnectionIds_Employee" Association="Self.FK_EmployeeConnectionIds_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeConnectionIds" EntitySet="EmployeeConnectionIds" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeNotifications_Employee" Association="Self.FK_EmployeeNotifications_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -1651,6 +1676,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="SupervisiorsConnectionIds" Relationship="Self.FK_SupervisiorsConnectionIds_Employee" FromRole="Employee" ToRole="SupervisiorsConnectionIds" />
           <NavigationProperty Name="TrackManagers" Relationship="Self.FK_TrackManager_Employee" FromRole="Employee" ToRole="TrackManager" />
           <NavigationProperty Name="TrackSupervisors" Relationship="Self.FK_TrackSupervisor_Employee" FromRole="Employee" ToRole="TrackSupervisor" />
+          <NavigationProperty Name="EmployeeConnectionIds" Relationship="ExaminationNS.FK_EmployeeConnectionIds_Employee" FromRole="Employee" ToRole="EmployeeConnectionId" />
         </EntityType>
         <EntityType Name="EvaluationCriteria">
           <Key>
@@ -3053,6 +3079,11 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
             <Parameter Name="CurrentDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="EmployeeConnectionIds" EntityType="ExaminationNS.EmployeeConnectionId" />
+          <AssociationSet Name="FK_EmployeeConnectionIds_Employee" Association="ExaminationNS.FK_EmployeeConnectionIds_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeConnectionId" EntitySet="EmployeeConnectionIds" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetBranchByID_Result">
           <Property Type="Int32" Name="BranchID" Nullable="false" />
@@ -3311,6 +3342,27 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Type="Int32" Name="ProgramID" Nullable="false" />
           <Property Type="Int32" Name="IntakeID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="EmployeeConnectionId">
+          <Key>
+            <PropertyRef Name="Emp_Id" />
+            <PropertyRef Name="Connection_Ids" />
+          </Key>
+          <Property Name="Emp_Id" Type="Int32" Nullable="false" />
+          <Property Name="Connection_Ids" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="ExaminationNS.FK_EmployeeConnectionIds_Employee" FromRole="EmployeeConnectionId" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_EmployeeConnectionIds_Employee">
+          <End Type="ExaminationNS.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ExaminationNS.EmployeeConnectionId" Role="EmployeeConnectionId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeConnectionId">
+              <PropertyRef Name="Emp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4181,6 +4233,14 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EmployeeConnectionIds">
+            <EntityTypeMapping TypeName="ExaminationNS.EmployeeConnectionId">
+              <MappingFragment StoreEntitySet="EmployeeConnectionIds">
+                <ScalarProperty Name="Connection_Ids" ColumnName="Connection_Ids" />
+                <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

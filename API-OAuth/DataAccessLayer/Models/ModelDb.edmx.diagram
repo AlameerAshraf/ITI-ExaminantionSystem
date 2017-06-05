@@ -97,6 +97,8 @@
         <AssociationConnector Association="ExaminationNS.FK_QuestionsInExam_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_StudentMultiAnswersQuestion_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="ExaminationNS.FK_StudentMultiAnswersQuestion_StudentAnswerQuestionInExam" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ExaminationNS.EmployeeConnectionId" Width="1.5" PointX="7.5" PointY="45.625" />
+        <AssociationConnector Association="ExaminationNS.FK_EmployeeConnectionIds_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
