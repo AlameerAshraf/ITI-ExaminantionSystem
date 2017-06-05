@@ -56,7 +56,7 @@ namespace BusineesLayer
             _Data.Entry(Obj).State = EntityState.Deleted;
             if (_Data.SaveChanges()>0)
             {
-                DFlag = true;
+                return true;
             }
             return DFlag; 
         }

@@ -30,11 +30,13 @@ namespace API_OAuth.Hubs
             var Track = Context.QueryString["Track"];
             var id = Context.QueryString["Id"];
 
-            EmpConObj = new EmployeeConnectionId();
-            EmpConObj.Emp_Id = int.Parse(id);
-            EmpConObj.Connection_Ids = Guid.Parse(Context.ConnectionId);
+            EmpConObj = new EmployeeConnectionId()
+            {
+                Emp_Id = int.Parse(id),
+                Connection_Ids = Guid.Parse(Context.ConnectionId)
+            };
 
-          //  nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
+            nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
 
 
             return base.OnConnected();
@@ -42,7 +44,15 @@ namespace API_OAuth.Hubs
 
         public override Task OnDisconnected(bool stopCalled = true)
         {
-            var t = Context.ConnectionId; 
+            var Type = Context.QueryString["Type"];
+            var id = Context.QueryString["Id"];
+
+            var DisConnObj = new EmployeeConnectionId()
+            {
+                Connection_Ids = Guid.Parse(Context.ConnectionId),
+                Emp_Id = int.Parse(id)
+            };
+            nm.UnListConnectedEmployee(int.Parse(Type), DisConnObj);
             return base.OnDisconnected(stopCalled);
         }
     }
