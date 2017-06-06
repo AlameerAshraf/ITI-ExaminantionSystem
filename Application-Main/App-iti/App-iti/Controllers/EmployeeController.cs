@@ -28,7 +28,7 @@ namespace App_iti.Controllers
         {
             var cookie_token = Request.Cookies[UserName];
             var access_token = cookie_token.Value;
-            var trav_access_token = ("Bearer"+" " + access_token).ToString();
+            var trav_access_token = ("Bearer"+" "+access_token).ToString();
 
 
             App = new HttpClient();
@@ -52,7 +52,6 @@ namespace App_iti.Controllers
         {
             return View();
         }
-
 
     }
 }

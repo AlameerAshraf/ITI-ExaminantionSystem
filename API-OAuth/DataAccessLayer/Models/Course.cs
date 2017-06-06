@@ -18,6 +18,7 @@ namespace DataAccessLayer.Models
         public Course()
         {
             this.CourseManuals = new HashSet<CourseManual>();
+            this.InstructorCourseSims = new HashSet<InstructorCourseSim>();
         }
     
         public int CourseID { get; set; }
@@ -26,5 +27,7 @@ namespace DataAccessLayer.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseManual> CourseManuals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InstructorCourseSim> InstructorCourseSims { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace DataAccessLayer.Models
             this.TrackManagers = new HashSet<TrackManager>();
             this.TrackSupervisors = new HashSet<TrackSupervisor>();
             this.EmployeeConnectionIds = new HashSet<EmployeeConnectionId>();
+            this.InstructorCourseSims = new HashSet<InstructorCourseSim>();
         }
     
         public int EmployeeID { get; set; }
@@ -112,5 +113,7 @@ namespace DataAccessLayer.Models
         public virtual ICollection<TrackSupervisor> TrackSupervisors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeConnectionId> EmployeeConnectionIds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InstructorCourseSim> InstructorCourseSims { get; set; }
     }
 }

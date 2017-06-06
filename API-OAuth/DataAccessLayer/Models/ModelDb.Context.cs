@@ -70,6 +70,7 @@ namespace DataAccessLayer.Models
         public virtual DbSet<CoursesDataView> CoursesDataViews { get; set; }
         public virtual DbSet<Employee_metadata> Employee_metadata { get; set; }
         public virtual DbSet<EmployeeConnectionId> EmployeeConnectionIds { get; set; }
+        public virtual DbSet<InstructorCourseSim> InstructorCourseSims { get; set; }
     
         [DbFunction("DataBaseCTX", "CoursePerBranchandtrack")]
         public virtual IQueryable<CoursePerBranchandtrack_Result> CoursePerBranchandtrack(Nullable<int> parameter1, Nullable<int> parameter2)
@@ -312,6 +313,48 @@ namespace DataAccessLayer.Models
                 new ObjectParameter("CurrentDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InstructorCurrent_Result>("InstructorCurrent", employeeIDParameter, currentDateParameter);
+        }
+    
+        public virtual ObjectResult<GetInstructorCourses_Result> GetInstructorCourses(Nullable<int> branchId, Nullable<int> platformId, Nullable<int> employeeId, Nullable<int> programId, Nullable<int> intakeId)
+        {
+            var branchIdParameter = branchId.HasValue ?
+                new ObjectParameter("branchId", branchId) :
+                new ObjectParameter("branchId", typeof(int));
+    
+            var platformIdParameter = platformId.HasValue ?
+                new ObjectParameter("platformId", platformId) :
+                new ObjectParameter("platformId", typeof(int));
+    
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(int));
+    
+            var programIdParameter = programId.HasValue ?
+                new ObjectParameter("programId", programId) :
+                new ObjectParameter("programId", typeof(int));
+    
+            var intakeIdParameter = intakeId.HasValue ?
+                new ObjectParameter("intakeId", intakeId) :
+                new ObjectParameter("intakeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInstructorCourses_Result>("GetInstructorCourses", branchIdParameter, platformIdParameter, employeeIdParameter, programIdParameter, intakeIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> InstructorCoursesEnrolled(Nullable<int> intakeid, Nullable<int> employeeID, Nullable<int> programID)
+        {
+            var intakeidParameter = intakeid.HasValue ?
+                new ObjectParameter("intakeid", intakeid) :
+                new ObjectParameter("intakeid", typeof(int));
+    
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InstructorCoursesEnrolled", intakeidParameter, employeeIDParameter, programIDParameter);
         }
     }
 }

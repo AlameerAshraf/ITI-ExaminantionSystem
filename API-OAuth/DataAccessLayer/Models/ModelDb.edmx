@@ -334,6 +334,16 @@
           <Property Name="Code" Type="int" Nullable="false" />
           <Property Name="Expiration_Date" Type="smalldatetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="InstructorCourseSim">
+          <Key>
+            <PropertyRef Name="row_id" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="courseID" Type="int" Nullable="false" />
+          <Property Name="platformID" Type="int" Nullable="false" />
+          <Property Name="ProgramIntkeID" Type="int" Nullable="false" />
+          <Property Name="row_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="InstructorNotifications">
           <Key>
             <PropertyRef Name="Notify_Id" />
@@ -656,6 +666,54 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Principal>
             <Dependent Role="ExternalInstructorAuthorization">
               <PropertyRef Name="Ins_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="InstructorCourseSim" Type="Self.InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="courseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="InstructorCourseSim" Type="Self.InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_Platform">
+          <End Role="Platform" Type="Self.Platform" Multiplicity="1" />
+          <End Role="InstructorCourseSim" Type="Self.InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platform">
+              <PropertyRef Name="PlatformID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="platformID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_ProgramIntake">
+          <End Role="ProgramIntake" Type="Self.ProgramIntake" Multiplicity="1" />
+          <End Role="InstructorCourseSim" Type="Self.InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramIntake">
+              <PropertyRef Name="ProgramIntakeID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="ProgramIntkeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1192,6 +1250,13 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
         <Function Name="GetEmployeeByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetInstructorCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="branchId" Type="int" Mode="In" />
+          <Parameter Name="platformId" Type="int" Mode="In" />
+          <Parameter Name="employeeId" Type="int" Mode="In" />
+          <Parameter Name="programId" Type="int" Mode="In" />
+          <Parameter Name="intakeId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetLastIntake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetStudentByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
@@ -1213,6 +1278,11 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
         </Function>
         <Function Name="GetTrackByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InstructorCoursesEnrolled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="intakeid" Type="int" Mode="In" />
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="ProgramID" Type="int" Mode="In" />
         </Function>
         <Function Name="InstructorCurrent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployeeID" Type="int" Mode="In" />
@@ -1272,6 +1342,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="EmployeeNotifications" EntityType="Self.EmployeeNotifications" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="Exams" EntityType="Self.Exams" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="ExternalInstructorAuthorization" EntityType="Self.ExternalInstructorAuthorization" Schema="Examination" store:Type="Tables" />
+          <EntitySet Name="InstructorCourseSim" EntityType="Self.InstructorCourseSim" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="InstructorNotifications" EntityType="Self.InstructorNotifications" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="InstructorsConnectionIds" EntityType="Self.InstructorsConnectionIds" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="NewDateExamForPermittedStudent" EntityType="Self.NewDateExamForPermittedStudent" Schema="Examination" store:Type="Tables" />
@@ -1359,6 +1430,22 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <AssociationSet Name="FK_ExternalInstructorAuthorization_Employee" Association="Self.FK_ExternalInstructorAuthorization_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="ExternalInstructorAuthorization" EntitySet="ExternalInstructorAuthorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_Course" Association="Self.FK_InstructorCourseSim_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_Employee" Association="Self.FK_InstructorCourseSim_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_Platform" Association="Self.FK_InstructorCourseSim_Platform">
+            <End Role="Platform" EntitySet="Platform" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_ProgramIntake" Association="Self.FK_InstructorCourseSim_ProgramIntake">
+            <End Role="ProgramIntake" EntitySet="ProgramIntake" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSim" />
           </AssociationSet>
           <AssociationSet Name="FK_InstructorNotifications_Employee" Association="Self.FK_InstructorNotifications_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -1549,6 +1636,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Name="CourseName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" />
           <NavigationProperty Name="CourseManuals" Relationship="Self.FK_courseManual_Course" FromRole="Course" ToRole="CourseManual" />
+          <NavigationProperty Name="InstructorCourseSims" Relationship="ExaminationNS.FK_InstructorCourseSim_Course" FromRole="Course" ToRole="InstructorCourseSim" />
         </EntityType>
         <EntityType Name="CourseEvaluationItem">
           <Key>
@@ -1677,6 +1765,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="TrackManagers" Relationship="Self.FK_TrackManager_Employee" FromRole="Employee" ToRole="TrackManager" />
           <NavigationProperty Name="TrackSupervisors" Relationship="Self.FK_TrackSupervisor_Employee" FromRole="Employee" ToRole="TrackSupervisor" />
           <NavigationProperty Name="EmployeeConnectionIds" Relationship="ExaminationNS.FK_EmployeeConnectionIds_Employee" FromRole="Employee" ToRole="EmployeeConnectionId" />
+          <NavigationProperty Name="InstructorCourseSims" Relationship="ExaminationNS.FK_InstructorCourseSim_Employee" FromRole="Employee" ToRole="InstructorCourseSim" />
         </EntityType>
         <EntityType Name="EvaluationCriteria">
           <Key>
@@ -1716,6 +1805,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Platform" FromRole="Platform" ToRole="Employee" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Platform_Employee" FromRole="Platform" ToRole="Employee" />
           <NavigationProperty Name="PlatfromIntakes" Relationship="Self.FK_PlatfromIntake2_Platform" FromRole="Platform" ToRole="PlatfromIntake" />
+          <NavigationProperty Name="InstructorCourseSims" Relationship="ExaminationNS.FK_InstructorCourseSim_Platform" FromRole="Platform" ToRole="InstructorCourseSim" />
         </EntityType>
         <EntityType Name="PlatformDepartment">
           <Key>
@@ -1757,6 +1847,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Name="ProgramIntakeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="PlatfromIntakes" Relationship="Self.FK_PlatfromIntake2_ProgramIntake" FromRole="ProgramIntake" ToRole="PlatfromIntake" />
           <NavigationProperty Name="program" Relationship="Self.FK_ProgramIntake_programs" FromRole="ProgramIntake" ToRole="programs" />
+          <NavigationProperty Name="InstructorCourseSims" Relationship="ExaminationNS.FK_InstructorCourseSim_ProgramIntake" FromRole="ProgramIntake" ToRole="InstructorCourseSim" />
         </EntityType>
         <EntityType Name="program">
           <Key>
@@ -3084,6 +3175,35 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeConnectionId" EntitySet="EmployeeConnectionIds" />
           </AssociationSet>
+          <FunctionImport Name="GetInstructorCourses" ReturnType="Collection(ExaminationNS.GetInstructorCourses_Result)">
+            <Parameter Name="branchId" Mode="In" Type="Int32" />
+            <Parameter Name="platformId" Mode="In" Type="Int32" />
+            <Parameter Name="employeeId" Mode="In" Type="Int32" />
+            <Parameter Name="programId" Mode="In" Type="Int32" />
+            <Parameter Name="intakeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="InstructorCourseSims" EntityType="ExaminationNS.InstructorCourseSim" />
+          <AssociationSet Name="FK_InstructorCourseSim_Course" Association="ExaminationNS.FK_InstructorCourseSim_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_Employee" Association="ExaminationNS.FK_InstructorCourseSim_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_Platform" Association="ExaminationNS.FK_InstructorCourseSim_Platform">
+            <End Role="Platform" EntitySet="Platforms" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorCourseSim_ProgramIntake" Association="ExaminationNS.FK_InstructorCourseSim_ProgramIntake">
+            <End Role="ProgramIntake" EntitySet="ProgramIntakes" />
+            <End Role="InstructorCourseSim" EntitySet="InstructorCourseSims" />
+          </AssociationSet>
+          <FunctionImport Name="InstructorCoursesEnrolled" ReturnType="Collection(Int32)">
+            <Parameter Name="intakeid" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetBranchByID_Result">
           <Property Type="Int32" Name="BranchID" Nullable="false" />
@@ -3360,6 +3480,79 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Principal>
             <Dependent Role="EmployeeConnectionId">
               <PropertyRef Name="Emp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetInstructorCourses_Result">
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="Int32" Name="BranchID" Nullable="false" />
+          <Property Type="Int32" Name="IntakeID" Nullable="false" />
+          <Property Type="Int32" Name="ProgramID" Nullable="false" />
+          <Property Type="Int32" Name="subtrackID" Nullable="false" />
+          <Property Type="String" Name="subtrackName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="PlatformID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <EntityType Name="InstructorCourseSim">
+          <Key>
+            <PropertyRef Name="row_id" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="courseID" Type="Int32" Nullable="false" />
+          <Property Name="platformID" Type="Int32" Nullable="false" />
+          <Property Name="ProgramIntkeID" Type="Int32" Nullable="false" />
+          <Property Name="row_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Course" Relationship="ExaminationNS.FK_InstructorCourseSim_Course" FromRole="InstructorCourseSim" ToRole="Course" />
+          <NavigationProperty Name="Employee" Relationship="ExaminationNS.FK_InstructorCourseSim_Employee" FromRole="InstructorCourseSim" ToRole="Employee" />
+          <NavigationProperty Name="Platform" Relationship="ExaminationNS.FK_InstructorCourseSim_Platform" FromRole="InstructorCourseSim" ToRole="Platform" />
+          <NavigationProperty Name="ProgramIntake" Relationship="ExaminationNS.FK_InstructorCourseSim_ProgramIntake" FromRole="InstructorCourseSim" ToRole="ProgramIntake" />
+        </EntityType>
+        <Association Name="FK_InstructorCourseSim_Course">
+          <End Type="ExaminationNS.Course" Role="Course" Multiplicity="1" />
+          <End Type="ExaminationNS.InstructorCourseSim" Role="InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="courseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_Employee">
+          <End Type="ExaminationNS.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ExaminationNS.InstructorCourseSim" Role="InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_Platform">
+          <End Type="ExaminationNS.Platform" Role="Platform" Multiplicity="1" />
+          <End Type="ExaminationNS.InstructorCourseSim" Role="InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Platform">
+              <PropertyRef Name="PlatformID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="platformID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorCourseSim_ProgramIntake">
+          <End Type="ExaminationNS.ProgramIntake" Role="ProgramIntake" Multiplicity="1" />
+          <End Type="ExaminationNS.InstructorCourseSim" Role="InstructorCourseSim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramIntake">
+              <PropertyRef Name="ProgramIntakeID" />
+            </Principal>
+            <Dependent Role="InstructorCourseSim">
+              <PropertyRef Name="ProgramIntkeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4241,6 +4434,33 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetInstructorCourses" FunctionName="ExaminationNS.Store.GetInstructorCourses">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetInstructorCourses_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="IntakeID" ColumnName="IntakeID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="subtrackID" ColumnName="subtrackID" />
+                <ScalarProperty Name="subtrackName" ColumnName="subtrackName" />
+                <ScalarProperty Name="PlatformID" ColumnName="PlatformID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="InstructorCourseSims">
+            <EntityTypeMapping TypeName="ExaminationNS.InstructorCourseSim">
+              <MappingFragment StoreEntitySet="InstructorCourseSim">
+                <ScalarProperty Name="row_id" ColumnName="row_id" />
+                <ScalarProperty Name="ProgramIntkeID" ColumnName="ProgramIntkeID" />
+                <ScalarProperty Name="platformID" ColumnName="platformID" />
+                <ScalarProperty Name="courseID" ColumnName="courseID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InstructorCoursesEnrolled" FunctionName="ExaminationNS.Store.InstructorCoursesEnrolled" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

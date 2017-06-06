@@ -99,6 +99,11 @@
         <AssociationConnector Association="ExaminationNS.FK_StudentMultiAnswersQuestion_StudentAnswerQuestionInExam" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ExaminationNS.EmployeeConnectionId" Width="1.5" PointX="7.5" PointY="45.625" />
         <AssociationConnector Association="ExaminationNS.FK_EmployeeConnectionIds_Employee" />
+        <EntityTypeShape EntityType="ExaminationNS.InstructorCourseSim" Width="1.5" PointX="17.25" PointY="17.625" />
+        <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_Course" />
+        <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_Employee" />
+        <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_Platform" />
+        <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_ProgramIntake" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

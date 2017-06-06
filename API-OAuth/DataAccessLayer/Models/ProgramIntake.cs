@@ -18,6 +18,7 @@ namespace DataAccessLayer.Models
         public ProgramIntake()
         {
             this.PlatfromIntakes = new HashSet<PlatfromIntake>();
+            this.InstructorCourseSims = new HashSet<InstructorCourseSim>();
         }
     
         public int IntakeID { get; set; }
@@ -27,5 +28,7 @@ namespace DataAccessLayer.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlatfromIntake> PlatfromIntakes { get; set; }
         public virtual program program { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InstructorCourseSim> InstructorCourseSims { get; set; }
     }
 }

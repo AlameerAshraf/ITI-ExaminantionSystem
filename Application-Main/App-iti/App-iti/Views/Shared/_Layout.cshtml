@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="Examination">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- <link rel="stylesheet" href="./font-awesome/css/font-awesome.css"> -->
+    <!-- <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="~/fonts">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="./css/style.css">*@
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css">
+</head>
+<body>
+    <nav class="navbar-fixed-left navbar-inverse ">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                <div class="notification-msg">
+                    <a href="#">
+                        <span class="notification-title">Eng John Smith</span>
+                        <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                        <br>
+                        <div class="time text-right">3 mins ago</div>
+                    </a>
+                </div>
+                <div class="notification-msg">
+                    <a href="#">
+                        <span class="notification-title">Eng John Smith</span>
+                        <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                        <br>
+                        <div class="time text-right">3 mins ago</div>
+                    </a>
+                </div>
+                <div class="notification-msg">
+                    <a href="#">
+                        <span class="notification-title">Eng John Smith</span>
+                        <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                        <br>
+                        <div class="time text-right">3 mins ago</div>
+                    </a>
+                </div>
+                <div class="notification-msg">
+                    <a href="#">
+                        <span class="notification-title">Eng John Smith</span>
+                        <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                        <br>
+                        <div class="time text-right">3 mins ago</div>
+                    </a>
+                </div>
+                <div class="text-center notification-msg more">
+                    <a>
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right "></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar ">
+                <div id="profile" class="user-section text-center ">
+                    <div class="user-section-inner img-responsive ">
+                        <img class="shadow img-circle" src="~/Content/assets/img/user.jpg" alt="">
+                    </div>
+                    <div class="user-info">
+                        <h4>Ahmed mohamed</h4>
+                        <h5>Supervisor</h5>
+                    </div>
+                </div>
+                <li class="active">
+                    <a>
+                        <i class="fa fa-pencil"  ></i>
+                        Grades
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-calendar"  ></i>
+                        schadule
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-book"  ></i>
+                        Reports
+                    </a>
+                </li>
+                <li id="hidee"><a href="#"><span class="align"><i class="fa fa-sign-out pull-right"></i></span>Logout </a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+    <div class="container-fluid login-bar">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="login"><a href="#"><i class="fa fa-sign-out pull-right"></i>Logout</a></div>
+                <div class="notification">
+                    <a href="#" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-bell-o"  ></i>
+                        <span class="badge bg-green">6</span>
+                    </a>
+                    <div id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <div class="notification-msg">
+                            <a href="#">
+                                <span class="notification-title">Eng John Smith</span>
+                                <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                                <br>
+                                <div class="time text-right">3 mins ago</div>
+                            </a>
+                        </div>
+                        <div class="notification-msg">
+                            <a href="#">
+                                <span class="notification-title">Eng John Smith</span>
+                                <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                                <br>
+                                <div class="time text-right">3 mins ago</div>
+                            </a>
+                        </div>
+                        <div class="notification-msg">
+                            <a href="#">
+                                <span class="notification-title">Eng John Smith</span>
+                                <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                                <br>
+                                <div class="time text-right">3 mins ago</div>
+                            </a>
+                        </div>
+                        <div class="notification-msg">
+                            <a href="#">
+                                <span class="notification-title">Eng John Smith</span>
+                                <span class="notification-exam">Lorem Ipsum is simply dummy text of the printing and typesetting </span>
+                                <br>
+                                <div class="time text-right">3 mins ago</div>
+                            </a>
+                        </div>
+                        <div class="text-center notification-msg more">
+                            <a>
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right "></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+
+
+
+
+
+    @RenderSection("Scripts", required: false)
+
+    <!--jquery-->
+    <!-- <script src="lib/jQuery/jquery-3.1.1.js"></script>   offline -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--bootstrap-->
+    <!-- <script src="lib/bootstrap/js/bootstrap.js"></script>   offline -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--angular-->
+    <!-- <script src="lib/Angular/angular.js"></script>    offline -->
+    <!-- <script src="lib/Angular-Resource/angular-resource.min.js"></script>  offline -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.4/angular-resource.min.js"></script>
+    <!--date time directive -->
+    <!--   js file-->
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/Angular/Controllers/app.js"></script>
+    <script src="~/Scripts/jQuerySelect.js"></script>
+    <!-- moment JS -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+    <script src="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
+
+</body>
+</html>

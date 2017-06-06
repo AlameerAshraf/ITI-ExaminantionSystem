@@ -1,0 +1,276 @@
+@font-face {
+    font-family: myFirstFont;
+    src:  url(../fonts/roboto/Roboto-Regular.ttf);
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: myFirstFont;
+    background-image: url(../img/body.jpg)
+}
+/*          navbar             */
+
+.navbar-fixed-left {
+
+    position: fixed;
+    border-radius: 0;
+    height: 100%;
+}
+
+.navbar-fixed-left .navbar-nav > li {
+    float: none; /* Cancel default li float: left */
+    width: 139px;
+}
+
+.container {
+    padding-left: 233px;
+    box-sizing: border-box;
+}
+
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+    margin-top: -50px;
+    margin-left: 140px;
+}
+
+.navbar-collapse{
+    padding: 0px;
+}
+.navbar{
+    border:0px;
+
+}
+.navbar-inverse{
+    background-color: black;
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+
+}
+.active{
+    background-color: #B00404;
+    color:#fff;
+}
+.nav> li>a{
+    color: white;
+    padding: 20px 34px;
+    box-sizing: border-box;
+
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color:#B00404;
+}
+
+.nav> li> a > i{
+    margin-right: 18px;
+}
+
+/*         login icon            */
+
+
+#hidee{
+    display: none;
+}
+#login{
+    display: inline-block;
+    float: right;
+    margin-right: 40px;
+
+
+}
+.login-bar{
+    background-color:rgba(0, 0, 0, 0.79);
+    padding: 17px;
+
+}
+#login> a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.fa.pull-right{
+    margin-right: 0.8em;
+    margin-top: 3px;
+}
+
+
+.notification{
+    display: inline-block;
+    float: right;
+    margin-right: 30px;
+    
+}
+
+.bg-green{
+    background-color: #58B957;
+    position: relative;
+    bottom: 7px;
+    right: 12px;
+}
+
+.notification i{
+    font-size: 18px;
+    color: #fff;
+}
+
+.dropdown-menu{
+    position: absolute;
+    top: 100%;
+    right: 13%;
+    left: 60%;
+}
+
+.ul.msg_list li{
+    background: #f7f7f7;
+    padding: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 6px 6px 0;
+}
+
+/*drop down list*/
+
+.notification-msg{
+    background-color: #f0f0f0;
+    margin: 10px;
+    padding: 5px 5px 0px 5px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: 13px;
+  
+   
+}
+.notification-msg a{
+    color:#000000;
+    margin: 2px;
+}
+.notification-msg a:hover{
+    text-decoration: none;
+    
+}
+
+.notification-title{
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.notification-exam{
+    margin-left: 10px;
+}
+.time{
+    line-height: 0.1;
+    box-sizing: border-box;
+    color:#58B957;
+}
+
+.more{
+   padding: 11px;
+    margin-bottom: 5px;
+}
+
+.more i{
+        color: #000;
+    vertical-align: bottom;
+    margin-left: 5px;
+}
+/*         profile pic             */
+
+#profile{
+    background-color: #fff;
+    padding: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 16px;
+    box-sizing: border-box;
+
+}
+.shadow{
+    width:75%;
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+}
+
+.user-info{
+    font-weight:700;
+}
+
+.align{
+    display: inline-flex;
+    margin-right: 0.4em;
+}
+
+.page-header  {
+    margin-left: 17px;
+    color:#B00404;
+
+}
+.title{
+     color:#B00404;
+    font-size: 18px;
+}
+
+/*           main-content       */
+.main-content{
+   border-left:20px solid grey;
+   border-right:20px solid grey;
+   border-top:10px solid grey;
+   border-bottom:10px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.main-page-form{
+        background-color: white;
+    margin-top: 31px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+} 
+
+.btn-add{
+    background-color:#B00404;
+    padding: 10px;
+    box-sizing: border-box;
+    color:#ffffff;
+    margin-top: 50px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.btn-add:hover{
+    background-color:#000000;
+    color: #ffffff;
+}
+
+
+/*         media query          */
+
+@media screen and (max-width:764px) {
+    .navbar-fixed-left {
+        position: static;
+        border-radius: 0;
+        height: 100%;
+    }
+    .nav> li>a{
+        padding:10px 15px;
+    }
+    #profile{
+        background-color: black;
+        color: #fff;
+    }
+    .container{
+        padding-left: 5px;
+
+    }
+    .shadow{
+        width: 10%;
+        margin-left: 19px;
+        margin-bottom: 10px;
+    }
+    .navbar{
+        margin-bottom: 0px;
+    }
+    .main-page-form{
+        margin-bottom: 31px;
+    }
+}
+

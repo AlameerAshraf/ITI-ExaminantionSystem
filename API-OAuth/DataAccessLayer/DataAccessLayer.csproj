@@ -150,6 +150,9 @@
     <Compile Include="Models\GetInstIntake_Result.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetInstructorCourses_Result.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetLastIntake_Result.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
@@ -166,6 +169,9 @@
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetTrackByBranch_Result.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InstructorCourseSim.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InstructorCurrent_Result.cs">

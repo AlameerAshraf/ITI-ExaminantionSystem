@@ -73,7 +73,24 @@ namespace BusineesLayer.Managers
                     List <IsSupervisor> _Supervision = QueryData<IsSupervisor>(SP_supervision, Params_supervision);
                     empmap.supervisiedTrackId = _Supervision[0].TrackId;
                 }
-            return empmap;
+#region
+                // Which Courses He Teaches 
+                string SP_courses = "exec [dbo].[InstructorCoursesEnrolled] @intakeid,@EmployeeID,@ProgramID";
+                List<SqlParameter> Params_courses = new List<SqlParameter>() {
+                        new SqlParameter("@EmployeeID",empmap.EmployeeID),
+                        new SqlParameter("@intakeid",Intake)
+                 };
+
+                foreach (var item in empmap.InstructorPorgrams)
+                {
+                    Params_courses.Add(new SqlParameter("@ProgramID", item.ProgramID));
+                    List<InstructorCourses> _courses = QueryData<InstructorCourses>(SP_courses, Params_courses);
+                    empmap.InstructorCourses = _courses;
+                }
+
+                #endregion
+
+                return empmap;
             }
         }
 
@@ -101,6 +118,12 @@ namespace BusineesLayer.Managers
         public int? ProgramID { get; set; }
         public int? IntakeID { get; set; }
     }
+    public class InstructorCourses
+    {
+        public int CourseID { get; set; }
+        public int subtrackID { get; set; }
+        public int PlatformID { get; set; }
+    }
     public class EmployeetAutherization
     {
         public int EmployeeID { get; set; }
@@ -112,6 +135,7 @@ namespace BusineesLayer.Managers
         public int? TypeID { get; set; }
         public int? supervisiedTrackId { get; set; }
         public List<InstructorCurrentProgramData> InstructorPorgrams { get; set; }
+        public List<InstructorCourses> InstructorCourses { get; set; }
     }
 
 }
