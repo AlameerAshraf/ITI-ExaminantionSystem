@@ -21,6 +21,7 @@ using ITIAuthorizationServer.AccessData;
 using DataAccessLayer.Models;
 using Client = ITIAuthorizationServer.Models.Client;
 using BusineesLayer.Managers;
+using BusineesLayer.Map;
 
 namespace ITIAuthorizationServer
 {
@@ -167,10 +168,6 @@ namespace ITIAuthorizationServer
                     },
                     {
                         "StudentName", student.englishname
-                    },
-
-                    {
-                        "TrackID", student.SubTrackID.ToString()
                     }
                 });
                     var ticket = new AuthenticationTicket(identity, props);

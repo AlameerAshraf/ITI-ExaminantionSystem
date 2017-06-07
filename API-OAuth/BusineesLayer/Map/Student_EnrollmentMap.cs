@@ -8,8 +8,7 @@ namespace BusineesLayer.Map
 {
     public class Student_EnrollmentMap
     {
-        public int StudentEnrollmentID { get; set; }
-        public int? StudentID { get; set; }
-        public int? CourseInstanceDetailsID { get; set; }
+        public int? Course_ID { get; set; }
+        public string CourseName { get; set; }
     }
 }

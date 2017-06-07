@@ -1276,6 +1276,9 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Parameter Name="EvalID" Type="int" Mode="In" />
           <Parameter Name="Courseinstanceid" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetStudentsCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Std_Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetTrackByBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
         </Function>
@@ -3204,6 +3207,9 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
             <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetStudentsCourses" ReturnType="Collection(ExaminationNS.GetStudentsCourses_Result)">
+            <Parameter Name="Std_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetBranchByID_Result">
           <Property Type="Int32" Name="BranchID" Nullable="false" />
@@ -3556,6 +3562,10 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetStudentsCourses_Result">
+          <Property Type="Int32" Name="Course_ID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="true" MaxLength="150" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4461,6 +4471,14 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InstructorCoursesEnrolled" FunctionName="ExaminationNS.Store.InstructorCoursesEnrolled" />
+          <FunctionImportMapping FunctionImportName="GetStudentsCourses" FunctionName="ExaminationNS.Store.GetStudentsCourses">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExaminationNS.GetStudentsCourses_Result">
+                <ScalarProperty Name="Course_ID" ColumnName="Course_ID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

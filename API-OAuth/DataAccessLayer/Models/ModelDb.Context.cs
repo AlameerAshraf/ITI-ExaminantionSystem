@@ -356,5 +356,14 @@ namespace DataAccessLayer.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InstructorCoursesEnrolled", intakeidParameter, employeeIDParameter, programIDParameter);
         }
+    
+        public virtual ObjectResult<GetStudentsCourses_Result> GetStudentsCourses(Nullable<int> std_Id)
+        {
+            var std_IdParameter = std_Id.HasValue ?
+                new ObjectParameter("Std_Id", std_Id) :
+                new ObjectParameter("Std_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStudentsCourses_Result>("GetStudentsCourses", std_IdParameter);
+        }
     }
 }

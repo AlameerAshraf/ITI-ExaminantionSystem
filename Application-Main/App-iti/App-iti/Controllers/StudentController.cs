@@ -41,10 +41,10 @@ namespace App_iti.Controllers
             App.DefaultRequestHeaders.Add("Authorization",trav_access_token);
             HttpResponseMessage Response = await App.GetAsync(Urle);
             var responseData = Response.Content.ReadAsStringAsync().Result;
-            var StdData = JsonConvert.DeserializeObject<StudentMap>(responseData); 
-            
+            var StdData = JsonConvert.DeserializeObject<StudentMap>(responseData);
 
-            return Content(access_token + "is logged in");
+
+            return View(StdData);
         }
 
         

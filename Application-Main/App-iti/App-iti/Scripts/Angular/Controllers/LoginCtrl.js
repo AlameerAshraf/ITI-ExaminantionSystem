@@ -60,12 +60,9 @@ app.controller('LoginCtrl', ['$scope', '$http', function ($scope, $http) {
                 var date = new Date();
                 if (document.getElementById("Cb").checked == true) {
                     var Expire = date.setDate(date.getDay() + 10);
-                    console.log("Save")
-                    console.log("assa")
                 }
                 else {
                     var Expire = date.setMinutes(date.getMinutes() + 30);
-                    console.log("Don't Save")
                 }
                 var cdate = new Date(Expire)
                 $scope.setCookie(userName, AccTok, cdate);

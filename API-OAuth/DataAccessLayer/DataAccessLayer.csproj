@@ -168,6 +168,9 @@
     <Compile Include="Models\GetStudentDetails_Result.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetStudentsCourses_Result.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetTrackByBranch_Result.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
