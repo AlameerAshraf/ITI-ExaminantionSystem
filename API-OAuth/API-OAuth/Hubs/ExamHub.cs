@@ -27,6 +27,12 @@ namespace API_OAuth.Hubs
         public override Task OnConnected()
         {
             var Type = Context.QueryString["Type"];
+
+            if (Type == "2")
+            {
+                
+            }
+
             var Track = Context.QueryString["Track"];
             var id = Context.QueryString["Id"];
 
@@ -35,7 +41,6 @@ namespace API_OAuth.Hubs
                 Emp_Id = int.Parse(id),
                 Connection_Ids = Guid.Parse(Context.ConnectionId)
             };
-
             nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
 
 

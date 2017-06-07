@@ -22,12 +22,18 @@ namespace BusineesLayer.Managers
             bool RetVal = false;
             if (Type_Id == 0)
             {
-                db.EmployeeConnectionIds.Add(IcId);
-                if (db.SaveChanges() > 0)
+                bool Persisted = db.EmployeeConnectionIds.Where(x => x.Emp_Id == IcId.Emp_Id).Any();
+                if (Persisted != true)
                 {
-                    RetVal = true;
-                    return RetVal;
+                    db.EmployeeConnectionIds.Add(IcId);
+                    if (db.SaveChanges() > 0)
+                    {
+                        RetVal = true;
+                        return RetVal;
+                    }
                 }
+                else
+                    return RetVal; 
             }
             else if (Type_Id == 1)
             {
@@ -36,20 +42,25 @@ namespace BusineesLayer.Managers
                     Ins_Id = IcId.Emp_Id,
                     Connection_Ids = IcId.Connection_Ids
                 };
-                db.InstructorsConnectionIds.Add(ins);
-                if (db.SaveChanges() > 0)
+                bool Persisted = db.InstructorsConnectionIds.Where(x => x.Ins_Id == ins.Ins_Id).Any();
+                if (Persisted != true)
                 {
-                    RetVal = true;
-                    return RetVal;
+                    db.InstructorsConnectionIds.Add(ins);
+                    if (db.SaveChanges() > 0)
+                    {
+                        RetVal = true;
+                        return RetVal;
+                    }
                 }
+                else
+                    return RetVal;
             }
             return RetVal; 
         }
 
         // OnDisconnected Override !
-        public bool UnListConnectedEmployee(int Type_Id , EmployeeConnectionId IcId)
+        public void UnListConnectedEmployee(int Type_Id , EmployeeConnectionId IcId)
         {
-            bool RetVal = false;
             if(Type_Id == 0)
             {
                 db.Entry(IcId).State = System.Data.Entity.EntityState.Deleted;
@@ -61,9 +72,34 @@ namespace BusineesLayer.Managers
                 db.Entry(IcId).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
             }
+        }
+
+        #endregion
+
+#region
+        //Student OnConnected 
+        public bool ListConnectedStudents(StudentsConnectionId ScId)
+        {
+            bool RetVal = false;
+            bool Persisted = db.StudentsConnectionIds.Where(w => w.Std_Id == ScId.Std_Id).Any();
+            if (Persisted != true)
+            {
+                db.StudentsConnectionIds.Add(ScId);
+            }
+            else
+                return RetVal;
+
             return RetVal;
         }
 
+        //Student OnDisconnected 
+        public void UnListConnectedStudents(StudentsConnectionId ScId)
+        {
+            StudentsConnectionId obj = db.StudentsConnectionIds.Find(ScId.Std_Id);
+            db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+        }
 #endregion
+
     }
 }
