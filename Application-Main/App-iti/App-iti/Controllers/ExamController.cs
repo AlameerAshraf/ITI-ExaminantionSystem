@@ -15,7 +15,7 @@ namespace App_iti.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateExam(int Id)
+        public ActionResult CreateExam(int AccessSecret)
         {
             return Content("Done ,CreateExam");
         }

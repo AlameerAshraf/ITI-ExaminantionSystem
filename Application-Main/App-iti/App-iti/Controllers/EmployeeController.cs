@@ -65,11 +65,11 @@ namespace App_iti.Controllers
             {
                 int Secret_Token = SecretToken();
                 var Host = System.Web.HttpContext.Current.Request.UrlReferrer?.Authority;
-                var RedierctedLink = "https://" + Host + "/Exam/CreateExam/" + Secret_Token;
+                var RedierctedLink = "http://" + Host + "/Exam/CreateExam/?AccessSecret=" + Secret_Token;
 
                 var ExternalToken = new ExternalToken()
                 {
-                    Token = Secret_Token,
+                    Code = Secret_Token,
                     Ins_Id = Id,
                     Expire_Date = DateTime.Now.AddDays(2)
                 };
