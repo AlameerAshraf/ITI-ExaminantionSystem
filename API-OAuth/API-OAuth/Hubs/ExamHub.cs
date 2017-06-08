@@ -27,23 +27,26 @@ namespace API_OAuth.Hubs
         public override Task OnConnected()
         {
             var Type = Context.QueryString["Type"];
+            var id = Context.QueryString["Id"];
 
             if (Type == "2")
             {
-                
+                var StdObj = new StudentsConnectionId()
+                {
+                    Std_Id = int.Parse(id),
+                    Connection_Ids = Guid.Parse(Context.ConnectionId)
+                };
+                nm.ListConnectedStudents(StdObj);
             }
-
-            var Track = Context.QueryString["Track"];
-            var id = Context.QueryString["Id"];
-
-            EmpConObj = new EmployeeConnectionId()
+            else
             {
-                Emp_Id = int.Parse(id),
-                Connection_Ids = Guid.Parse(Context.ConnectionId)
-            };
-            nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
-
-
+                EmpConObj = new EmployeeConnectionId()
+                {
+                    Emp_Id = int.Parse(id),
+                    Connection_Ids = Guid.Parse(Context.ConnectionId)
+                };
+                nm.ListConnectedEmployee(int.Parse(Type), EmpConObj);
+            }
             return base.OnConnected();
         }
 

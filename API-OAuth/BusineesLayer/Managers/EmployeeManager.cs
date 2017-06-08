@@ -94,6 +94,22 @@ namespace BusineesLayer.Managers
             }
         }
 
+        public bool IsExternal(int Id)
+        {
+            Employee Obj = FindBy(e => e.EmployeeID == Id);
+            var mapped = Mapper.Map<EmployeetAutherization>(Obj);
+            var Role = mapped.RoleID;
+            if(Role == 1 || Role == 2)
+            {
+                return false;
+            }
+            else if (Role == 3 || Role == 4)
+            {
+                return true; 
+            }
+            return false; 
+        }
+
 
         // Running Queries ! 
         public List<T> QueryData<T>(string QueryString , List<SqlParameter> Params)
@@ -131,6 +147,7 @@ namespace BusineesLayer.Managers
         public int BranchID { get; set; }
         public string IPassword { get; set; }
         public string UserName2 { get; set; }
+        public int? RoleID { get; set; }
         public int? PlatformID { get; set; }
         public int? TypeID { get; set; }
         public int? supervisiedTrackId { get; set; }
