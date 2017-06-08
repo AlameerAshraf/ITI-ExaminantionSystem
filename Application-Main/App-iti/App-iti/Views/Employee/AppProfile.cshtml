@@ -11,9 +11,31 @@
 <h2>@Model.InstructorName</h2>
 
 <a href="/Employee/SendExamNotification"></a>
-@Html.ActionLink("Send Notify","SendExamNotification", "Employee", new { Id = 1061 },null);
+@Html.ActionLink("Send Notify","SendExamNotification", "Employee", new { Id = 1058 },null);
 
 
 
 
 @Model.InstructorName
+
+@section scripts {
+
+    <script type="text/javascript">
+    console.log($("#Student_Enrollement").val());
+            $.connection.hub.url = "http://localhost:51822/signalr";
+            var exam = $.connection.examHub;
+            var target = 55896;
+            $.connection.hub.qs = { "name": "Emplyee1034", "Id": 1034, "Track": "SD", "Type": 0 };
+
+            exam.client.broadCast = function (name, message) {
+                alert(name + "" + message);
+            }
+
+            //$.connection.hub.start().done(function () {
+            //    //exam.server.send("Alameer", "Hi");
+            //    //$("#test").click(function () {
+            //    //    exam.server.sendToPerson(target, "message real time w sho8l 3ali, saba7 elfol");
+            //    //})
+            //});
+    </script>
+}

@@ -83,7 +83,14 @@ namespace App_iti.Controllers
                 SendMailSMTP(EmpEmailState.Email, "20/20/1994", RedierctedLink);
             }
             else
-                return Content("Done");
+            {
+                IHubProxy _hub;
+                string Url = "http://localhost:51822/signalr";
+                var connection = new HubConnection(Url);
+                _hub = connection.CreateHubProxy("examHub");
+                 connection.Start().Wait();
+                _hub.Invoke("sendToPerson",1,"Message from c# Client").Wait();
+            }
             return Content(EmpEmailState.ToString());
 
         }
