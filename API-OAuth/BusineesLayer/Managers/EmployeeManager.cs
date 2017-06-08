@@ -105,7 +105,8 @@ namespace BusineesLayer.Managers
             }
             else if (Role == 2)
             {
-                return new { Email = mapped.Mail };
+                var mail = mapped.Mail;
+                return new { Email = "alamiir.ashraf@gmail.com" };
             }
             return false; 
         }
