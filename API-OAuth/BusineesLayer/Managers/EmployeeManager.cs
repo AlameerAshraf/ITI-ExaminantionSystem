@@ -94,21 +94,22 @@ namespace BusineesLayer.Managers
             }
         }
 
-        public bool IsExternal(int Id)
+        public object IsExternal(int Id)
         {
             Employee Obj = FindBy(e => e.EmployeeID == Id);
             var mapped = Mapper.Map<EmployeetAutherization>(Obj);
             var Role = mapped.RoleID;
-            if(Role == 1 || Role == 2)
+            if(Role == 1)
             {
-                return false;
+                return new { Email = 0 };
             }
-            else if (Role == 3 || Role == 4)
+            else if (Role == 2)
             {
-                return true; 
+                return new { Email = mapped.Mail };
             }
             return false; 
         }
+
 
 
         // Running Queries ! 
@@ -123,7 +124,6 @@ namespace BusineesLayer.Managers
 
 
     }
-
     public class IsSupervisor
     {
         public int? TrackId { get; set; }
@@ -151,6 +151,7 @@ namespace BusineesLayer.Managers
         public int? PlatformID { get; set; }
         public int? TypeID { get; set; }
         public int? supervisiedTrackId { get; set; }
+        public string Mail { get; set; }
         public List<InstructorCurrentProgramData> InstructorPorgrams { get; set; }
         public List<InstructorCourses> InstructorCourses { get; set; }
     }

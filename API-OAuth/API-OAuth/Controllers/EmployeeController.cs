@@ -20,6 +20,11 @@ namespace API_OAuth.Controllers
             return Emp.GetEmployeeData(UserName);
         }
 
+        [System.Web.Http.HttpGet]
+        public object IsExternalInstructor(int Id)
+        {
+            return Emp.IsExternal(Id);
+        }
 
     }
 }
