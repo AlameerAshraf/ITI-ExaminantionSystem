@@ -111,7 +111,24 @@ namespace BusineesLayer.Managers
             return false; 
         }
 
+        public bool CreateExternalSafeToken(ExternalToken tok)
+        {
+            var tok_obj = new ExternalInstructorAuthorization()
+            {
+                Code = tok.Code,
+                Ins_Id = tok.Ins_Id,
+                Expiration_Date = tok.Expire_Date
+            };
+            db.ExternalInstructorAuthorizations.Add(tok_obj);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+                return false; 
+        }
 
+   
 
         // Running Queries ! 
         public List<T> QueryData<T>(string QueryString , List<SqlParameter> Params)
@@ -123,6 +140,14 @@ namespace BusineesLayer.Managers
 
 
 
+
+    }
+
+    public class ExternalToken
+    {
+        public int Code { get; set; }
+        public int Ins_Id { get; set; }
+        public DateTime Expire_Date { get; set; }
 
     }
     public class IsSupervisor

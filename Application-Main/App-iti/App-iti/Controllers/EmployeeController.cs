@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.SignalR.Client;
 using System.Net.Mail;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace App_iti.Controllers
 {
@@ -29,7 +31,7 @@ namespace App_iti.Controllers
         {
             var cookie_token = Request.Cookies[UserName];
             var access_token = cookie_token.Value;
-            var trav_access_token = ("Bearer"+" "+access_token).ToString();
+            var trav_access_token = ("Bearer" + " " + access_token).ToString();
             TempData["access_token"] = trav_access_token;
             TempData.Keep();
 
@@ -57,9 +59,28 @@ namespace App_iti.Controllers
             var ExcpectedObj = new { Email = "" };
             var EmpEmailState = JsonConvert.DeserializeAnonymousType(responseData, ExcpectedObj);
 
+
+
             if (EmpEmailState.Email != "0")
             {
-                SendMailSMTP(EmpEmailState.Email, "20/20/1994");
+                int Secret_Token = SecretToken();
+                var Host = System.Web.HttpContext.Current.Request.UrlReferrer?.Authority;
+                var RedierctedLink = "https://" + Host + "/Exam/CreateExam/" + Secret_Token;
+
+                var ExternalToken = new ExternalToken()
+                {
+                    Token = Secret_Token,
+                    Ins_Id = Id,
+                    Expire_Date = DateTime.Now.AddDays(2)
+                };
+                var App_2 = new HttpClient();
+                var Url = Replacable_URL + "/api/Employee/InsertExternalToken";
+                App_2.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                App_2.DefaultRequestHeaders.Add("Authorization", trav_access_token);
+                var response = App.PostAsync(Url, new StringContent(
+                    new JavaScriptSerializer().Serialize(ExternalToken), Encoding.UTF8, "application/json")).Result;
+
+                SendMailSMTP(EmpEmailState.Email, "20/20/1994", RedierctedLink);
             }
             else
                 return Content("Done");
@@ -69,11 +90,16 @@ namespace App_iti.Controllers
 
 
 
-        public void SendMailSMTP(string External_Mail , string Exam_Date)
+        public void SendMailSMTP(string External_Mail, string Exam_Date, string Link)
         {
             string SendTo = External_Mail;
             string Subject = "Enter Exam | ITI MS";
-            string Message = "Hi Instructor , Your course exam have been scheduled at " + Exam_Date + " So Please add your Exam !";
+            string Message = "Hi Instructor , Your course exam have been scheduled at " + Exam_Date + " So Please add your Exam !"
+                             + "<br/>"
+                             +"<a href =\"" + Link + "\">Click Here To Add Your Exam</a>" 
+
+                             + "<br/>"
+                             + "<p style='color:red'>note that your link be expired in <b>two days</b></p>";
 
             MailMessage Mess = new MailMessage();
             Mess.From = new MailAddress("alameerelnagar94@gmail.com");
@@ -92,6 +118,15 @@ namespace App_iti.Controllers
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.Send(Mess);
+        }
+
+
+        // Random !
+        public int SecretToken()
+        {
+            Random R = new Random();
+            int Token = R.Next(1, 99999);
+            return Token;
         }
 
         public ActionResult SignalREmp1()

@@ -26,5 +26,11 @@ namespace API_OAuth.Controllers
             return Emp.IsExternal(Id);
         }
 
+        [System.Web.Http.HttpPost]
+        public bool InsertExternalToken(ExternalToken obj)
+        {
+            return Emp.CreateExternalSafeToken(obj);
+        }
+
     }
 }
