@@ -11,11 +11,13 @@ namespace DataAccessLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class StudentNotification
     {
         public int Student_Id { get; set; }
         public int Notification_Id { get; set; }
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Notify_Id { get; set; }
     
         public virtual StudentBasicData StudentBasicData { get; set; }

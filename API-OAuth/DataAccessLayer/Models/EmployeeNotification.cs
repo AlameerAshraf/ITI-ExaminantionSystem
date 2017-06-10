@@ -16,6 +16,8 @@ namespace DataAccessLayer.Models
     {
         public int Emp_Id { get; set; }
         public int Notification_Id { get; set; }
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+
         public int Notify_Id { get; set; }
     
         public virtual Employee Employee { get; set; }

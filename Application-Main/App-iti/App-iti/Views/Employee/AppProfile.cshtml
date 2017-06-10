@@ -16,13 +16,13 @@
 <input type="hidden" value=@Model.BranchID name="Branch" />
 <input type="hidden" value=@Model.EmployeeID name="Id" />
 <input type="hidden" value=@Model.PlatformID name="Platform" />
-<input type="hidden" value=@ViewBag.TypeData name="Type_Data" />
+<input type="hidden" value=@Model.TypeID name="Type_Data" />
 
 
 <h2>@Model.InstructorName</h2>
 <a href="/Employee/SendExamNotification"></a>
-@*@Html.ActionLink("Send Notify","SendExamNotification", "Employee", new { Id = 1020 },new { id = "createExam" });*@
-<input type="button" id="createExam"/>
+<input type="button" id="createExam" />
+<input type="button" id="test"/>
  
 
 
@@ -42,7 +42,10 @@
         var LoggedEntity = "W"; 
         // Instructor To send to .....!
 
-
+        <input type="button" id="createExam" />
+        $("#test").click(function () {
+            $("#Notifi_icon").html(12);
+        })
         $.connection.hub.url = "http://localhost:51822/signalr";
         var exam = $.connection.examHub;
 
@@ -76,11 +79,13 @@
 
         exam.client.broadcast = function (name, message) {
             alert(name + "" + message);
-        }
+        };
 
-        exam.client.receiveExamSchedule = function(SenderName, Message, Clicked_Url) {
-            alert(Clicked_Url);
-        }
+        exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url) {
+           
+        };
+
+
 
         $.connection.hub.start().done(function () {
             server.connection.sendToPerson(1, "as");

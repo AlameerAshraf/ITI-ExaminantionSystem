@@ -34,7 +34,7 @@ namespace App_iti.Controllers
             var access_token = cookie_token.Value;
             var trav_access_token = ("Bearer" + " " + access_token).ToString();
             TempData["access_token"] = trav_access_token;
-            TempData.Keep();
+            TempData.Keep("access_token");
 
             App = new HttpClient();
             Urle = Replacable_URL + "/api/Employee/EmployeeUserLogin?UserName=" + UserName;
@@ -51,8 +51,7 @@ namespace App_iti.Controllers
             else
                 TempData["TypeContext"] = 2;
 
-            ViewBag.TypeData = EmpData.TypeID;
-            TempData.Keep();
+
             return View(EmpData);
             // 3 Supervisior ,  2 Instructor 
         }
@@ -60,6 +59,7 @@ namespace App_iti.Controllers
         public async Task<ActionResult> SendExamNotification(int Id)
         {
             string trav_access_token = TempData["access_token"].ToString();
+            TempData.Keep("access_token");
 
             App = new HttpClient();
             Urle = Replacable_URL + "/api/Employee/IsExternalInstructor/" + Id;

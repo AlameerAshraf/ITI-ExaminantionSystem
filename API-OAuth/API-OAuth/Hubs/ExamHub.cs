@@ -67,7 +67,7 @@ namespace API_OAuth.Hubs
         }
 
         public override Task OnDisconnected(bool stopCalled = true)
-        {
+         {
             var LoggedEntity = Context.QueryString["LoggedEntity"];
             var id = Context.QueryString["Id"];
             var Type = int.Parse(Context.QueryString["Type"]);
