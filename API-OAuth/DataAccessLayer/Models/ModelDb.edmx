@@ -324,6 +324,7 @@
           <Property Name="Exam_Corrected" Type="bit" />
           <Property Name="Exam_Duration" Type="int" />
           <Property Name="Exam_FullDegree" Type="nchar" MaxLength="10" />
+          <Property Name="Course_Id" Type="int" />
         </EntityType>
         <EntityType Name="ExternalInstructorAuthorization">
           <Key>
@@ -350,7 +351,7 @@
           </Key>
           <Property Name="Ins_Id" Type="int" Nullable="false" />
           <Property Name="Notification_Id" Type="int" Nullable="false" />
-          <Property Name="Notify_Id" Type="int" Nullable="false" />
+          <Property Name="Notify_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="InstructorsConnectionIds">
           <Key>
@@ -373,7 +374,7 @@
           <Key>
             <PropertyRef Name="Notification_Id" />
           </Key>
-          <Property Name="Notification_Id" Type="int" Nullable="false" />
+          <Property Name="Notification_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Notification_Text" Type="nvarchar(max)" />
           <Property Name="Is_Read" Type="bit" />
           <Property Name="Creation_Time" Type="smalldatetime" />
@@ -409,6 +410,7 @@
           <Property Name="Topic_Id" Type="int" />
           <Property Name="Ins_Id" Type="int" />
           <Property Name="Points_Indicator" Type="bit" />
+          <Property Name="Course_Id" Type="int" />
         </EntityType>
         <EntityType Name="QuestionsInExam">
           <Key>
@@ -482,7 +484,7 @@
           <Key>
             <PropertyRef Name="Topic_Id" />
           </Key>
-          <Property Name="Topic_Id" Type="int" Nullable="false" />
+          <Property Name="Topic_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Topic_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Crs_Id" Type="int" Nullable="false" />
         </EntityType>
@@ -645,6 +647,18 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Exams_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Exams_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
@@ -714,30 +728,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Principal>
             <Dependent Role="InstructorCourseSim">
               <PropertyRef Name="ProgramIntkeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InstructorNotifications_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="InstructorNotifications" Type="Self.InstructorNotifications" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="InstructorNotifications">
-              <PropertyRef Name="Ins_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InstructorNotifications_Notifications1">
-          <End Role="Notifications" Type="Self.Notifications" Multiplicity="1" />
-          <End Role="InstructorNotifications" Type="Self.InstructorNotifications" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Notifications">
-              <PropertyRef Name="Notification_Id" />
-            </Principal>
-            <Dependent Role="InstructorNotifications">
-              <PropertyRef Name="Notification_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -904,6 +894,18 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Principal>
             <Dependent Role="QuestionAnswers">
               <PropertyRef Name="Ques_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Course_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1426,6 +1428,10 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <End Role="CourseManual" EntitySet="CourseManual" />
             <End Role="EvaluationCriteria" EntitySet="EvaluationCriteria" />
           </AssociationSet>
+          <AssociationSet Name="FK_Exams_Course" Association="Self.FK_Exams_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
           <AssociationSet Name="FK_Exams_Employee" Association="Self.FK_Exams_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Exams" EntitySet="Exams" />
@@ -1449,14 +1455,6 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <AssociationSet Name="FK_InstructorCourseSim_ProgramIntake" Association="Self.FK_InstructorCourseSim_ProgramIntake">
             <End Role="ProgramIntake" EntitySet="ProgramIntake" />
             <End Role="InstructorCourseSim" EntitySet="InstructorCourseSim" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InstructorNotifications_Employee" Association="Self.FK_InstructorNotifications_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="InstructorNotifications" EntitySet="InstructorNotifications" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InstructorNotifications_Notifications1" Association="Self.FK_InstructorNotifications_Notifications1">
-            <End Role="Notifications" EntitySet="Notifications" />
-            <End Role="InstructorNotifications" EntitySet="InstructorNotifications" />
           </AssociationSet>
           <AssociationSet Name="FK_InstructorsConnectionIds_Employee" Association="Self.FK_InstructorsConnectionIds_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -1509,6 +1507,10 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <AssociationSet Name="FK_QuestionAnswers_Questions" Association="Self.FK_QuestionAnswers_Questions">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_Course" Association="Self.FK_Questions_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
           <AssociationSet Name="FK_Questions_Employee1" Association="Self.FK_Questions_Employee1">
             <End Role="Employee" EntitySet="Employee" />
@@ -1640,6 +1642,8 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Name="CategoryID" Type="Int32" />
           <NavigationProperty Name="CourseManuals" Relationship="Self.FK_courseManual_Course" FromRole="Course" ToRole="CourseManual" />
           <NavigationProperty Name="InstructorCourseSims" Relationship="ExaminationNS.FK_InstructorCourseSim_Course" FromRole="Course" ToRole="InstructorCourseSim" />
+          <NavigationProperty Name="Exams" Relationship="ExaminationNS.FK_Exams_Course" FromRole="Course" ToRole="Exam" />
+          <NavigationProperty Name="Questions" Relationship="ExaminationNS.FK_Questions_Course" FromRole="Course" ToRole="Question" />
         </EntityType>
         <EntityType Name="CourseEvaluationItem">
           <Key>
@@ -2000,6 +2004,8 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="QuestionsInExams" Relationship="Self.FK_QuestionsInExam_Exams" FromRole="Exams" ToRole="QuestionsInExam" />
           <NavigationProperty Name="StudentAnswerQuestionInExams" Relationship="Self.FK_StudentAnswerQuestionInExam_Exams" FromRole="Exams" ToRole="StudentAnswerQuestionInExam" />
           <NavigationProperty Name="StudentPermissionInExams" Relationship="Self.FK_StudentPermissionInExam_Exams" FromRole="Exams" ToRole="StudentPermissionInExam" />
+          <Property Name="Course_Id" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="ExaminationNS.FK_Exams_Course" FromRole="Exam" ToRole="Course" />
         </EntityType>
         <EntityType Name="ExternalInstructorAuthorization">
           <Key>
@@ -2095,6 +2101,8 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="TopicsInCourse" Relationship="Self.FK_Questions_TopicsInCourse" FromRole="Questions" ToRole="TopicsInCourse" />
           <NavigationProperty Name="QuestionsInExams" Relationship="Self.FK_QuestionsInExam_Questions" FromRole="Questions" ToRole="QuestionsInExam" />
           <NavigationProperty Name="StudentMultiAnswersQuestions" Relationship="Self.FK_StudentMultiAnswersQuestion_Questions" FromRole="Questions" ToRole="StudentMultiAnswersQuestion" />
+          <Property Name="Course_Id" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="ExaminationNS.FK_Questions_Course" FromRole="Question" ToRole="Course" />
         </EntityType>
         <EntityType Name="QuestionsInExam">
           <Key>
@@ -3208,8 +3216,16 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetStudentsCourses" ReturnType="Collection(ExaminationNS.GetStudentsCourses_Result)">
-            <Parameter Name="Std_Id" Mode="In" Type="Int32" />
+          <Parameter Name="Std_Id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="FK_Exams_Course" Association="ExaminationNS.FK_Exams_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_Course" Association="ExaminationNS.FK_Questions_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetBranchByID_Result">
           <Property Type="Int32" Name="BranchID" Nullable="false" />
@@ -3566,6 +3582,30 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <Property Type="Int32" Name="Course_ID" Nullable="false" />
           <Property Type="String" Name="CourseName" Nullable="true" MaxLength="150" />
         </ComplexType>
+        <Association Name="FK_Exams_Course">
+          <End Type="ExaminationNS.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="ExaminationNS.Exam" Role="Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_Course">
+          <End Type="ExaminationNS.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="ExaminationNS.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3894,6 +3934,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySetMapping Name="Exams">
             <EntityTypeMapping TypeName="ExaminationNS.Exam">
               <MappingFragment StoreEntitySet="Exams">
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
                 <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
                 <ScalarProperty Name="Exam_Name" ColumnName="Exam_Name" />
                 <ScalarProperty Name="Number_Of_Questions" ColumnName="Number_Of_Questions" />
@@ -3971,6 +4012,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="ExaminationNS.Question">
               <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
                 <ScalarProperty Name="Ques_Id" ColumnName="Ques_Id" />
                 <ScalarProperty Name="Ques_Type" ColumnName="Ques_Type" />
                 <ScalarProperty Name="Ques_Content" ColumnName="Ques_Content" />

@@ -13,6 +13,7 @@ namespace API_OAuth.Controllers
     {
 
         EmployeeManager Emp = new EmployeeManager();
+        NotificationManager Noti = new NotificationManager();
 
         [System.Web.Http.HttpGet]
         public EmployeetAutherization EmployeeUserLogin(string UserName)
@@ -30,6 +31,12 @@ namespace API_OAuth.Controllers
         public bool InsertExternalToken(ExternalToken obj)
         {
             return Emp.CreateExternalSafeToken(obj);
+        }
+
+        [System.Web.Http.HttpGet]
+        public void RegisterNotification(int Id, string Message_body, int Type)
+        {
+            Noti.RegisterNotification(Id,Message_body,Type);
         }
 
     }

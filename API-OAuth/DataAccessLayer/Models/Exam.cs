@@ -31,6 +31,7 @@ namespace DataAccessLayer.Models
         public Nullable<bool> Exam_Corrected { get; set; }
         public Nullable<int> Exam_Duration { get; set; }
         public string Exam_FullDegree { get; set; }
+        public Nullable<int> Course_Id { get; set; }
     
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,5 +44,6 @@ namespace DataAccessLayer.Models
         public virtual ICollection<StudentAnswerQuestionInExam> StudentAnswerQuestionInExams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentPermissionInExam> StudentPermissionInExams { get; set; }
+        public virtual Course Course { get; set; }
     }
 }

@@ -17,23 +17,16 @@ namespace BusineesLayer.Managers
 #region
         // OnConnected Override !
 
-        public bool ListConnectedEmployee(int Type_Id , EmployeeConnectionId IcId)
+        public void ListConnectedEmployee(int Type_Id , EmployeeConnectionId IcId)
         {
-            bool RetVal = false;
             if (Type_Id == 0)
             {
                 bool Persisted = db.EmployeeConnectionIds.Where(x => x.Emp_Id == IcId.Emp_Id).Any();
                 if (Persisted != true)
                 {
                     db.EmployeeConnectionIds.Add(IcId);
-                    if (db.SaveChanges() > 0)
-                    {
-                        RetVal = true;
-                        return RetVal;
-                    }
+                    db.SaveChanges();
                 }
-                else
-                    return RetVal; 
             }
             else if (Type_Id == 1)
             {
@@ -46,16 +39,9 @@ namespace BusineesLayer.Managers
                 if (Persisted != true)
                 {
                     db.InstructorsConnectionIds.Add(ins);
-                    if (db.SaveChanges() > 0)
-                    {
-                        RetVal = true;
-                        return RetVal;
-                    }
+                    db.SaveChanges();
                 }
-                else
-                    return RetVal;
             }
-            return RetVal; 
         }
 
         // OnDisconnected Override !
@@ -63,13 +49,13 @@ namespace BusineesLayer.Managers
         {
             if(Type_Id == 0)
             {
-                db.Entry(IcId).State = System.Data.Entity.EntityState.Deleted;
+                db.EmployeeConnectionIds.Remove(IcId);
                 db.SaveChanges();
             }
             else if (Type_Id == 1)
             {
-                InstructorsConnectionId obj = db.InstructorsConnectionIds.Find(IcId.Emp_Id);
-                db.Entry(IcId).State = System.Data.Entity.EntityState.Deleted;
+                InstructorsConnectionId obj = db.InstructorsConnectionIds.Where(E => E.Ins_Id == IcId.Emp_Id).SingleOrDefault();
+                db.InstructorsConnectionIds.Remove(obj);
                 db.SaveChanges();
             }
         }
@@ -95,11 +81,103 @@ namespace BusineesLayer.Managers
         //Student OnDisconnected 
         public void UnListConnectedStudents(StudentsConnectionId ScId)
         {
-            StudentsConnectionId obj = db.StudentsConnectionIds.Find(ScId.Std_Id);
-            db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+            StudentsConnectionId obj = db.StudentsConnectionIds.Where(R => R.Std_Id == ScId.Std_Id).SingleOrDefault();
             db.SaveChanges();
         }
-#endregion
+        #endregion
 
+
+        #region
+
+
+        // Register Notification!
+        public void RegisterNotification(int Id,string Message_body,int Type)
+        {
+            var NewMessage = new Notification()
+            {
+                Notification_Text = Message_body,
+                Creation_Time = DateTime.Now,
+                Is_Read = false
+            };
+            db.Notifications.Add(NewMessage);
+            db.SaveChanges();
+
+            int Issued_id = NewMessage.Notification_Id;
+            if (Type == 0)
+            {
+                var EmployeeNotification = new EmployeeNotification()
+                {
+                    Emp_Id = Id,
+                    Notification_Id = Issued_id,
+                    Notify_Id = 1
+                };
+                db.EmployeeNotifications.Add(EmployeeNotification);
+                db.SaveChanges();
+            }
+            else if (Type == 1)
+            {
+                var InstructorNotification = new InstructorNotification()
+                {
+                    Ins_Id = Id,
+                    Notification_Id = Issued_id,
+                    Notify_Id = 1
+                };
+                db.InstructorNotifications.Add(InstructorNotification);
+                db.SaveChanges();
+            }
+        }
+
+
+        // Get ConnectioId 
+        public ConnectionState ConnectionIdData(int Id , int Type)
+        {
+            ConnectionState _CS;
+            if(Type == 0)
+            {
+                var Target = db.EmployeeConnectionIds.Where(e => e.Emp_Id == Id).Single();
+                if (Target != null)
+                {
+                    _CS = new ConnectionState()
+                    {
+                        ConnectionId = Target.Connection_Ids
+                    };
+                    return _CS;
+                }
+                else
+                {
+                    _CS = new ConnectionState()
+                    {
+                        ConnectionId = null
+                    };
+                    return _CS;
+                }
+            }
+            else 
+            {
+                var Target = db.InstructorsConnectionIds.Where(e => e.Ins_Id == Id).Single();
+                if(Target != null)
+                {
+                    _CS = new ConnectionState()
+                    {
+                        ConnectionId = Target.Connection_Ids
+                    };
+                    return _CS;
+                }
+                else
+                {
+                    _CS = new ConnectionState()
+                    {
+                        ConnectionId = null
+                    };
+                    return _CS;
+                }
+            }
+        }
+#endregion
+    }
+
+    public class ConnectionState
+    {
+        public Guid? ConnectionId { get; set; }
     }
 }

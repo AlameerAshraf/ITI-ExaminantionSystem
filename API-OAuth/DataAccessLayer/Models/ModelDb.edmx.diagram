@@ -104,6 +104,8 @@
         <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_Employee" />
         <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_Platform" />
         <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_ProgramIntake" />
+        <AssociationConnector Association="ExaminationNS.FK_Exams_Course" />
+        <AssociationConnector Association="ExaminationNS.FK_Questions_Course" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

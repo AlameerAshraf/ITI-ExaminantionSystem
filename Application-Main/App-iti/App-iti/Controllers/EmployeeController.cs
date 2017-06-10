@@ -11,6 +11,7 @@ using Microsoft.AspNet.SignalR.Client;
 using System.Net.Mail;
 using System.Web.Script.Serialization;
 using System.Text;
+using Microsoft.AspNet.SignalR;
 
 namespace App_iti.Controllers
 {
@@ -43,7 +44,17 @@ namespace App_iti.Controllers
             var responseData = Response.Content.ReadAsStringAsync().Result;
             var EmpData = JsonConvert.DeserializeObject<EmployeetAutherization>(responseData);
 
+            if (EmpData.supervisiedTrackId != null)
+            {
+                TempData["TypeContext"] = 3;
+            }
+            else
+                TempData["TypeContext"] = 2;
+
+            ViewBag.TypeData = EmpData.TypeID;
+            TempData.Keep();
             return View(EmpData);
+            // 3 Supervisior ,  2 Instructor 
         }
 
         public async Task<ActionResult> SendExamNotification(int Id)
@@ -59,13 +70,11 @@ namespace App_iti.Controllers
             var ExcpectedObj = new { Email = "" };
             var EmpEmailState = JsonConvert.DeserializeAnonymousType(responseData, ExcpectedObj);
 
-
-
+            var Host = System.Web.HttpContext.Current.Request.UrlReferrer?.Authority;
             if (EmpEmailState.Email != "0")
             {
                 int Secret_Token = SecretToken();
-                var Host = System.Web.HttpContext.Current.Request.UrlReferrer?.Authority;
-                var RedierctedLink = "http://" + Host + "/Exam/CreateExam/?AccessSecret=" + Secret_Token;
+                var RedierctedLink = "http://" + Host + "/Exam/CreateExamExternal/?AccessSecret=" + Secret_Token;
 
                 var ExternalToken = new ExternalToken()
                 {
@@ -80,18 +89,16 @@ namespace App_iti.Controllers
                 var response = App.PostAsync(Url, new StringContent(
                     new JavaScriptSerializer().Serialize(ExternalToken), Encoding.UTF8, "application/json")).Result;
 
-                SendMailSMTP(EmpEmailState.Email, "20/20/1994", RedierctedLink);
+                var _Email = EmpEmailState.Email;
+                SendMailSMTP(_Email, "20/20/1994", RedierctedLink);
+                return Json(new { Message = 0 } , JsonRequestBehavior.AllowGet);
             }
             else
             {
-                IHubProxy _hub;
-                string Url = "http://localhost:51822/signalr";
-                var connection = new HubConnection(Url);
-                _hub = connection.CreateHubProxy("examHub");
-                 connection.Start().Wait();
-                _hub.Invoke("sendToPerson",1,"Message from c# Client").Wait();
+                //Real Time 
+                ViewBag.HostUrl = Host; 
+                return Json(new { Message = 1 }, JsonRequestBehavior.AllowGet);
             }
-            return Content(EmpEmailState.ToString());
 
         }
 
@@ -103,10 +110,10 @@ namespace App_iti.Controllers
             string Subject = "Enter Exam | ITI MS";
             string Message = "Hi Instructor , Your course exam have been scheduled at " + Exam_Date + " So Please add your Exam !"
                              + "<br/>"
-                             +"<a href =\"" + Link + "\">Click Here To Add Your Exam</a>" 
-
+                             + "<a href =\"" + Link + "\">Click Here To Add Your Exam</a>"
                              + "<br/>"
-                             + "<p style='color:red'>note that your link be expired in <b>two days</b></p>";
+                             + "<p style='color:red'>Note that your link be expired in <b>two days</b></p>";
+
 
             MailMessage Mess = new MailMessage();
             Mess.From = new MailAddress("alameerelnagar94@gmail.com");
