@@ -34,8 +34,14 @@ namespace BusineesLayer.Managers
                 };
             List<Student_EnrollmentMap> InstructorcurrentPros = QueryData<Student_EnrollmentMap>(SP_Current, Params_Current);
             stds.Student_Enrollment = InstructorcurrentPros;
-#endregion
+            #endregion
 
+            var Plat = db.PlatfromIntakes.Where(t => t.PlatformIntakeID == stds.PlatformIntakeID).SingleOrDefault();
+            int? BranchID = Plat.BranchID;
+            int? TrackId = Plat.SubTrackID;
+
+            stds.TrackId = TrackId;
+            stds.BranchID = BranchID; 
 
 
             return stds; 

@@ -86,10 +86,18 @@
             })
 
             exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url, Issued_Notification) {
-                $("#Min").html(parseInt($("#Min").html()) + 1);
+                alert(Issued_Notification);
+                if (parseInt($("#Min")).html() == null)
+                {
+                    $("#Min").html(1);
+                }
+                else
+                {
+                    $("#Min").html(parseInt($("#Min").html()) + 1);
+                }
                 var today = new Date();
                 var dd = today.getDate();
-                var mm = today.getMonth() + 1; //January is 0!
+                var mm = today.getMonth() + 1; 
                 var yyyy = today.getFullYear();
                 today = mm + '/' + dd + '/' + yyyy;
 

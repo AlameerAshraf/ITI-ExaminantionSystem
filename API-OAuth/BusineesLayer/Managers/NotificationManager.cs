@@ -198,10 +198,10 @@ namespace BusineesLayer.Managers
             }
         }
         // Mark Notification 
-        public void MarkAsRead(int Id , DateTime Datetomark , int Type)
-        {
+        //public void MarkAsRead(int Id , int Type , int Message_Id)
+        //{
 
-        }
+        //}
         #endregion
 
         #region

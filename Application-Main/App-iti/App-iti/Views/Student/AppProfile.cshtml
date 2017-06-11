@@ -13,6 +13,14 @@
 @Html.Hidden("Student_Enrollement", Model.Student_Enrollment)
 <input type="hidden" value="26" id="as" />
 
+<input type="hidden" value=@Model.Username name="Std_Name" />
+<input type="hidden" value=@Model.Email name="Std_Mail" />
+<input type="hidden" value=@Model.SubTrackID name="SubTrackID" />
+<input type="hidden" value=@Model.PlatformIntakeID name="PlatformIntakeID" />
+<input type="hidden" value=@Model.StudentID name="Id" />
+<input type="hidden" value=@Model.TrackId name="TrackId" />
+<input type="hidden" value=@Model.BranchID name="TrackId" />
+
 @section scripts {
 
 <script type="text/javascript">
@@ -20,7 +28,7 @@
             $.connection.hub.url = "http://localhost:51822/signalr";
             var exam = $.connection.examHub;
             var target = 55896;
-            $.connection.hub.qs = { "name": "Emplyee1034", "Id": 1034, "Track": "SD", "Type": 0 };
+            $.connection.hub.qs = { "name": Instructor_Name, "Id": Id, "Branch": Branch, "Platform": Platform, "LoggedEntity": LoggedEntity, "Type": Type };
             
             exam.client.broadCast = function (name, message) {
                 alert(name + "" + message);

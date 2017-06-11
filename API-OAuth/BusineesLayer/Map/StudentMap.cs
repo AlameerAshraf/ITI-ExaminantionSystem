@@ -18,8 +18,9 @@ namespace BusineesLayer.Map
         public string Email { get; set; }
         public int SubTrackID { get; set; }
         public DateTime? DateOB { get; set; }
-        public string gender { get; set; }
         public int PlatformIntakeID { get; set; }
+        public int? BranchID { get; set; }
+        public int? TrackId { get; set; }
         public string Username { get; set; }
         public string userpwd { get; set; }
         public virtual ICollection<Student_EnrollmentMap> Student_Enrollment { get; set; }

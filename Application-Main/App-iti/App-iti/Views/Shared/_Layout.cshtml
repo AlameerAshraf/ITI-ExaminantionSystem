@@ -87,34 +87,63 @@
                         {
                             <h5>Instructor</h5>
                         }
+                        else if (Type == 5)
+                        {
+                            <h5>Students</h5>
+                        }
                     </div>
                 </div>
-                <li class="active">
-                    <a>
-                        <i class="fa fa-pencil"  ></i>
-                        Grades
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="fa fa-calendar"  ></i>
-                        schadule
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="fa fa-book"  ></i>
-                        Reports
-                    </a>
-                    @if (Type == 2 || Type == 3)
-                    {
+                @if (Type == 3)
+                {
+                    <li class="active">
                         <a>
-                            <i class="fa fa-book"></i>
-                            Insert Question To Poll
+                            <i class="fa fa-pencil"></i>
+                            Add Exam
                         </a>
-                    }
-        
-                </li>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-pencil"></i>
+                            Reports
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-pencil"></i>
+                            Insert New Question 
+                        </a>
+                    </li>
+                }
+                else if (Type == 2)
+                {
+                    <li class="active">
+                        <a>
+                            <i class="fa fa-pencil"></i>
+                            Add Exam
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-pencil"></i>
+                            Reports
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-pencil"></i>
+                            Insert New Question
+                        </a>
+                    </li>
+                }
+                else if (Type == 5)
+                {
+                    <li class="active">
+                        <a>
+                            <i class="fa fa-pencil"></i>
+                            Exams
+                        </a>
+                    </li>
+                }
                 <li id="hidee"><a href="#"><span class="align"><i class="fa fa-sign-out pull-right"></i></span>Logout </a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -126,7 +155,7 @@
                 <div class="notification">
                     <a href="#" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell-o"  ></i>
-                        <span id="Min" class="badge bg-green">6</span>
+                        <span id="Min" class="badge bg-green"></span>
                     </a>
                     <div id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <div class="text-center notification-msg more">

@@ -41,10 +41,20 @@ namespace App_iti.Controllers
             HttpResponseMessage Response = await App.GetAsync(Urle);
             var responseData = Response.Content.ReadAsStringAsync().Result;
             var StdData = JsonConvert.DeserializeObject<StudentMap>(responseData);
+            TempData["StdData"] = StdData;
+            TempData.Keep("StdData");
 
+            TempData["TypeContext"] = 5;
 
             return View(StdData);
         }
+
+
+
+
+
+
+
 
 
 
