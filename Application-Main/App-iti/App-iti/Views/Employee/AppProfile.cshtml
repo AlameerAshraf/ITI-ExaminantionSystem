@@ -31,66 +31,86 @@
 
 @section scripts {
     <script type="text/javascript">
-        var Instructor_Name = $("[name='Instructor_Name']").val();
-        var Instructor_Mail = $("[name='Instructor_Mail']").val();
-        var Branch = $("[name='Branch']").val();
-        var Id = $("[name='Id']").val();
-        var Platform = $("[name='Platform']").val();
-        var Type = $("[name='Type_Data']").val();
-        var Host = "http://localhost:51490";
-        var Rediercted_Url = Host + "/Exam/CreateExam";
-        var LoggedEntity = "W"; 
-        // Instructor To send to .....!
 
-        <input type="button" id="createExam" />
-        $("#test").click(function () {
-            $("#Notifi_icon").html(12);
-        })
-        $.connection.hub.url = "http://localhost:51822/signalr";
-        var exam = $.connection.examHub;
+        $(document).ready(function () {
 
-        $("#createExam").click(function () {
-            //target 
-            console.log("As")
-            var Inst_Id = 1043;
-            //---------------------
-            $.ajax({
-                type: 'GET',
-                url: '/Employee/SendExamNotification/?Id=' + Inst_Id,
-                dataType : "json",
-                success: function (data) {
-                    if (data.Message == 1)
-                    {
-                        exam.server.notifyExamSchedule(Inst_Id, Instructor_Name, "2om Ya shaba7 7ot emte7ank", Rediercted_Url);
+            var Instructor_Name = $("[name='Instructor_Name']").val();
+            var Instructor_Mail = $("[name='Instructor_Mail']").val();
+            var Branch = $("[name='Branch']").val();
+            var Id = $("[name='Id']").val();
+            var Platform = $("[name='Platform']").val();
+            var Type = $("[name='Type_Data']").val();
+            var Host = "http://localhost:51490";
+            var Rediercted_Url = Host + "/Exam/CreateExam";
+            var LoggedEntity = "W";
+            // Instructor To send to .....!
+
+            $("#test").click(function () {
+                $("#Notifi_icon").html(12);
+            })
+            $.connection.hub.url = "http://localhost:51822/signalr";
+            var exam = $.connection.examHub;
+
+            $("#createExam").click(function () {
+                //target 
+                console.log("As")
+                var Inst_Id = 1043;
+                //---------------------
+                $.ajax({
+                    type: 'GET',
+                    url: '/Employee/SendExamNotification/?Id=' + Inst_Id,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.Message == 1) {
+                            exam.server.notifyExamSchedule(Inst_Id, Instructor_Name, "2om Ya shaba7 7ot emte7ank", Rediercted_Url);
+                        }
+                        else if (data.Message == 0) {
+                            console.log("ExternalMailsent");
+                        }
+                    },
+                    failure: function (response) {
+                        console.log("Fail");
                     }
-                    else if (data.Message == 0)
-                    {
-                        console.log("ExternalMailsent");
-                    }
-                },
-                failure: function (response) {
-                    console.log("Fail");
-                }
+                });
             });
-        });
 
 
-        $.connection.hub.qs = { "name": Instructor_Name, "Id": Id, "Branch": Branch, "Platform": Platform, "LoggedEntity": LoggedEntity, "Type": Type };
+            $.connection.hub.qs = { "name": Instructor_Name, "Id": Id, "Branch": Branch, "Platform": Platform, "LoggedEntity": LoggedEntity, "Type": Type };
 
-        exam.client.broadcast = function (name, message) {
-            alert(name + "" + message);
-        };
+            exam.client.broadcast = function (name, message) {
+                alert(name + "" + message);
+            };
 
-        exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url) {
-           
-        };
+            exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url) {
+                $("#Min").html(parseInt($("#Min").html()) + 1);
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                today = mm + '/' + dd + '/' + yyyy;
+
+                var block = "<div class='notification-msg'>"
+                    + "<a href='" + Clicked_Url + "'>"
+                    + "<span class='notification-title'>" + SenderName + "</span>"
+                    + "<span class='notification-exam'>" + Message + "</span>"
+                    + "<br>"
+                    + "<br>"
+                    + "<div class='time text-right'>Issued " + today + "</div>"
+                    + "</a>"
+                    + "</div>";
+
+                $(".list-unstyled").prepend(block);
+                console.log($(".list-unstyled"));
+
+            };
 
 
 
-        $.connection.hub.start().done(function () {
-            server.connection.sendToPerson(1, "as");
+            $.connection.hub.start().done(function () {
+                server.connection.sendToPerson(1, "as");
 
-        });
+            });
+        })
 
     </script>
 }

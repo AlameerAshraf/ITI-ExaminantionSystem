@@ -34,9 +34,9 @@ namespace API_OAuth.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public void RegisterNotification(int Id, string Message_body, int Type)
+        public List<NotificationRepo> OnLoadNotification(int Id , int Type)
         {
-            Noti.RegisterNotification(Id,Message_body,Type);
+            return Noti.OnLoadNotification(Id, Type);
         }
 
     }

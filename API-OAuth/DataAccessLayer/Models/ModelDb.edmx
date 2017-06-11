@@ -378,6 +378,7 @@
           <Property Name="Notification_Text" Type="nvarchar(max)" />
           <Property Name="Is_Read" Type="bit" />
           <Property Name="Creation_Time" Type="smalldatetime" />
+          <Property Name="Issuer" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PointsInQuestion">
           <Key>
@@ -2059,6 +2060,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <NavigationProperty Name="InstructorNotifications" Relationship="Self.FK_InstructorNotifications_Notifications1" FromRole="Notifications" ToRole="InstructorNotifications" />
           <NavigationProperty Name="StudentNotifications" Relationship="Self.FK_StudentNotifications_Notifications1" FromRole="Notifications" ToRole="StudentNotifications" />
           <NavigationProperty Name="SupervisiorNotifications" Relationship="Self.FK_SupervisiorNotifications_Notifications1" FromRole="Notifications" ToRole="SupervisiorNotifications" />
+          <Property Name="Issuer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PointsInQuestion">
           <Key>
@@ -3983,6 +3985,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="ExaminationNS.Notification">
               <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="Issuer" ColumnName="Issuer" />
                 <ScalarProperty Name="Notification_Id" ColumnName="Notification_Id" />
                 <ScalarProperty Name="Notification_Text" ColumnName="Notification_Text" />
                 <ScalarProperty Name="Is_Read" ColumnName="Is_Read" />

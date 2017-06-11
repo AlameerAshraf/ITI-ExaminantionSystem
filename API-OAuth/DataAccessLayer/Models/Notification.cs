@@ -27,6 +27,7 @@ namespace DataAccessLayer.Models
         public string Notification_Text { get; set; }
         public Nullable<bool> Is_Read { get; set; }
         public Nullable<System.DateTime> Creation_Time { get; set; }
+        public string Issuer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeNotification> EmployeeNotifications { get; set; }

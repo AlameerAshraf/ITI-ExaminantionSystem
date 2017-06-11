@@ -82,6 +82,7 @@ namespace BusineesLayer.Managers
         public void UnListConnectedStudents(StudentsConnectionId ScId)
         {
             StudentsConnectionId obj = db.StudentsConnectionIds.Where(R => R.Std_Id == ScId.Std_Id).SingleOrDefault();
+            db.StudentsConnectionIds.Remove(obj);
             db.SaveChanges();
         }
         #endregion
@@ -91,13 +92,14 @@ namespace BusineesLayer.Managers
 
 
         // Register Notification!
-        public void RegisterNotification(int Id,string Message_body,int Type)
+        public void RegisterNotification(int Id,string Message_body,int Type , string SenderName)
         {
             var NewMessage = new Notification()
             {
                 Notification_Text = Message_body,
                 Creation_Time = DateTime.Now,
-                Is_Read = false
+                Is_Read = false,
+                Issuer = SenderName
             };
             db.Notifications.Add(NewMessage);
             db.SaveChanges();
@@ -173,11 +175,49 @@ namespace BusineesLayer.Managers
                 }
             }
         }
+        #endregion
+
+        #region
+        public List<NotificationRepo> OnLoadNotification (int Id , int Type)
+        {
+            List<NotificationRepo> MyNotification;
+            if (Type == 0)
+            {
+                MyNotification = (from Notifay in db.EmployeeNotifications
+                                    join Data in db.Notifications on Notifay.Notification_Id equals Data.Notification_Id
+                                    where Notifay.Emp_Id == Id
+                                    select new NotificationRepo { Issuer_Name = Data.Issuer, Notification_body = Data.Notification_Text, IsRead = Data.Is_Read }
+                                  ).ToList();
+
+                return MyNotification; 
+            }
+            else
+            {
+                MyNotification = (from Notifay in db.InstructorNotifications
+                                  join Data in db.Notifications on Notifay.Notification_Id equals Data.Notification_Id
+                                  where Notifay.Ins_Id == Id
+                                  select new NotificationRepo { Issuer_Name = Data.Issuer, Notification_body = Data.Notification_Text, IsRead = Data.Is_Read }
+                  ).ToList();
+
+                return MyNotification;
+            }
+        }
+        #endregion
+
+        #region
+
 #endregion
+
     }
 
     public class ConnectionState
     {
         public Guid? ConnectionId { get; set; }
+    }
+    public class NotificationRepo
+    {
+        public string Notification_body { get; set; }
+        public string Issuer_Name { get; set; }
+        public bool? IsRead { get; set; }
     }
 }
