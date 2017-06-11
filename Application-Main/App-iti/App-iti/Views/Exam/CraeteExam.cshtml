@@ -1,0 +1,47 @@
+﻿@using BusineesLayer.Managers
+@model EmployeetAutherization
+
+@{
+    ViewBag.Title = "CraeteExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Message_id = TempData["Message_id"] as int?;
+    var EmpData = TempData["EmpData"] as EmployeetAutherization;
+}
+
+
+<input type="hidden" name="Message_Id" value=@Message_id />
+<input type="hidden" value=@EmpData.InstructorName name="Instructor_Name" />
+<input type="hidden" value=@EmpData.Mail name="Instructor_Mail" />
+<input type="hidden" value=@EmpData.supervisiedTrackId name="Instrructor_Sup" />
+<input type="hidden" value=@EmpData.BranchID name="Branch" />
+<input type="hidden" value=@EmpData.EmployeeID name="Id" />
+<input type="hidden" value=@EmpData.PlatformID name="Platform" />
+<input type="hidden" value=@EmpData.TypeID name="Type_Data" />
+<h2>CraeteExam</h2>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var Instructor_Name = $("[name='Instructor_Name']").val();
+            var Instructor_Mail = $("[name='Instructor_Mail']").val();
+            var Branch = $("[name='Branch']").val();
+            var Id = $("[name='Id']").val();
+            var Platform = $("[name='Platform']").val();
+            var Type = $("[name='Type_Data']").val();
+            var Message_id = $("[name='Message_id']").val();
+            var LoggedEntity = "W";
+
+            $.connection.hub.url = "http://localhost:51822/signalr";
+            var exam = $.connection.examHub;
+            $.connection.hub.qs = { "name": Instructor_Name, "Id": Id, "Branch": Branch, "Platform": Platform, "LoggedEntity": LoggedEntity, "Type": Type };
+
+
+
+            $.connection.hub.start().done(function () {
+                exam.server.markNotification(Id, Message_id);
+            });
+        })
+ 
+</script>
+
+    }

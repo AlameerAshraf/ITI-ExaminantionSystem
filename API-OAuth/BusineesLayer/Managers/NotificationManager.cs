@@ -89,10 +89,8 @@ namespace BusineesLayer.Managers
 
 
         #region
-
-
         // Register Notification!
-        public void RegisterNotification(int Id,string Message_body,int Type , string SenderName)
+        public int RegisterNotification(int Id,string Message_body,int Type , string SenderName)
         {
             var NewMessage = new Notification()
             {
@@ -127,9 +125,8 @@ namespace BusineesLayer.Managers
                 db.InstructorNotifications.Add(InstructorNotification);
                 db.SaveChanges();
             }
+            return Issued_id;
         }
-
-
         // Get ConnectioId 
         public ConnectionState ConnectionIdData(int Id , int Type)
         {
@@ -175,9 +172,7 @@ namespace BusineesLayer.Managers
                 }
             }
         }
-        #endregion
-
-        #region
+        // Load Notifications  
         public List<NotificationRepo> OnLoadNotification (int Id , int Type)
         {
             List<NotificationRepo> MyNotification;
@@ -185,7 +180,7 @@ namespace BusineesLayer.Managers
             {
                 MyNotification = (from Notifay in db.EmployeeNotifications
                                     join Data in db.Notifications on Notifay.Notification_Id equals Data.Notification_Id
-                                    where Notifay.Emp_Id == Id
+                                    where Notifay.Emp_Id == Id && Data.Is_Read == false
                                     select new NotificationRepo { Issuer_Name = Data.Issuer, Notification_body = Data.Notification_Text, IsRead = Data.Is_Read }
                                   ).ToList();
 
@@ -195,12 +190,17 @@ namespace BusineesLayer.Managers
             {
                 MyNotification = (from Notifay in db.InstructorNotifications
                                   join Data in db.Notifications on Notifay.Notification_Id equals Data.Notification_Id
-                                  where Notifay.Ins_Id == Id
+                                  where Notifay.Ins_Id == Id && Data.Is_Read == false
                                   select new NotificationRepo { Issuer_Name = Data.Issuer, Notification_body = Data.Notification_Text, IsRead = Data.Is_Read }
                   ).ToList();
 
                 return MyNotification;
             }
+        }
+        // Mark Notification 
+        public void MarkAsRead(int Id , DateTime Datetomark , int Type)
+        {
+
         }
         #endregion
 

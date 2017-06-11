@@ -16,18 +16,22 @@ namespace API_OAuth.Hubs
         EmployeeConnectionId EmpConObj;
 
 
+        public void MarkNotification(int id )
+        {
+            DateTime DateToMark = DateTime.Now;
 
+        }
 
         public void NotifyExamSchedule(int Traget_Instructor, string SenderName, string Message, string Clicked_Url)
         {
 
-            nm.RegisterNotification(Traget_Instructor, Message, 1 , SenderName);
+            int Issued_Notification = nm.RegisterNotification(Traget_Instructor, Message, 1 , SenderName);
             ConnectionState IsConnected = nm.ConnectionIdData(Traget_Instructor, 1);
 
             if (IsConnected.ConnectionId != null)
             {
                 var Cid = IsConnected.ConnectionId.ToString();
-                Clients.Client(Cid).ReceiveExamSchedule(SenderName, Message, Clicked_Url);
+                Clients.Client(Cid).ReceiveExamSchedule(SenderName, Message, Clicked_Url, Issued_Notification);
             }
         }
         public void Send(string name , string message)

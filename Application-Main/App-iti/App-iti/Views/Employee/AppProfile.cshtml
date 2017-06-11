@@ -81,7 +81,11 @@
                 alert(name + "" + message);
             };
 
-            exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url) {
+            $("#Min").click(function () {
+                exam.server.markNotification(Id);
+            })
+
+            exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url, Issued_Notification) {
                 $("#Min").html(parseInt($("#Min").html()) + 1);
                 var today = new Date();
                 var dd = today.getDate();
@@ -89,8 +93,10 @@
                 var yyyy = today.getFullYear();
                 today = mm + '/' + dd + '/' + yyyy;
 
+                var ActualUrl = Clicked_Url + "/" + Issued_Notification;
+
                 var block = "<div class='notification-msg'>"
-                    + "<a href='" + Clicked_Url + "'>"
+                    + "<a href='" + ActualUrl + "'>"
                     + "<span class='notification-title'>" + SenderName + "</span>"
                     + "<span class='notification-exam'>" + Message + "</span>"
                     + "<br>"

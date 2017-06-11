@@ -19,5 +19,13 @@ namespace App_iti.Controllers
         {
             return Content("Done ,CreateExam");
         }
+
+        [HttpGet]
+        public ActionResult CraeteExam(int? Message_id)
+        {
+            TempData["Message_id"] = Message_id;
+            TempData.Keep("Message_id");
+            return Content(Message_id.ToString());
+        }
     }
 }

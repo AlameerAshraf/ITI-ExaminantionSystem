@@ -32,12 +32,10 @@ namespace App_iti.Controllers
             var access_token = cookie_token.Value;
             var trav_access_token = ("Bearer"+" "+access_token).ToString();
             TempData["access_token"] = trav_access_token;
-            TempData.Keep();
+            TempData.Keep("access_token");
 
             App = new HttpClient();
             Urle = Replacable_URL+"/api/Student/StdUserLogin/?UName=" + UserName;
-            //App.BaseAddress = new Uri(Url);
-            //App.DefaultRequestHeaders.Accept.Clear();
             App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             App.DefaultRequestHeaders.Add("Authorization",trav_access_token);
             HttpResponseMessage Response = await App.GetAsync(Urle);

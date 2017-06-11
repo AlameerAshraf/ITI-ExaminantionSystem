@@ -43,6 +43,8 @@ namespace App_iti.Controllers
             HttpResponseMessage Response = await App.GetAsync(Urle);
             var responseData = Response.Content.ReadAsStringAsync().Result;
             var EmpData = JsonConvert.DeserializeObject<EmployeetAutherization>(responseData);
+            TempData["EmpData"] = EmpData;
+            TempData.Keep("EmpData");
 
             if (EmpData.supervisiedTrackId != null)
             {
@@ -53,6 +55,7 @@ namespace App_iti.Controllers
 
 
             return View(EmpData);
+
             // 3 Supervisior ,  2 Instructor 
         }
 
@@ -60,6 +63,8 @@ namespace App_iti.Controllers
         {
             string trav_access_token = TempData["access_token"].ToString();
             TempData.Keep("access_token");
+            TempData.Keep("EmpData");
+
 
             App = new HttpClient();
             Urle = Replacable_URL + "/api/Employee/IsExternalInstructor/" + Id;
