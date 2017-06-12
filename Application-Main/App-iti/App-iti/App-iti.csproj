@@ -204,6 +204,8 @@
   <ItemGroup>
     <Content Include="Content\assets\css\body.jpg" />
     <Content Include="Content\assets\css\login.css" />
+    <Content Include="Content\assets\css\minmx.css" />
+    <Content Include="Content\assets\css\startexam.css" />
     <Content Include="Content\assets\css\style.css" />
     <Content Include="Content\assets\font-awesome\css\font-awesome.css" />
     <Content Include="Content\assets\font-awesome\css\font-awesome.min.css" />
@@ -237,6 +239,7 @@
     <Content Include="Content\assets\plugins\timeline\timeline.css" />
     <Content Include="Content\assets\scripts\dashboard-demo.js" />
     <Content Include="Content\assets\scripts\flot-demo.js" />
+    <Content Include="Content\assets\scripts\minmx.js" />
     <Content Include="Content\assets\scripts\morris-demo.js" />
     <Content Include="Content\assets\scripts\siminta.js" />
     <Content Include="Content\bootstrap.min.css" />
@@ -356,6 +359,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Student\AppProfile.cshtml" />
     <Content Include="Views\Exam\CraeteExam.cshtml" />
+    <Content Include="Views\Student\Exam.cshtml" />
+    <Content Include="Views\Student\StartExam.cshtml" />
+    <Content Include="Views\Student\ExamScheduals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

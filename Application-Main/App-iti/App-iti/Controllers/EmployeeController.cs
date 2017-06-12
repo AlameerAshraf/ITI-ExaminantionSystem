@@ -52,6 +52,7 @@ namespace App_iti.Controllers
             }
             else
                 TempData["TypeContext"] = 2;
+            TempData.Keep("TypeContext");
 
 
             return View(EmpData);

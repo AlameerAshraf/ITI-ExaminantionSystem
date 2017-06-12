@@ -19,7 +19,6 @@ namespace API_OAuth.Hubs
         public void MarkNotification(int id )
         {
             DateTime DateToMark = DateTime.Now;
-
         }
 
         public void NotifyExamSchedule(int Traget_Instructor, string SenderName, string Message, string Clicked_Url)

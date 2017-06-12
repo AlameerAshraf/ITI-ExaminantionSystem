@@ -19,16 +19,26 @@
 <input type="hidden" value=@Model.PlatformIntakeID name="PlatformIntakeID" />
 <input type="hidden" value=@Model.StudentID name="Id" />
 <input type="hidden" value=@Model.TrackId name="TrackId" />
-<input type="hidden" value=@Model.BranchID name="TrackId" />
+<input type="hidden" value=@Model.BranchID name="BranchID" />
 
 @section scripts {
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        var Std_Name = $("[name='Instructor_Name']").val();
+        var Std_Mail = $("[name='Instructor_Mail']").val();
+        var BranchID = $("[name='BranchID']").val();
+        var Id = $("[name='Id']").val();
+        var PlatformIntake = $("[name='PlatformIntakeID']").val();
+        var Host = "http://localhost:51490";
+        var Rediercted_Url = Host + "/Exam/CreateExam";
+        var LoggedEntity = "L";
+    })
     console.log($("#Student_Enrollement").val());
             $.connection.hub.url = "http://localhost:51822/signalr";
             var exam = $.connection.examHub;
-            var target = 55896;
-            $.connection.hub.qs = { "name": Instructor_Name, "Id": Id, "Branch": Branch, "Platform": Platform, "LoggedEntity": LoggedEntity, "Type": Type };
+            $.connection.hub.qs = { "name": Std_Name, "Id": Id, "Branch": BranchID, "Platform": PlatformIntake, "LoggedEntity": LoggedEntity, "Type": Type };
             
             exam.client.broadCast = function (name, message) {
                 alert(name + "" + message);

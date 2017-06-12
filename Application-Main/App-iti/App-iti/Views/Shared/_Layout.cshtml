@@ -14,12 +14,13 @@
     <!-- <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css"> -->
     <link rel="stylesheet" href="~/fonts">    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="./css/style.css">*@
     <link href="~/Content/assets/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css">
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="http://localhost:51822/signalr/hubs"></script>*@
+    @RenderSection("Head", required: false)
 </head>
 <body>
     <nav class="navbar-fixed-left navbar-inverse ">
@@ -138,9 +139,9 @@
                 else if (Type == 5)
                 {
                     <li class="active">
-                        <a>
+                        <a href="/Student/ExamScheduals">
                             <i class="fa fa-pencil"></i>
-                            Exams
+                            Scheduled Exams
                         </a>
                     </li>
                 }

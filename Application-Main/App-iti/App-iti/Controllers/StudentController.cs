@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccessLayer.Models;
 using BusineesLayer.Map;
-
+using BusineesLayer.Managers;
 
 namespace App_iti.Controllers
 {
@@ -45,8 +45,60 @@ namespace App_iti.Controllers
             TempData.Keep("StdData");
 
             TempData["TypeContext"] = 5;
+            TempData.Keep("TypeContext");
 
             return View(StdData);
+        }
+
+
+        public async Task<ActionResult> ExamScheduals()
+        {
+            string trav_access_token = TempData["access_token"].ToString();
+            TempData.Keep("access_token");
+            var Std = TempData["StdData"] as StudentMap;
+            TempData.Keep("StdData");
+            TempData.Keep("TypeContext");
+
+
+            App = new HttpClient();
+            Urle = Replacable_URL + "/api/Exam/GetSchedulesExams?PlatformId=" + Std.PlatformIntakeID ;
+            App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            App.DefaultRequestHeaders.Add("Authorization", trav_access_token);
+            HttpResponseMessage Response = await App.GetAsync(Urle);
+            var responseData = Response.Content.ReadAsStringAsync().Result;
+            var ExamData = JsonConvert.DeserializeObject<List<ExamMetaData>>(responseData);
+
+
+            return View(ExamData);
+        }
+
+
+
+        public async Task<ActionResult> StartExam(int id)
+        {
+            string trav_access_token = TempData["access_token"].ToString();
+            TempData.Keep("access_token");
+            var Std = TempData["StdData"] as StudentMap;
+            TempData.Keep("StdData");
+            TempData.Keep("TypeContext");
+
+
+            App = new HttpClient();
+            Urle = Replacable_URL + "/api/Exam/GetExamData?Ex_Id=" + id;
+            App.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            App.DefaultRequestHeaders.Add("Authorization", trav_access_token);
+            HttpResponseMessage Response = await App.GetAsync(Urle);
+            var responseData = Response.Content.ReadAsStringAsync().Result;
+            var ExamData = JsonConvert.DeserializeObject<List<ExamMetaData>>(responseData);
+
+
+            return View();
+        }
+
+
+        public ActionResult Exam()
+        {
+            return View();
         }
 
 
@@ -58,6 +110,6 @@ namespace App_iti.Controllers
 
 
 
-        
+
     }
 }

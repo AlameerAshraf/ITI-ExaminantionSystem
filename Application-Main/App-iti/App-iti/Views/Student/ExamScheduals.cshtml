@@ -1,0 +1,79 @@
+﻿@using BusineesLayer.Managers
+@model List<ExamMetaData>
+@{
+    ViewBag.Title = "Schediled Exam |";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Head{
+    <link href="~/Content/assets/css/minmx.css" rel="stylesheet" />
+}
+<div class="container">
+    <div class="row main-page-form">
+        <div class="page-header">
+            <h2>schadule</h2>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" id="Schedule">
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/Content/assets/scripts/minmx.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            alert();
+            var Array = @Html.Raw(Json.Encode(Model));
+            var Host = "http://localhost:51490";
+            var Rediercted_Url = Host + "/Student/StartExam";
+            for (i = 0; i < Array.length; i++)
+            {
+                var date = new Date(Array[i].Date.match(/\d+/)[0] * 1);
+                var new_alignment = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                var Date_Ex = new Date(new_alignment);
+                var Dt = new Date();
+                var Date_Now = Dt.toISOString().substring(0, 10)
+                var D_T = new Date(Date_Now);
+               
+
+                if (Date_Ex > D_T)
+                {
+                    var target =
+                        "<div class='panel-group'>"
+                        + "<div class='panel panel-default'>"
+                        + "<div class='panel-heading'>"
+                        + "<div class='panel-title schadule'>"
+                        + "<span class='check'><i class='fa fa-check-circle'>" + "</i>" + "</span>"
+                        + "<a class='exam-name' href='" + Rediercted_Url + "?id=" + Array[i].Exam_Id + "'>" + Array[i].Course_Name + "</a>"
+                        + "<span class='exam-name'>" + new_alignment + "</span>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>";
+                    $("#Schedule").append(target);
+                }
+                else 
+                {
+                    var target =
+                        "<div class='panel-group'>"
+                        + "<div class='panel panel-default'>"
+                        + "<div class='panel-heading'>"
+                        + "<div class='panel-title schadule'>"
+                        + "<span class='un-check'><i class='fa fa-check-circle'>" + "</i>" + "</span>"
+                        + "<span class='exam-name'>" + Array[i].Course_Name+"</span>"
+                        + "<span class='exam-name'>" + new_alignment + "</span>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>";
+                    $("#Schedule").append(target);
+
+                }
+            }
+        });
+    </script>
+}

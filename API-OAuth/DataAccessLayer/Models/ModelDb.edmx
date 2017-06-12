@@ -422,6 +422,18 @@
           <Property Name="Exam_Id" Type="int" Nullable="false" />
           <Property Name="Degree" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NewData.Examination.Student_Enrollement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Student_Enrollement">
+          <Key>
+            <PropertyRef Name="Student_ID" />
+            <PropertyRef Name="Course_ID" />
+            <PropertyRef Name="row_id" />
+          </Key>
+          <Property Name="Student_ID" Type="int" Nullable="false" />
+          <Property Name="Course_ID" Type="int" Nullable="false" />
+          <Property Name="row_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="StudentAnswerQuestionInExam">
           <Key>
             <PropertyRef Name="Std_Answer_Id" />
@@ -429,6 +441,14 @@
           <Property Name="Std_Answer_Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Std_Id" Type="int" Nullable="false" />
           <Property Name="Exam_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentExamRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Exam_Group_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Std_Id" Type="int" />
         </EntityType>
         <EntityType Name="StudentMultiAnswersQuestion">
           <Key>
@@ -1358,6 +1378,7 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="QuestionsInExam" EntityType="Self.QuestionsInExam" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="StudentAnswerQuestionInExam" EntityType="Self.StudentAnswerQuestionInExam" Schema="Examination" store:Type="Tables" />
+          <EntitySet Name="StudentExamRoom" EntityType="Self.StudentExamRoom" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="StudentMultiAnswersQuestion" EntityType="Self.StudentMultiAnswersQuestion" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="StudentNotifications" EntityType="Self.StudentNotifications" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="StudentPermissionInExam" EntityType="Self.StudentPermissionInExam" Schema="Examination" store:Type="Tables" />
@@ -1365,6 +1386,13 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
           <EntitySet Name="SupervisiorNotifications" EntityType="Self.SupervisiorNotifications" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="SupervisiorsConnectionIds" EntityType="Self.SupervisiorsConnectionIds" Schema="Examination" store:Type="Tables" />
           <EntitySet Name="TopicsInCourse" EntityType="Self.TopicsInCourse" Schema="Examination" store:Type="Tables" />
+          <EntitySet Name="Student_Enrollement" EntityType="Self.Student_Enrollement" store:Type="Tables" store:Schema="Examination">
+            <DefiningQuery>SELECT 
+    [Student_Enrollement].[Student_ID] AS [Student_ID], 
+    [Student_Enrollement].[Course_ID] AS [Course_ID], 
+    [Student_Enrollement].[row_id] AS [row_id]
+    FROM [Examination].[Student_Enrollement] AS [Student_Enrollement]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="CoursesDataView" EntityType="Self.CoursesDataView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CoursesDataView].[CourseName] AS [CourseName], 
@@ -3228,6 +3256,8 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             <End Role="Course" EntitySet="Courses" />
             <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
+          <EntitySet Name="StudentExamRooms" EntityType="ExaminationNS.StudentExamRoom" />
+          <EntitySet Name="Student_Enrollement" EntityType="ExaminationNS.Student_Enrollement" />
         </EntityContainer>
         <ComplexType Name="GetBranchByID_Result">
           <Property Type="Int32" Name="BranchID" Nullable="false" />
@@ -3608,6 +3638,24 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="StudentExamRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Exam_Group_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Std_Id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Student_Enrollement">
+          <Key>
+            <PropertyRef Name="Student_ID" />
+            <PropertyRef Name="Course_ID" />
+            <PropertyRef Name="row_id" />
+          </Key>
+          <Property Name="Student_ID" Type="Int32" Nullable="false" />
+          <Property Name="Course_ID" Type="Int32" Nullable="false" />
+          <Property Name="row_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4524,6 +4572,24 @@ warning 6002: The table/view 'NewData.dbo.Employee_metadata' does not have a pri
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="StudentExamRooms">
+            <EntityTypeMapping TypeName="ExaminationNS.StudentExamRoom">
+              <MappingFragment StoreEntitySet="StudentExamRoom">
+                <ScalarProperty Name="Std_Id" ColumnName="Std_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Exam_Group_Name" ColumnName="Exam_Group_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Enrollement">
+            <EntityTypeMapping TypeName="ExaminationNS.Student_Enrollement">
+              <MappingFragment StoreEntitySet="Student_Enrollement">
+                <ScalarProperty Name="row_id" ColumnName="row_id" />
+                <ScalarProperty Name="Course_ID" ColumnName="Course_ID" />
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -106,6 +106,8 @@
         <AssociationConnector Association="ExaminationNS.FK_InstructorCourseSim_ProgramIntake" />
         <AssociationConnector Association="ExaminationNS.FK_Exams_Course" />
         <AssociationConnector Association="ExaminationNS.FK_Questions_Course" />
+        <EntityTypeShape EntityType="ExaminationNS.StudentExamRoom" Width="3.125" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ExaminationNS.Student_Enrollement" Width="3.125" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

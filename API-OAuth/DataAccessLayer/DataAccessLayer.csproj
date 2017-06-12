@@ -246,6 +246,9 @@
     <Compile Include="Models\StudentBasicData.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentExamRoom.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StudentMultiAnswersQuestion.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
@@ -256,6 +259,9 @@
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentsConnectionId.cs">
+      <DependentUpon>ModelDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Student_Enrollement.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Student_Enrollment.cs">

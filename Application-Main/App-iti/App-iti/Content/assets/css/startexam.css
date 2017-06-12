@@ -1,0 +1,89 @@
+@font-face {
+    font-family: myFirstFont;
+    src:  url(../fonts/roboto/Roboto-Regular.ttf);
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: myFirstFont;
+    background-image: url(../img/body.jpg)
+}
+
+/*         login icon            */
+
+
+.table > thead > tr > th{
+    border-bottom: 0px;
+}
+
+/*           main-content       */
+
+.main-page-form{
+    background-color: white;
+    margin-top: 160px;
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+
+} 
+
+.container-padding{
+    padding: 30px 50px;
+    box-sizing: border-box;
+}
+
+
+/*tabels*/
+
+/*img icon*/
+.margin-img{
+    margin-left: 70px;
+}
+.margin-btn{
+    margin: 25px;
+}
+
+.title{
+    font-size: 15px;
+    background-color:rgba(206, 206, 206, 0.57);
+    color:#737373;
+    margin-bottom:25px;
+    padding: 10px 56px;
+    box-sizing: border-box;
+    font-weight: 700;
+}
+
+.title-1{
+    color:#49A3BF;
+    font-weight:600;
+}
+
+.title-2{
+    font-weight: 200;
+}
+.btn-success{
+    padding: 8px 16px;
+}
+/*         media query          */
+
+@media screen and (max-width:764px) {
+
+    .main-page-form{
+        margin-bottom: 20px;
+        margin-top: 30px;
+        width:100%;
+    }
+    .container-padding{
+        padding: 15px 5px;
+        box-sizing: border-box;
+    }
+    .table-responsive{
+        padding: 0px;
+    }
+    .title{
+        padding: 10px;
+        margin-bottom: 0px;
+    }
+}

@@ -33,7 +33,6 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
             var Instructor_Name = $("[name='Instructor_Name']").val();
             var Instructor_Mail = $("[name='Instructor_Mail']").val();
             var Branch = $("[name='Branch']").val();
@@ -62,7 +61,7 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.Message == 1) {
-                            exam.server.notifyExamSchedule(Inst_Id, Instructor_Name, "2om Ya shaba7 7ot emte7ank", Rediercted_Url);
+                            exam.server.notifyExamSchedule(Inst_Id, Instructor_Name, "Your Exam Have been Scheduled , Add Your Questions!", Rediercted_Url);
                         }
                         else if (data.Message == 0) {
                             console.log("ExternalMailsent");

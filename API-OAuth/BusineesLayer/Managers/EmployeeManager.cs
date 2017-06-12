@@ -163,8 +163,7 @@ namespace BusineesLayer.Managers
     public class InstructorCourses
     {
         public int CourseID { get; set; }
-        public int subtrackID { get; set; }
-        public int PlatformID { get; set; }
+        public string CourseName { get; set; }
     }
     public class EmployeetAutherization
     {
