@@ -1,4 +1,7 @@
-﻿
+﻿@using BusineesLayer.Managers
+@model ExamMetaData
+
+
 @{
     Layout = null;
 }
@@ -11,8 +14,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/Content/assets/css/startexam.css" rel="stylesheet" />
+
 </head>
 <body>
+    <input type="hidden" name="Id" value=@ViewBag.Std_Id />
+    <input type="hidden" name="Track" value=@ViewBag.Track />
+    <input type="hidden" name="Branch" value=@ViewBag.Branch />
+    <input type="hidden" name="ExId" value=@ViewBag.ExId />
+    <input type="hidden" name="CrsId" value=@Model.Course_Id />
+
     <div class="container">
         <div class="row main-page-form">
             <div class="col-lg-12 title">
@@ -25,21 +35,17 @@
                             <thead>
                                 <tr>
                                     <th class="title-1">Exam name:</th>
-                                    <th class="title-2">Java script</th>
+                                    <th class="title-2">@Model.Course_Name</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="title-1">Total Questions:</td>
-                                    <td>90</td>
+                                    <td class="title-1">Exam Time:</td>
+                                    <td>@Model.Exam_Duration hrs</td>
                                 </tr>
                                 <tr>
-                                    <td class="title-1">Start Time:</td>
-                                    <td>9:00 am</td>
-                                </tr>
-                                <tr>
-                                    <td class="title-1">End Time:</td>
-                                    <td>12:00 pm</td>
+                                    <td class="title-1">Exam Full Mark:</td>
+                                    <td>@Model.Exam_Degree</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -49,7 +55,7 @@
                     <img class="img-responsive margin-img" src="~/Content/assets/img/exam.png"alt="">
                 </div>
                 <div class="col-md-12 text-center margin-btn">
-                    <a href="/Student/Exam" type="button" class="btn btn-success text-center">Start Exam</a>
+                    <a href="/Student/Exam" class="btn btn-success text-center">Satrt Exam</a>
                 </div>
             </div>
         </div>
@@ -60,7 +66,33 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--angular-->
     <script src="~/Scripts/jQuerySelect.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="http://localhost:51822/signalr/hubs"></script>
+    <script>
+        $(document).ready(function () {
+            var Std_Id = $("[name='Id']").val();
+            var Crs_Id = $("[name='CrsId']").val();
+            var Track = $("[name='Track']").val();
+            var Branch = $("[name='Branch']").val();
+            var ExId = $("[name='ExId']").val();
+            // Crs_Id + ExamId + Track + Branch
+            var Group = Crs_Id + ExId + Track + Branch;
 
+            //$.connection.hub.url = "http://localhost:51822/signalr";
+            //var exam = $.connection.examHub;
+
+            //exam.client.examBroadCasting = function (name, message) {
+            //    alert(name + "" + message);
+            //}
+
+            //$.connection.hub.start().done(function () {
+            //    $("#StartExam").click(function () {
+            //        exam.server.studentJoinExamInTiem(Std_Id, Group);
+            //    })
+            //});
+
+        })
+    </script>
 
 </body>
 </html>

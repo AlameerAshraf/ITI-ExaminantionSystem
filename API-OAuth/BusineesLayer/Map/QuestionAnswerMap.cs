@@ -13,7 +13,5 @@ namespace BusineesLayer.Map
         public int Answer_Id { get; set; }
         public string Answer_Content { get; set; }
         public Nullable<bool> Is_It_RightAnswer { get; set; }
-
-        public virtual Question Question { get; set; }
     }
 }

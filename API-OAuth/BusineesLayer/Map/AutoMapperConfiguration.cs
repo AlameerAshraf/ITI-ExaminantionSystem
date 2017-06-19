@@ -48,8 +48,19 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<Student_Enrollment, Student_EnrollmentMap>();
                 cfg.CreateMap<Student_EnrollmentMap, Student_Enrollment>();
 
+                cfg.CreateMap<Exam, EntityExamMap>();
+                cfg.CreateMap<EntityExamMap, Exam>();
 
 
+                cfg.CreateMap<QuestionsInExam, QuestionsInExamMap>();
+                cfg.CreateMap<QuestionsInExamMap, QuestionsInExam>();
+
+                cfg.CreateMap<QuestionAnswer, QuestionAnswerMap>();
+                cfg.CreateMap<QuestionAnswerMap, QuestionAnswer>();
+
+
+                cfg.CreateMap<Question, QuestionMap>();
+                cfg.CreateMap<QuestionMap, Question>();
 
 
                 cfg.CreateMap<Course, CourseMap>();
@@ -76,8 +87,6 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<NewDateExamForPermittedStudent, NewDateExamForPermittedStudentMap>()
                 .ForMember(dto => dto.Std_Id, conf => conf.MapFrom(ol => ol.StudentBasicData.StudentID));
 
-                cfg.CreateMap<Question, QuestionMap>()
-                .ForMember(dto => dto.Topic_Name, conf => conf.MapFrom(ol => ol.TopicsInCourse.Topic_Name));
 
                 cfg.CreateMap<Notification, NotificationMap>();
                 cfg.CreateMap<NotificationMap, Notification>();
@@ -85,8 +94,6 @@ namespace BusineesLayer.Map
                 cfg.CreateMap<QuestionAnswer, QuestionAnswerMap>();
                 cfg.CreateMap<QuestionAnswerMap, QuestionAnswer>();
 
-                cfg.CreateMap<QuestionsInExam, QuestionsInExamMap>();
-                cfg.CreateMap<QuestionsInExamMap, QuestionsInExam>();
 
                 cfg.CreateMap<StudentPermissionInExam, StudentPermissionInExamMap>();
                 cfg.CreateMap<StudentPermissionInExamMap, StudentPermissionInExam>();

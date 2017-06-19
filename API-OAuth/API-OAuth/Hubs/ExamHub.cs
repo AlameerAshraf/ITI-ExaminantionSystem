@@ -7,6 +7,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using DataAccessLayer.Models;
 using BusineesLayer.Managers;
+using System.Diagnostics;
 
 namespace API_OAuth.Hubs 
 {
@@ -16,9 +17,15 @@ namespace API_OAuth.Hubs
         EmployeeConnectionId EmpConObj;
 
 
-        public void MarkNotification(int id )
+        public void MarkNotification(int id)
         {
             DateTime DateToMark = DateTime.Now;
+
+        }
+
+        public void StudentJoinExamInTiem(int Std_Id , string GroupName)
+        {
+
         }
 
         public void NotifyExamSchedule(int Traget_Instructor, string SenderName, string Message, string Clicked_Url)
@@ -49,7 +56,7 @@ namespace API_OAuth.Hubs
             var id = Context.QueryString["Id"];
             var Type = int.Parse(Context.QueryString["Type"]);
 
-            if (LoggedEntity == "L" )
+            if (LoggedEntity == "L")
             {
                 var StdObj = new StudentsConnectionId()
                 {
@@ -71,26 +78,27 @@ namespace API_OAuth.Hubs
             return base.OnConnected();
         }
 
-        public override Task OnDisconnected(bool stopCalled = true)
+        public override Task OnDisconnected(bool stopCalled)
          {
-            var LoggedEntity = Context.QueryString["LoggedEntity"];
-            var id = Context.QueryString["Id"];
-            var Type = int.Parse(Context.QueryString["Type"]);
-
-            var DisConnObj = new EmployeeConnectionId()
-            {
-                Connection_Ids = Guid.Parse(Context.ConnectionId),
-                Emp_Id = int.Parse(id)
-            };
-
-            if (LoggedEntity == "W")
-            {
-                nm.UnListConnectedEmployee(Type, DisConnObj);
-            }
-            else if (LoggedEntity == "L")
-            {
-                nm.UnListConnectedEmployee(Type, DisConnObj);
-            }
+            Trace.WriteLine("as");
+             var LoggedEntity = Context.QueryString["LoggedEntity"];
+             var id = Context.QueryString["Id"];
+             var Type = int.Parse(Context.QueryString["Type"]);
+            
+             var DisConnObj = new EmployeeConnectionId()
+             {
+                 Connection_Ids = Guid.Parse(Context.ConnectionId),
+                 Emp_Id = int.Parse(id)
+             };
+            
+             if (LoggedEntity == "W")
+             {
+                 nm.UnListConnectedEmployee(Type, DisConnObj);
+             }
+             else if (LoggedEntity == "L")
+             {
+                 nm.UnListConnectedEmployee(Type, DisConnObj);
+             }
             return base.OnDisconnected(stopCalled);
         }
     }

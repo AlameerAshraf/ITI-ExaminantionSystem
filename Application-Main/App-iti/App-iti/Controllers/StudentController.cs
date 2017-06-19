@@ -89,15 +89,25 @@ namespace App_iti.Controllers
             App.DefaultRequestHeaders.Add("Authorization", trav_access_token);
             HttpResponseMessage Response = await App.GetAsync(Urle);
             var responseData = Response.Content.ReadAsStringAsync().Result;
-            var ExamData = JsonConvert.DeserializeObject<List<ExamMetaData>>(responseData);
+            var ExamData = JsonConvert.DeserializeObject<ExamMetaData>(responseData);
 
 
-            return View();
+            ViewBag.Std_Id = Std.StudentID;
+            ViewBag.Track = Std.TrackId;
+            ViewBag.Branch = Std.BranchID;
+            ViewBag.ExId = id;
+            return View(ExamData);
         }
 
 
         public ActionResult Exam()
         {
+            string trav_access_token = TempData["access_token"].ToString();
+            TempData.Keep("access_token");
+            var Std = TempData["StdData"] as StudentMap;
+            TempData.Keep("StdData");
+            TempData.Keep("TypeContext");
+
             return View();
         }
 

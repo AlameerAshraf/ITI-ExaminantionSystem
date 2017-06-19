@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\css\body.jpg" />
+    <Content Include="Content\assets\css\exam.css" />
     <Content Include="Content\assets\css\login.css" />
     <Content Include="Content\assets\css\minmx.css" />
     <Content Include="Content\assets\css\startexam.css" />
@@ -323,6 +324,7 @@
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\assets\fonts\roboto\Roboto-Regular.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Exam_Timer.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
@@ -338,6 +340,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jQuerySelect.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\SolutionManager.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

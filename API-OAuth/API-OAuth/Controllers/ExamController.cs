@@ -1,4 +1,5 @@
 ﻿using BusineesLayer.Managers;
+using BusineesLayer.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,11 @@ namespace API_OAuth.Controllers
         public ExamMetaData GetExamData(int Ex_Id)
         {
             return Ex.GetExamDetails(Ex_Id); 
+        }
+
+        public EntityExamMap GetExam(int Exam_Id)
+        {
+            return Ex.GetExam(Exam_Id);
         }
     }
 }

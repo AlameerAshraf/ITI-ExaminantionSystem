@@ -1,0 +1,260 @@
+@font-face {
+    font-family: myFirstFont;
+    src:  url(../fonts/roboto/Roboto-Regular.ttf);
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: myFirstFont;
+    background-image: url(../img/body.jpg)
+}
+
+
+/*           main-content       */
+
+.total-page{
+    margin-top: 15px;
+}
+
+.main-page-form{
+    background-color: white;
+    padding: 10px 35px;
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+
+
+} 
+.question-info{
+    background-color: white;
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+    min-height: 550px;
+   
+}
+
+.question-title{
+    color:#03A9F4;
+    display: inline-block;
+    font-weight: bold;
+
+}
+.question-answers{
+    min-height: 370px;
+    overflow-y: scroll;
+    border:1px solid #000;
+}
+label {
+    font-weight: lighter;   
+    font-size: 16px;
+}
+
+.page-header{
+    margin: 0px;
+}
+
+.mark-btn{
+    float: right;
+    border-radius: 5px;
+    color:#fff;
+}
+
+.marked i{
+    color:#ffeb3b;
+  
+}
+.marked{
+      float: right;
+    border-radius: 5px;
+}
+
+.title-exam{
+    box-shadow:0 2px 9px 0 rgba(0, 0, 0, 0.2);
+    background-color:rgba(0, 0, 0, 0.79);
+    color:#fff;
+    padding: 18px 35px;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+.title-exam{
+    font-size: 16px;
+}
+
+.pager li > a, .pager li > span {
+    display: inline-block;
+    padding: 5px 9px;
+    background-color: #fff;
+    border: 3px solid #9fc9eb;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-left: 100px;
+}
+
+.pager .next-btn > a{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 100px;
+
+}
+.btn-danger{
+    background-color: #FF9800;
+}
+.btn-danger:hover , .btn-danger:focus{
+    background-color: #FF9800;
+}
+
+.pager .next-btn > a:hover,.pager li > a:hover{
+    color: #fff;
+    background-color:#9fc9eb;
+}
+
+/*check answers*/
+
+.form-check-label .form-check-input{
+    margin-right: 10px;
+    font-weight: 200px;
+}
+
+/*footer*/
+
+footer{
+    margin-top: 15px;
+    text-align: center;
+}
+.next{
+    float:right;
+}
+
+.numbers{
+    display: inline-block;
+}
+/*timer*/
+.timer-number li{
+    display: inline-block;
+}
+
+.timer{
+    font-size: 30px;
+    box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    color: #000;
+    padding: 6px 20px;
+    box-sizing: border-box;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+.timer-div{
+    font-size: 45px;
+}
+
+/*side*/
+.title-section2{
+    background-color:#000;
+    color: #fff;
+    padding: 3px;
+    box-sizing: border-box;
+
+}
+
+.title-section2 h4{
+    font-size: 16px;
+
+}
+
+/*circle numbers*/
+.question-numbers{
+    min-height: 325px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
+}
+
+.question-numbers ul li{
+    border-radius: 50%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    margin: 3px;
+    display: inline-block;
+}
+
+
+.number-list{
+    margin: 15px;
+}
+.guide-color span{
+    display: inline-block;
+    border-radius: 50%;
+    padding: 1px 6px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 10px;
+
+}
+.guide-color a{
+    color: black;
+}
+
+/*footer*/
+.submit-btn{
+    display: inline-block;
+}
+.submit-btn a{
+
+    border-radius:5px;
+}
+.footer{
+    border-top: 1px solid #000;
+    padding-top: 20px;
+    margin-top: 16px;
+}
+.text-submit{
+    margin-left: 30px;
+}
+
+.modal-body{
+    max-height: 430px;
+    overflow-y: scroll;
+}
+/*         media query          */
+
+@media screen and (max-width:764px) {
+
+    .main-page-form{
+        margin: 0px;
+        width:100%;
+        padding: 10px 0px;
+        box-sizing: border-box;
+
+    }
+    .container-padding{
+        padding: 15px 5px;
+        box-sizing: border-box;
+    }
+    .table-responsive{
+        padding: 0px;
+    }
+    .title{
+        padding: 10px;
+        margin-bottom: 0px;
+    }
+    footer{
+        padding:0px 20px;
+        box-sizing: border-box;
+    }
+    .page-header , .header{
+        padding: 0px 10px;
+
+    }
+    .question h4{
+        font-size: 15px;
+    }
+    .question-title {
+        font-size: 14px;   
+    }
+    .pager .next-btn > a{
+        margin: 0px;
+    }
+    .pager li > a{
+        margin: 0px;
+    }
+}

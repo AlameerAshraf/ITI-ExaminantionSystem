@@ -155,8 +155,8 @@
                 <div id="login"><a href="#"><i class="fa fa-sign-out pull-right"></i>Logout</a></div>
                 <div class="notification">
                     <a href="#" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell-o"  ></i>
-                        <span id="Min" class="badge bg-green"></span>
+                        <i class="fa fa-bell-o" id="bell" ></i>
+                        <span id="Min" class="badge bg-green">0</span>
                     </a>
                     <div id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <div class="text-center notification-msg more">
@@ -202,7 +202,19 @@
     @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="http://localhost:51822/signalr/hubs"></script>
+    <script>
+        $(document).ready(function () {
+            $("#bell , .bg-green").click(function () {
+                var Notification_Number = parseInt($(".bg-green").html());
+                if (Notification_Number > 0) {
+                    $(".bg-green").html(0);
+                }
+            })
+        })
+    </script>
     @RenderSection("Scripts", required: false)
+
+
 
 </body>
 </html>

@@ -93,6 +93,7 @@
     <Compile Include="Map\CourseManualMap.cs" />
     <Compile Include="Map\CourseMap.cs" />
     <Compile Include="Map\DepartmentsExamMap.cs" />
+    <Compile Include="Map\EntityExamMap.cs" />
     <Compile Include="Map\ExamMap.cs" />
     <Compile Include="Map\ExternalInstructorAuthorizationMap.cs" />
     <Compile Include="Map\InstructorsConnectionIdMap.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Map\StudentPermissionInExamMap.cs" />
     <Compile Include="Map\Student_EnrollmentMap.cs" />
     <Compile Include="Map\subTrackMap.cs" />
+    <Compile Include="Map\TestMap.cs" />
     <Compile Include="Map\TrackManualMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

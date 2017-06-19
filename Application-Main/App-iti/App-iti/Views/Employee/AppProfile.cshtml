@@ -21,13 +21,18 @@
 
 <h2>@Model.InstructorName</h2>
 <a href="/Employee/SendExamNotification"></a>
-<input type="button" id="createExam" />
-<input type="button" id="test"/>
+
+<div class="row">
+    <div class="text-center">
+        <button type="submit" class="btn btn-add btn-danger" id="createExam">
+            Send Exam Notification for Internal Instructor !
+        </button>
+
+    </div>
+
+</div>
  
 
-
-
-@Model.InstructorName
 
 @section scripts {
     <script type="text/javascript">
@@ -52,7 +57,6 @@
 
             $("#createExam").click(function () {
                 //target 
-                console.log("As")
                 var Inst_Id = 1043;
                 //---------------------
                 $.ajax({
@@ -86,14 +90,7 @@
 
             exam.client.receiveExamSchedule = function (SenderName, Message, Clicked_Url, Issued_Notification) {
                 alert(Issued_Notification);
-                if (parseInt($("#Min")).html() == null)
-                {
-                    $("#Min").html(1);
-                }
-                else
-                {
-                    $("#Min").html(parseInt($("#Min").html()) + 1);
-                }
+                $("#Min").html(parseInt($("#Min").html()) + 1);
                 var today = new Date();
                 var dd = today.getDate();
                 var mm = today.getMonth() + 1; 
@@ -102,8 +99,8 @@
 
                 var ActualUrl = Clicked_Url + "/" + Issued_Notification;
 
-                var block = "<div class='notification-msg'>"
-                    + "<a href='" + ActualUrl + "'>"
+                var block = "<a href='" + ActualUrl + "'>"
+                    + "<div class='notification-msg'>"
                     + "<span class='notification-title'>" + SenderName + "</span>"
                     + "<span class='notification-exam'>" + Message + "</span>"
                     + "<br>"
@@ -112,14 +109,16 @@
                     + "</a>"
                     + "</div>";
 
+
                 $(".list-unstyled").prepend(block);
                 console.log($(".list-unstyled"));
 
             };
 
 
-
+            $.connection.hub.logging = true;
             $.connection.hub.start().done(function () {
+                console.log("as")
                 server.connection.sendToPerson(1, "as");
 
             });

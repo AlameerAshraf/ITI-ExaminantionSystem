@@ -1,17 +1,323 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="Examination">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Exam</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/fonts">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="~/Content/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/exam.css" rel="stylesheet" />
+    <style>
+    </style>
 </head>
+
 <body>
-    <div> 
+    <!--    main page  -->
+
+    <div class="container-fluid">
+        <div class="row total-page">
+            <div class="col-sm-9">
+                <!----------------exam name------------>
+                <!-------------------------------------------->
+                <div class="col-sm-12">
+
+                    <h4 class="title-exam"> Linix</h4>
+                </div>
+                <div class="col-sm-12 ">
+                    <!--------------header--------------->
+                    <!-------------------------------------------->
+
+                    <div class="continer main-page-form">
+                        <div class="header">
+                            <h4 class="question-title">Question no.1</h4>
+
+                            <a href="#" type="button" id="star" class="btn btn-info text-right mark-btn"><i class="fa fa-star" aria-hidden="true"> Mark</i></a>
+                        </div>
+
+                        <!-----------------question-------------->
+                        <!-------------------------------------------->
+
+                        <div class="page-header question">
+                            <h4>Which of the following are valid commands to affect your system’s printing? (Choose three)</h4>
+
+
+
+                        </div>
+
+                        <!----------------answers-------------->
+                        <!-------------------------------------------->
+                        <div class="question-answers">
+
+                            <div class="margin-btn">
+                                <div class="form-group ">
+
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"> lpstat
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"> lpr
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"> lpint
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"> lprm
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"> lpq
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--------------footer---------------->
+                        <!-------------------------------------------->
+
+                        <footer>
+
+                            <ul class="pager text-center">
+                                <li><a href="#">Previous</a></li>
+                                <li class="next-btn"><a href="#">Next</a></li>
+                            </ul>
+
+                        </footer>
+
+
+                    </div>
+
+                </div>
+
+                <!---------------------side----------------->
+                <!-------------------------------------------->
+                <!---------------------timer----------------->
+                <!-------------------------------------------->
+            </div>
+            <div class=" col-sm-3">
+                <div class="col-sm-12">
+                    <div class="timer-div text-center">
+                        <div class=" timer"><span id="timer">0:00</span></div>
+                    </div>
+                </div>
+                <!----------------header----------------->
+                <!-------------------------------------------->
+                <div class="col-sm-12 ">
+
+                    <div class="question-info ">
+                        <div class="title-section2 text-center">
+                            <h4>Questions</h4>
+                        </div>
+                        <!-------------------questions---------------->
+                        <!-------------------------------------------->
+
+
+                        <div class="question-numbers">
+
+                            <div class="numbers">
+                                <ul class="number-list list-unstyled">
+                                    <li class="btn-success">1</li>
+                                    <li class="btn-danger">2</li>
+                                    <li class="btn-info">3</li>
+                                    <li class="btn-default active">4</li>
+                                    <li class="btn-default active">5</li>
+                                    <li class="btn-default active">6</li>
+                                    <li class="btn-default active">7</li>
+                                    <li class="btn-default active">8</li>
+                                    <li class="btn-default active">9</li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <!-----------guide colors---------------->
+                        <!-------------------------------------------->
+
+                        <div class="labels">
+
+                            <div class="col-xs-6 ">
+                                <div class="row">
+                                    <div class="col-xs-12 guide-color">
+                                        <a href=""><span class="btn-success">0</span><Span>Answered</Span></a>
+
+                                    </div>
+                                    <div class="col-xs-12 guide-color">
+                                        <a href=""><span class="btn-danger">0</span><span>Not Answered</span></a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-6">
+                                <div class="row">
+                                    <div class="col-xs-12 guide-color">
+                                        <a href="#"><span class="btn-info">0</span><span>Marked</span></a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 footer text-center">
+                            <div class="row ">
+                                <!-----------Question paper module---------------->
+                                <!-------------------------------------------->
+                                <div class="submit-btn ">
+                                    <a href="#" id="star" type="button" class="btn btn-info text-questions" data-toggle="modal" data-target="#myModal">Questions Paper</a>
+                                </div>
+                                <!-----------Question paper modal---------------->
+                                <!-------------------------------------------->
+
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Questions Paper</h4>
+                                            </div>
+                                            <div class="modal-body text-left">
+                                                <div class="continer">
+                                                    <div class="header">
+                                                        <h4 class="question-title">Question no.1</h4>
+                                                        <div class="page-header question">
+                                                            <h4>Which of the following are valid commands to affect your system’s printing? (Choose three)</h4>
+                                                        </div>
+                                                        <div class="margin-btn">
+                                                            <div class="form-group ">
+
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="checkbox"> lpstat
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group ">
+
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="checkbox"> lpr
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group ">
+
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="checkbox"> lpint
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group ">
+
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="checkbox"> lprm
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group ">
+
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="checkbox"> lpq
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-----------submit btn---------------->
+                                <!-------------------------------------------->
+
+
+                                <div class="submit-btn text-right ">
+                                    <a href="exam.html" type="button" id="star" class="btn btn-info text-submit">Submit</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!--------------footer---------------->
+                <!-------------------------------------------->
+
+
+            </div>
+        </div>
     </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <!--bootstrap-->
+    <!-- <script src="lib/bootstrap/js/bootstrap.js"></script>  -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script src="~/Scripts/jQuerySelect.js"></script>
+    <script src="~/Scripts/Exam_Timer.js"></script>
+
+
 </body>
 </html>

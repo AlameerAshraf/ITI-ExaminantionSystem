@@ -198,15 +198,18 @@ namespace BusineesLayer.Managers
             }
         }
         // Mark Notification 
-        //public void MarkAsRead(int Id , int Type , int Message_Id)
-        //{
-
-        //}
+        public void MarkNotificationAsRead(int Message_Id)
+        {
+            var Message_ItSelf = db.Notifications.Where(M => M.Notification_Id == Message_Id).SingleOrDefault();
+            Message_ItSelf.Is_Read = true;
+            db.Entry(Message_ItSelf).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
         #endregion
 
         #region
 
-#endregion
+        #endregion
 
     }
 
